@@ -1,0 +1,24 @@
+.Quotes {
+  padding: 0;
+}
+
+.Quote {
+  margin: 0 0 32px;
+  list-style: none;
+}
+
+.Quote:last-child {
+  margin-bottom: 0;
+}
+
+.Quote blockquote {
+  margin: 0;
+}
+
+.Quote blockquote:before {
+  content: '“';
+}
+
+.Quote blockquote:after {
+  content: '”';
+}

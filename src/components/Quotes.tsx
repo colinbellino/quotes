@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 import { useFetch } from "../useFetch";
+import "./Quotes.css";
 
 type Quote = {
   id: string;
@@ -26,11 +27,15 @@ export const Quotes: FunctionComponent = () => {
   }
 
   return (
-    <ul>
+    <ul className="Quotes">
       {quotes.map(quote => (
-        <li key={quote.id}>
-          <div>{quote.text}</div>
-          <div>{quote.date}</div>
+        <li key={quote.id} className="Quote">
+          <>
+            <blockquote>{quote.text}</blockquote>
+            <cite>
+              – {quote.author}, {quote.date}
+            </cite>
+          </>
         </li>
       ))}
     </ul>
