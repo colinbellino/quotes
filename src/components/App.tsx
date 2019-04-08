@@ -5,7 +5,7 @@ import "./App.css";
 
 export const App: FunctionComponent = () => (
   <div className="App">
-    <h1 className="Title">Quotes</h1>
+    <h1 className="Title">Out of context</h1>
     <Quotes />
   </div>
 );

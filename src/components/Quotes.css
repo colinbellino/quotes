@@ -1,10 +1,16 @@
 .Quotes {
+  margin: 0 0 32px 0;
   padding: 0;
 }
 
 .Quote {
-  margin: 0 0 32px;
+  margin: 0 16px 0;
+  padding: 16px;
   list-style: none;
+}
+
+.Quote:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .Quote:last-child {
