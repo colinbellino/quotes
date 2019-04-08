@@ -11,7 +11,7 @@ type Quote = {
 };
 
 const sortByDate = (a: Quote, b: Quote): number =>
-  new Date(b.date).getTime() - new Date(b.date).getTime();
+  new Date(b.date).getTime() - new Date(a.date).getTime();
 
 export const Quotes: FunctionComponent = () => {
   const [loading, quotes] = useFetch<Quote[]>("/quotes");
