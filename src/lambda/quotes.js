@@ -39,7 +39,7 @@ const data = [
     id: "7",
     text: "Le but de mourir c'est que tu fais plus de paperasse.",
     date: "2019-03-31T22:00:00.000Z",
-    author: "Cedric",
+    author: "Colin",
   },
   {
     id: "8",
@@ -135,7 +135,7 @@ const data = [
     id: "23",
     text: "La bienveillance elle peut aller se faire foutre.",
     date: "2019-01-31T23:00:00.000Z",
-    author: "Cedric",
+    author: "Cédric",
   },
   {
     id: "24",
@@ -148,6 +148,12 @@ const data = [
     text: "Franchement, j'en ai marre de moi!",
     date: "2019-04-08T00:00:04.000Z",
     author: "Julie",
+  },
+  {
+    id: "26",
+    text: "Je suis perdu dans ma tête.",
+    date: "2019-04-08T00:00:06.000Z",
+    author: "Cédric",
   },
 ];
 
