@@ -3,12 +3,13 @@ import React, { FunctionComponent } from "react";
 import "./Avatar.css";
 
 type AvatarProps = {
-  color?: string;
   url?: string;
+  color?: string;
+  alt?: string;
 };
 
-export const Avatar: FunctionComponent<AvatarProps> = ({ url, color }) => (
+export const Avatar: FunctionComponent<AvatarProps> = ({ url, alt, color }) => (
   <div className="Avatar" style={{ borderColor: color }}>
-    {url && <img src={url} />}
+    {url && <img src={url} alt={alt} />}
   </div>
 );

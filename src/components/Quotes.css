@@ -6,6 +6,7 @@
 .Quote {
   margin: 0 16px 0;
   padding: 16px;
+  line-height: 130%;
   list-style: none;
 }
 

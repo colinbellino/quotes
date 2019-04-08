@@ -45,7 +45,11 @@ export const Quotes: FunctionComponent = () => {
             <>
               <blockquote>{quote.text}</blockquote>
               <cite>
-                <Avatar color={data.color} url={data.avatar} />
+                <Avatar
+                  color={data.color}
+                  url={data.avatar}
+                  alt={`${quote.author}'s avatar`}
+                />
                 {` ${quote.author} • ${date}`}
               </cite>
             </>
