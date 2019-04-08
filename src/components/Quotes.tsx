@@ -10,13 +10,11 @@ type Quote = {
   author: string;
 };
 
-const useQuotes = () => {
-  const [loading, quotes] = useFetch<Quote[]>("/hello");
-  return { loading, quotes };
-};
+const sortByDate = (a: Quote, b: Quote): number =>
+  new Date(b.date).getTime() - new Date(b.date).getTime();
 
 export const Quotes: FunctionComponent = () => {
-  const { loading, quotes } = useQuotes();
+  const [loading, quotes] = useFetch<Quote[]>("/quotes");
 
   if (loading) {
     return null;
@@ -28,14 +26,22 @@ export const Quotes: FunctionComponent = () => {
 
   return (
     <ul className="Quotes">
-      {quotes.map(quote => (
-        <li key={quote.id} className="Quote">
-          <>
-            <blockquote>{quote.text}</blockquote>
-            <cite>{`${quote.author}, ${quote.date}`}</cite>
-          </>
-        </li>
-      ))}
+      {quotes.sort(sortByDate).map(quote => {
+        const date = new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }).format(new Date(quote.date));
+
+        return (
+          <li key={quote.id} className="Quote">
+            <>
+              <blockquote>{quote.text}</blockquote>
+              <cite>{`${quote.author} • ${date}`}</cite>
+            </>
+          </li>
+        );
+      })}
     </ul>
   );
 };
