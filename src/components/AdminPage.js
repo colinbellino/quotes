@@ -1,10 +1,15 @@
 import React from "react";
 
+const submitForm = event => {
+  console.log("TODO: submitForm", event);
+
+  event.preventDefault();
+};
+
 export const AdminPage = ({ path }) => (
   <div>
     <h1>Admin</h1>
-    <form name="add-quote" method="post">
-      <input type="hidden" name="form-name" value="add-quote" />
+    <form name="add-quote" method="post" onSubmit={submitForm}>
       <p>
         <label>
           Author:{" "}
