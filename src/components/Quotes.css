@@ -12,7 +12,15 @@
 }
 
 .Quote blockquote {
-  margin: 0;
+  margin: 0 0 8px 0;
+}
+
+.Quote cite {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.Quote cite:before {
+  content: '– ';
 }
 
 .Quote blockquote:before {

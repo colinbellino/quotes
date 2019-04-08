@@ -32,9 +32,7 @@ export const Quotes: FunctionComponent = () => {
         <li key={quote.id} className="Quote">
           <>
             <blockquote>{quote.text}</blockquote>
-            <cite>
-              – {quote.author}, {quote.date}
-            </cite>
+            <cite>{`${quote.author}, ${quote.date}`}</cite>
           </>
         </li>
       ))}
