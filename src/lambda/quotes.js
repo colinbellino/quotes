@@ -137,6 +137,18 @@ const data = [
     date: "2019-01-31T23:00:00.000Z",
     author: "Cedric",
   },
+  {
+    id: "24",
+    text: "J'ai eu ta maladie partout sur mon ordinateur.",
+    date: "2019-04-08T00:00:00.000Z",
+    author: "Valérie",
+  },
+  {
+    id: "25",
+    text: "Franchement, j'en ai marre de moi!",
+    date: "2019-04-08T00:00:04.000Z",
+    author: "Julie",
+  },
 ];
 
 export function handler(event, context, callback) {
