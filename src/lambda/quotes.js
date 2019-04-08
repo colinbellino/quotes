@@ -87,7 +87,7 @@ const data = [
     id: "15",
     text: "[...] Dans le trou noir de Gauthier.",
     date: "2019-02-28T23:00:00.000Z",
-    author: "Valerie",
+    author: "Valérie",
   },
   {
     id: "16",

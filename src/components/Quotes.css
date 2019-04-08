@@ -15,18 +15,24 @@
   margin: 0 0 8px 0;
 }
 
-.Quote cite {
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.Quote cite:before {
-  content: '– ';
-}
-
 .Quote blockquote:before {
   content: '“';
 }
 
 .Quote blockquote:after {
   content: '”';
+}
+
+.Quote cite {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  line-height: 100%;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.Quote .Avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
 }

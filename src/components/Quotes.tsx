@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from "react";
 
+import { peopleData } from "../peopleData";
 import { useFetch } from "../useFetch";
+import { Avatar } from "./Avatar";
 import "./Quotes.css";
 
 type Quote = {
@@ -9,6 +11,14 @@ type Quote = {
   date: string;
   author: string;
 };
+
+const locale = "en-US";
+const dateFormat = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 
 const sortByDate = (a: Quote, b: Quote): number =>
   new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -27,17 +37,17 @@ export const Quotes: FunctionComponent = () => {
   return (
     <ul className="Quotes">
       {quotes.sort(sortByDate).map(quote => {
-        const date = new Intl.DateTimeFormat("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }).format(new Date(quote.date));
+        const date = dateFormatter.format(new Date(quote.date));
+        const data = peopleData[quote.author];
 
         return (
           <li key={quote.id} className="Quote">
             <>
               <blockquote>{quote.text}</blockquote>
-              <cite>{`${quote.author} • ${date}`}</cite>
+              <cite>
+                <Avatar color={data.color} url={data.avatar} />
+                {` ${quote.author} • ${date}`}
+              </cite>
             </>
           </li>
         );
