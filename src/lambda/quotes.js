@@ -73,7 +73,7 @@ const data = [
   },
   {
     id: "13",
-    text: "J'ai peur d'Ãªtre gentille maintenant.",
+    text: "J'ai peur d'être gentille maintenant.",
     date: "2019-02-28T23:00:00.000Z",
     author: "Valérie",
   },
