@@ -23,8 +23,12 @@ const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 const sortByDate = (a: Quote, b: Quote): number =>
   new Date(b.date).getTime() - new Date(a.date).getTime();
 
+const suffix = window.location.hostname === "localhost" ? "-dev" : "";
+
+const getData = (author: string) => peopleData[author] || {};
+
 export const Quotes: FunctionComponent = () => {
-  const [loading, quotes] = useFetch<Quote[]>("/quotes");
+  const [loading, quotes] = useFetch<Quote[]>("/quotes" + suffix);
 
   if (loading) {
     return null;
@@ -38,7 +42,7 @@ export const Quotes: FunctionComponent = () => {
     <ul className="Quotes">
       {quotes.sort(sortByDate).map(quote => {
         const date = dateFormatter.format(new Date(quote.date));
-        const data = peopleData[quote.author];
+        const data = getData(quote.author);
 
         return (
           <li key={quote.id} className="Quote">

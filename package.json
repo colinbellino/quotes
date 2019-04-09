@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "csv-parse": "^4.4.0",
     "netlify-lambda": "^1.4.3",
+    "node-fetch": "^2.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
