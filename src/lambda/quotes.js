@@ -161,6 +161,12 @@ const data = [
     date: "2019-04-08T22:00:00.000Z",
     author: "Colin",
   },
+  {
+    id: "28",
+    text: "On peut faire une bite dans un cœur.",
+    date: "2019-04-09T04:00:00.000Z",
+    author: "Colin",
+  },
 ];
 
 export function handler(event, context, callback) {
