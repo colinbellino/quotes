@@ -167,6 +167,30 @@ const data = [
     date: "2019-04-09T04:00:00.000Z",
     author: "Colin",
   },
+  {
+    id: "29",
+    text: "C'est nul sur 10.",
+    date: "2019-04-09T08:00:00.000Z",
+    author: "Colin",
+  },
+  {
+    id: "30",
+    text: "Je suis un canadair.",
+    date: "2019-04-09T09:00:00.000Z",
+    author: "Colin",
+  },
+  {
+    id: "31",
+    text: "Think like a tree.",
+    date: "2019-04-09T10:00:00.000Z",
+    author: "Bob",
+  },
+  {
+    id: "32",
+    text: "C'est une grosse croute.",
+    date: "2019-04-09T11:00:00.000Z",
+    author: "Julien",
+  },
 ];
 
 export function handler(event, context, callback) {
