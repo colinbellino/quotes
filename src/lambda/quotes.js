@@ -155,6 +155,12 @@ const data = [
     date: "2019-04-08T00:00:06.000Z",
     author: "Cédric",
   },
+  {
+    id: "27",
+    text: "C'est sa période anale.",
+    date: "2019-04-08T22:00:00.000Z",
+    author: "Colin",
+  },
 ];
 
 export function handler(event, context, callback) {
