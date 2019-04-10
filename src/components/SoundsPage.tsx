@@ -41,7 +41,7 @@ const sounds = [
   },
 ];
 
-export const SoundPage: FunctionComponent<RouteComponentProps> = () => {
+export const SoundsPage: FunctionComponent<RouteComponentProps> = () => {
   const audios = sounds.map(sound => new Audio(sound.url));
 
   const stopAllAudio = () => {

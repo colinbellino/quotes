@@ -1,12 +1,21 @@
-body {
-  margin: 0;
+html,
+body,
+[id="root"] {
+  height: 100%;
 }
 
-.App {
-  margin: 0 16px 16px;
+body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+}
+
+main {
+  box-sizing: border-box;
+  padding: 16px;
+  height: calc(100% - 48px);
+  overflow: auto;
 }
 
 .Title {
@@ -14,4 +23,40 @@ body {
   font-family: sans-serif;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.8);
+}
+
+.Tabs {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 48px;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0 -3px 6px -3px #bdbdbd;
+}
+
+.Tab {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.Tab a {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.9em;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.Tab a.active {
+  color: #e80069;
 }
