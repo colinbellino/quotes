@@ -1,0 +1,25 @@
+.Sounds {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  grid-auto-rows: 1fr;
+}
+
+.Sounds::before {
+  content: '';
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.Sounds>*:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.Sound {
+  margin: 2px;
+}

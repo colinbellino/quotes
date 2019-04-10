@@ -48,6 +48,7 @@ main {
 
 .Tab a {
   display: flex;
+  box-sizing: border-box;
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -55,8 +56,10 @@ main {
   font-size: 0.9em;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.7);
+  border-bottom: 2px solid transparent;
 }
 
 .Tab a.active {
   color: #e80069;
+  border-color: #e80069;
 }

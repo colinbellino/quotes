@@ -13,7 +13,7 @@ export const App: FunctionComponent = () => (
     <main>
       <Router>
         <QuotesPage path="/" />
-        <SoundsPage path="/sounds" />
+        <SoundsPage path="/sounds/" />
       </Router>
     </main>
     <ul className="Tabs">
@@ -21,7 +21,7 @@ export const App: FunctionComponent = () => (
         <NavLink to="/">Quotes</NavLink>
       </li>
       <li className="Tab">
-        <NavLink to="/sounds">Sounds</NavLink>
+        <NavLink to="/sounds/">Sounds</NavLink>
       </li>
     </ul>
   </>
