@@ -24,7 +24,7 @@ const useAudioPlayer = (url: string) => {
     }
   };
 
-  return { toggle };
+  return { toggle, currentTime: audio.currentTime };
 };
 
 type AudioPlayerProps = {
@@ -38,7 +38,8 @@ export const AudioPlayer: FunctionComponent<AudioPlayerProps> = ({
   thumbnailUrl,
   name,
 }) => {
-  const { toggle } = useAudioPlayer(audioUrl);
+  const { toggle, currentTime } = useAudioPlayer(audioUrl);
+  console.log(audioUrl, currentTime);
 
   return (
     <button className="AudioPlayer" onClick={toggle}>
