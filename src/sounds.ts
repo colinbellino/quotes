@@ -41,7 +41,7 @@ export const sounds: Sound[] = [
     id: "id_5",
     name: "C'est gagné",
     thumbnailUrl: "",
-    audioUrl: "dora c'est gagné.mp3",
+    audioUrl: "dora-cest-gagne.mp3",
   },
   {
     id: "id_6",
@@ -87,7 +87,7 @@ export const sounds: Sound[] = [
   },
   {
     id: "id_13",
-    name: "Bas les couilles",
+    name: "On s'en bats les couilles",
     thumbnailUrl: "",
     audioUrl: "On s'en bat les couilles.mp3",
   },
