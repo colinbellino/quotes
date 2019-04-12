@@ -20,9 +20,6 @@ const dateFormat = {
 };
 const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 
-const sortByDate = (a: Quote, b: Quote): number =>
-  new Date(b.date).getTime() - new Date(a.date).getTime();
-
 const suffix = window.location.hostname === "localhost" ? "-dev" : "";
 
 const getData = (author: string) => peopleData[author] || {};
@@ -40,7 +37,7 @@ export const Quotes: FunctionComponent = () => {
 
   return (
     <ul className="Quotes">
-      {quotes.sort(sortByDate).map(quote => {
+      {quotes.reverse().map(quote => {
         const date = dateFormatter.format(new Date(quote.date));
         const data = getData(quote.author);
 
