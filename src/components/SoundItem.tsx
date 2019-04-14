@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 
 import { Sound } from "../sounds";
+import { ProgressBar } from "./ProgressBar";
 import "./SoundItem.css";
 
 type SoundItemProps = {
@@ -15,6 +16,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   const [loaded, setLoaded] = useState(false);
   const [paused, setPaused] = useState(true);
+  const [progress, setProgress] = useState(0);
   const [audio, setAudio] = useState<HTMLAudioElement>();
 
   useEffect(() => {
@@ -23,6 +25,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
     }
   }, [muted]);
 
+  // TODO: remove listeners
   useEffect(() => {
     const audio = new Audio(sound.audioUrl);
     audio.addEventListener("loadeddata", () => {
@@ -41,6 +44,9 @@ const useSoundPlayer = (props: SoundItemProps) => {
       setPaused(true);
       onPause(sound.id);
     });
+    audio.addEventListener("timeupdate", () => {
+      setProgress(audio.currentTime / audio.duration);
+    });
   }, [sound]);
 
   const play = () => {
@@ -54,11 +60,11 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   const toggle = () => (paused ? play() : pause());
 
-  return { loaded, paused, toggle };
+  return { loaded, paused, progress, toggle };
 };
 
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
-  const { loaded, paused, toggle } = useSoundPlayer(props);
+  const { loaded, paused, progress, toggle } = useSoundPlayer(props);
   const { sound } = props;
 
   return (
@@ -68,6 +74,7 @@ export const SoundItem: FunctionComponent<SoundItemProps> = props => {
           <img src={sound.thumbnailUrl} alt={sound.name} />
         </button>
       ) : null}
+      {!paused && <ProgressBar progress={progress} />}
     </div>
   );
 };

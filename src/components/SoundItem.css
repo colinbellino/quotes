@@ -32,6 +32,21 @@
   height: 100%;
 }
 
+.SoundItem .Progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.SoundItem .Progress .ProgressSlider {
+  height: 100%;
+  background: #e80069;
+  transform-origin: left bottom;
+}
+
 .SoundItem::after {
   position: absolute;
   display: none;
