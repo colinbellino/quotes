@@ -138,6 +138,6 @@ export const sounds: Sound[] = [
     id: "id_22",
     name: "Poppi",
     thumbnailUrl: "/images/poppi.jpg",
-    audioUrl: "/sounds/Avez Vous Déjà Vu Compilation Poppi.mp3",
+    audioUrl: "/sounds/poppi.mp3",
   },
 ];
