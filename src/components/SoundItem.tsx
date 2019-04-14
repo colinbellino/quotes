@@ -34,6 +34,10 @@ const useSoundPlayer = (props: SoundItemProps) => {
       setAudio(audio);
       setDuration(audio.duration);
     });
+    audio.addEventListener("error", () => {
+      console.error(`Error loading: "${sound.audioUrl}".`);
+      setLoaded(false);
+    });
     audio.addEventListener("play", () => {
       setPaused(false);
       onPlay(sound.id);
