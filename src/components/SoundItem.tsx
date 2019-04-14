@@ -26,10 +26,9 @@ const useSoundPlayer = (props: SoundItemProps) => {
     }
   }, [muted]);
 
-  // TODO: remove listeners
   useEffect(() => {
     const audio = new Audio(sound.audioUrl);
-    audio.addEventListener("loadeddata", () => {
+    audio.addEventListener("canplaythrough", () => {
       setLoaded(true);
       setAudio(audio);
       setDuration(audio.duration);
