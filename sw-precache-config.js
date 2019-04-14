@@ -10,7 +10,7 @@ module.exports = {
   handleFetch: true,
   runtimeCaching: [
     {
-      urlPattern: /^https:\/\/trusting-tesla-cbed12.netlify.com\/.netlify\/functions/,
+      urlPattern: /^https:\/\/pouet.netlify.com/,
       handler: "networkFirst",
     },
   ],
