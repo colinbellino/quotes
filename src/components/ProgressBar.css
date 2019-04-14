@@ -1,0 +1,20 @@
+.ProgressBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: opacity 100ms ease-in;
+}
+
+.ProgressBar .ProgressSlider {
+  height: 100%;
+  background: #e80069;
+  transition: transform 200ms linear;
+  transform-origin: left bottom;
+}
+
+.ProgressBar.Disabled {
+  opacity: 0;
+}

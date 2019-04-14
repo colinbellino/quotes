@@ -17,6 +17,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
   const [loaded, setLoaded] = useState(false);
   const [paused, setPaused] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [audio, setAudio] = useState<HTMLAudioElement>();
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
     audio.addEventListener("loadeddata", () => {
       setLoaded(true);
       setAudio(audio);
+      setDuration(audio.duration);
     });
     audio.addEventListener("play", () => {
       setPaused(false);
@@ -60,11 +62,11 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   const toggle = () => (paused ? play() : pause());
 
-  return { loaded, paused, progress, toggle };
+  return { loaded, paused, progress, duration, toggle };
 };
 
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
-  const { loaded, paused, progress, toggle } = useSoundPlayer(props);
+  const { loaded, paused, progress, duration, toggle } = useSoundPlayer(props);
   const { sound } = props;
 
   return (
@@ -74,7 +76,7 @@ export const SoundItem: FunctionComponent<SoundItemProps> = props => {
           <img src={sound.thumbnailUrl} alt={sound.name} />
         </button>
       ) : null}
-      {!paused && <ProgressBar progress={progress} />}
+      {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
     </div>
   );
 };
