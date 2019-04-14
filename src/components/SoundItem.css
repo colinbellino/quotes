@@ -1,4 +1,4 @@
-.AudioPlayer {
+.SoundItem {
   position: relative;
   display: block;
   padding: 0;
@@ -8,20 +8,14 @@
   background-color: #eee;
 }
 
-.AudioPlayer:focus {
-  box-shadow: 0 0 0 2px #e80069;
-  outline: none;
-}
-
-.AudioPlayer img {
+.SoundItem img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 0;
 }
 
-.Name {
+.SoundItem .Name {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +26,23 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-.AudioPlayer.NoThumbnail .Name {
+.SoundItem button {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.SoundItem::after {
+  position: absolute;
   display: none;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  content: '♬';
+}
+
+.SoundItem.Playing::after {
+  display: block;
 }

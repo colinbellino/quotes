@@ -1,22 +1,33 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 
 import { sounds } from "../sounds";
-import { AudioPlayer } from "./AudioPlayer";
+import { SoundItem } from "./SoundItem";
 import "./SoundsPage.css";
 
-const prefix = "/sounds/";
+export const SoundsPage: FunctionComponent<RouteComponentProps> = () => {
+  const [playing, setPlaying] = useState<string>();
+  const onPlay = (id: string) => {
+    setPlaying(id);
+  };
+  const onPause = (id: string) => {
+    if (id === playing) {
+      setPlaying(undefined);
+    }
+  };
 
-export const SoundsPage: FunctionComponent<RouteComponentProps> = () => (
-  <ul className="Sounds">
-    {sounds.map(sound => (
-      <li key={sound.id} className="Sound">
-        <AudioPlayer
-          name={sound.name}
-          audioUrl={prefix + sound.audioUrl}
-          thumbnailUrl={sound.thumbnailUrl}
-        />
-      </li>
-    ))}
-  </ul>
-);
+  return (
+    <ul className="Sounds">
+      {sounds.map(sound => (
+        <li key={sound.id} className="Sound">
+          <SoundItem
+            sound={sound}
+            muted={playing ? playing !== sound.id : false}
+            onPlay={onPlay}
+            onPause={onPause}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+};
