@@ -12,6 +12,9 @@ export const ProgressBar: FunctionComponent<ProgressBarProps> = ({
   enabled = false,
 }) => (
   <div className={`ProgressBar ${enabled ? "Enabled" : "Disabled"}`}>
-    <div className="ProgressSlider" style={{ transform: `scaleX(${value})` }} />
+    <div
+      className="ProgressSlider"
+      style={{ transform: `scaleX(${enabled ? value : 0})` }}
+    />
   </div>
 );
