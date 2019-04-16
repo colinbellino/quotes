@@ -150,4 +150,16 @@ export const sounds: Sound[] = [
     thumbnailUrl: "/images/200x200/poppi.jpg",
     audioUrl: "/sounds/320kbps/poppi-bwuf.mp3",
   },
+  {
+    id: "sound-25",
+    name: "Ah!",
+    thumbnailUrl: "/images/200x200/denis-brogniart.png",
+    audioUrl: "/sounds/320kbps/ah.mp3",
+  },
+  {
+    id: "sound-26",
+    name: "Pousse mousse, ça pousse et ça mousse",
+    thumbnailUrl: "/images/200x200/sorina.png",
+    audioUrl: "/sounds/320kbps/pousse-mousse.mp3",
+  },
 ];
