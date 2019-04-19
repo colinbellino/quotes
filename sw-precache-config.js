@@ -9,9 +9,9 @@ module.exports = {
   debug: process.env.NODE_ENV !== "production",
   handleFetch: true,
   runtimeCaching: [
-    {
-      urlPattern: /^https:\/\/pouet.netlify.com/,
-      handler: "networkFirst",
-    },
+    // {
+    //   urlPattern: /^https:\/\/pouet.netlify.com/,
+    //   handler: "networkFirst",
+    // },
   ],
 };
