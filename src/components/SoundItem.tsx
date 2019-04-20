@@ -28,30 +28,61 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   useEffect(() => {
     const audio = new Audio(sound.audioUrl);
-    audio.addEventListener("canplaythrough", () => {
-      setLoaded(true);
-      setAudio(audio);
-      setDuration(audio.duration);
-    });
-    audio.addEventListener("error", () => {
-      console.error(`Error loading: "${sound.audioUrl}".`);
-      setLoaded(false);
-    });
-    audio.addEventListener("play", () => {
-      setPaused(false);
-      onPlay(sound.id);
-    });
-    audio.addEventListener("ended", () => {
-      setPaused(true);
-      onPause(sound.id);
-    });
-    audio.addEventListener("pause", () => {
-      setPaused(true);
-      onPause(sound.id);
-    });
-    audio.addEventListener("timeupdate", () => {
-      setProgress(audio.currentTime / audio.duration);
-    });
+    const eventListeners = [
+      {
+        type: "canplaythrough",
+        listener: () => {
+          setLoaded(true);
+          setAudio(audio);
+          setDuration(audio.duration);
+        },
+      },
+      {
+        type: "error",
+        listener: () => {
+          console.error(`Error loading: "${sound.audioUrl}".`);
+          setLoaded(false);
+        },
+      },
+      {
+        type: "play",
+        listener: () => {
+          setPaused(false);
+          onPlay(sound.id);
+        },
+      },
+      {
+        type: "ended",
+        listener: () => {
+          setPaused(true);
+          onPause(sound.id);
+        },
+      },
+      {
+        type: "pause",
+        listener: () => {
+          setPaused(true);
+          onPause(sound.id);
+        },
+      },
+      {
+        type: "timeupdate",
+        listener: () => {
+          setProgress(audio.currentTime / audio.duration);
+        },
+      },
+    ];
+
+    eventListeners.forEach(({ type, listener }) =>
+      audio.addEventListener(type, listener),
+    );
+
+    return () => {
+      audio.pause();
+      eventListeners.forEach(({ type, listener }) =>
+        audio.removeEventListener(type, listener),
+      );
+    };
   }, [sound]);
 
   const play = () => {
