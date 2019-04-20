@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { Sound } from "../sounds";
 import { ProgressBar } from "./ProgressBar";
@@ -18,13 +23,28 @@ const useSoundPlayer = (props: SoundItemProps) => {
   const [paused, setPaused] = useState(true);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [audio, setAudio] = useState<HTMLAudioElement>();
+  const [audio, setAudio] = useState<HTMLAudioElement | undefined>();
+
+  const play = useCallback(() => {
+    if (!audio) return;
+
+    audio.currentTime = 0;
+    audio.play();
+  }, [audio]);
+
+  const pause = useCallback(() => {
+    audio && audio.pause();
+  }, [audio]);
+
+  const toggle = useCallback(() => (paused ? play() : pause()), [
+    pause,
+    paused,
+    play,
+  ]);
 
   useEffect(() => {
-    if (muted) {
-      audio!.pause();
-    }
-  }, [muted]);
+    muted && pause();
+  }, [muted, pause]);
 
   useEffect(() => {
     const audio = new Audio(sound.audioUrl);
@@ -53,17 +73,6 @@ const useSoundPlayer = (props: SoundItemProps) => {
       setProgress(audio.currentTime / audio.duration);
     });
   }, [sound]);
-
-  const play = () => {
-    audio!.currentTime = 0;
-    audio!.play();
-  };
-
-  const pause = () => {
-    audio!.pause();
-  };
-
-  const toggle = () => (paused ? play() : pause());
 
   return { loaded, paused, progress, duration, toggle };
 };
