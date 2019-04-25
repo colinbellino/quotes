@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { Sound } from "../sounds";
 import { ProgressBar } from "./ProgressBar";
@@ -18,52 +23,56 @@ const useSoundPlayer = (props: SoundItemProps) => {
   const [paused, setPaused] = useState(true);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [audio, setAudio] = useState<HTMLAudioElement>();
+  const [audio, setAudio] = useState<HTMLAudioElement | undefined>();
+
+  const play = useCallback(() => {
+    if (!audio) return;
+
+    audio.currentTime = 0;
+    audio.play();
+  }, [audio]);
+
+  const pause = useCallback(() => {
+    audio && audio.pause();
+  }, [audio]);
+
+  const toggle = useCallback(() => (paused ? play() : pause()), [
+    pause,
+    paused,
+    play,
+  ]);
 
   useEffect(() => {
-    if (muted) {
-      audio!.pause();
-    }
-  }, [muted]);
+    muted && pause();
+  }, [muted, pause]);
 
   useEffect(() => {
-    const audio = new Audio(sound.audioUrl);
-    audio.addEventListener("canplaythrough", () => {
+    const audioElement = new Audio(sound.audioUrl);
+    audioElement.addEventListener("canplaythrough", () => {
       setLoaded(true);
-      setAudio(audio);
-      setDuration(audio.duration);
+      setAudio(audioElement);
+      setDuration(audioElement.duration);
     });
-    audio.addEventListener("error", () => {
+    audioElement.addEventListener("error", () => {
       console.error(`Error loading: "${sound.audioUrl}".`);
       setLoaded(false);
     });
-    audio.addEventListener("play", () => {
+    audioElement.addEventListener("play", () => {
       setPaused(false);
       onPlay(sound.id);
     });
-    audio.addEventListener("ended", () => {
+    audioElement.addEventListener("ended", () => {
       setPaused(true);
       onPause(sound.id);
     });
-    audio.addEventListener("pause", () => {
+    audioElement.addEventListener("pause", () => {
       setPaused(true);
       onPause(sound.id);
     });
-    audio.addEventListener("timeupdate", () => {
-      setProgress(audio.currentTime / audio.duration);
+    audioElement.addEventListener("timeupdate", () => {
+      setProgress(audioElement.currentTime / audioElement.duration);
     });
   }, [sound]);
-
-  const play = () => {
-    audio!.currentTime = 0;
-    audio!.play();
-  };
-
-  const pause = () => {
-    audio!.pause();
-  };
-
-  const toggle = () => (paused ? play() : pause());
 
   return { loaded, paused, progress, duration, toggle };
 };
