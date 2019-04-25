@@ -47,30 +47,30 @@ const useSoundPlayer = (props: SoundItemProps) => {
   }, [muted, pause]);
 
   useEffect(() => {
-    const audio = new Audio(sound.audioUrl);
-    audio.addEventListener("canplaythrough", () => {
+    const audioElement = new Audio(sound.audioUrl);
+    audioElement.addEventListener("canplaythrough", () => {
       setLoaded(true);
-      setAudio(audio);
-      setDuration(audio.duration);
+      setAudio(audioElement);
+      setDuration(audioElement.duration);
     });
-    audio.addEventListener("error", () => {
+    audioElement.addEventListener("error", () => {
       console.error(`Error loading: "${sound.audioUrl}".`);
       setLoaded(false);
     });
-    audio.addEventListener("play", () => {
+    audioElement.addEventListener("play", () => {
       setPaused(false);
       onPlay(sound.id);
     });
-    audio.addEventListener("ended", () => {
+    audioElement.addEventListener("ended", () => {
       setPaused(true);
       onPause(sound.id);
     });
-    audio.addEventListener("pause", () => {
+    audioElement.addEventListener("pause", () => {
       setPaused(true);
       onPause(sound.id);
     });
-    audio.addEventListener("timeupdate", () => {
-      setProgress(audio.currentTime / audio.duration);
+    audioElement.addEventListener("timeupdate", () => {
+      setProgress(audioElement.currentTime / audioElement.duration);
     });
   }, [sound]);
 
