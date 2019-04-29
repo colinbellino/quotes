@@ -62,8 +62,8 @@
   opacity: 0.2;
 }
 
-.SoundItemButton:disabled::before,
-.SoundItemButton:disabled::after {
+.SoundItemButton.Loading::before,
+.SoundItemButton.Loading::after {
   animation: LoaderAnimation 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   border-radius: 50%;
   border: 3px solid #fff;
@@ -77,9 +77,15 @@
   z-index: 3;
 }
 
-.SoundItemButton:disabled::after {
+.SoundItemButton.Loading::after {
   animation-delay: -0.5s;
   border-color: #e80069;
+}
+
+.SoundItemButton.TimedOut::after {
+  color: #e80069;
+  content: "! Error loading file";
+  display: block;
 }
 
 @keyframes LoaderAnimation {

@@ -77,13 +77,35 @@ const useSoundPlayer = (props: SoundItemProps) => {
   return { loaded, paused, progress, duration, toggle };
 };
 
+const useTimeout = (timeInMs: number) => {
+  const [timedOut, setTimedOut] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(setTimedOut, timeInMs, true);
+    return () => clearTimeout(timer);
+  }, [timeInMs]);
+
+  return timedOut;
+};
+
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
   const { loaded, paused, progress, duration, toggle } = useSoundPlayer(props);
+  const timedOut = useTimeout(10000);
   const { sound } = props;
 
   return (
     <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
-      <button className="SoundItemButton" disabled={!loaded} onClick={toggle}>
+      <button
+        className={[
+          "SoundItemButton",
+          !loaded && timedOut && "TimedOut",
+          !loaded && !timedOut && "Loading",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        disabled={!loaded}
+        onClick={toggle}
+      >
         <img src={sound.thumbnailUrl} alt={sound.name} />
       </button>
       {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
