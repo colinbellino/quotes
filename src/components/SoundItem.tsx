@@ -83,11 +83,9 @@ export const SoundItem: FunctionComponent<SoundItemProps> = props => {
 
   return (
     <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
-      {loaded ? (
-        <button onClick={toggle}>
-          <img src={sound.thumbnailUrl} alt={sound.name} />
-        </button>
-      ) : null}
+      <button className="SoundItemButton" disabled={!loaded} onClick={toggle}>
+        <img src={sound.thumbnailUrl} alt={sound.name} />
+      </button>
       {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
     </div>
   );

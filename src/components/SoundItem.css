@@ -42,9 +42,55 @@
   padding: 4px 8px;
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
-  content: '♬';
+  content: "♬";
 }
 
 .SoundItem.Playing::after {
   display: block;
+}
+
+.SoundItemButton:enabled {
+  cursor: pointer;
+}
+
+.SoundItemButton img {
+  transition: opacity 1s, filter 1s;
+}
+
+.SoundItemButton:disabled img {
+  filter: grayscale();
+  opacity: 0.2;
+}
+
+.SoundItemButton:disabled::before,
+.SoundItemButton:disabled::after {
+  animation: LoaderAnimation 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  content: "";
+  display: block;
+  left: 50%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.SoundItemButton:disabled::after {
+  animation-delay: -0.5s;
+  border-color: #e80069;
+}
+
+@keyframes LoaderAnimation {
+  from {
+    height: 0;
+    opacity: 1;
+    width: 0;
+  }
+  to {
+    height: 40px;
+    opacity: 0;
+    width: 40px;
+  }
 }
