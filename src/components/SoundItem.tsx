@@ -19,6 +19,7 @@ type SoundItemProps = {
 const useSoundPlayer = (props: SoundItemProps) => {
   const { sound, muted, onPlay, onPause } = props;
 
+  const [activated, setActivated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [paused, setPaused] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -27,6 +28,8 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   const play = useCallback(() => {
     if (!audio) return;
+
+    !activated && setActivated(true);
 
     audio.currentTime = 0;
     audio.play();
@@ -48,9 +51,10 @@ const useSoundPlayer = (props: SoundItemProps) => {
 
   useEffect(() => {
     const audioElement = new Audio(sound.audioUrl);
+    setAudio(audioElement);
+
     audioElement.addEventListener("canplaythrough", () => {
       setLoaded(true);
-      setAudio(audioElement);
       setDuration(audioElement.duration);
     });
     audioElement.addEventListener("error", () => {
@@ -74,20 +78,24 @@ const useSoundPlayer = (props: SoundItemProps) => {
     });
   }, [sound]);
 
-  return { loaded, paused, progress, duration, toggle };
+  return {
+    loading: activated && !loaded,
+    paused,
+    progress,
+    duration,
+    toggle,
+  };
 };
 
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
-  const { loaded, paused, progress, duration, toggle } = useSoundPlayer(props);
+  const { loading, paused, progress, duration, toggle } = useSoundPlayer(props);
   const { sound } = props;
 
   return (
     <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
-      {loaded ? (
-        <button onClick={toggle}>
-          <img src={sound.thumbnailUrl} alt={sound.name} />
-        </button>
-      ) : null}
+      <button disabled={loading} onClick={toggle}>
+        <img src={sound.thumbnailUrl} alt={sound.name} />
+      </button>
       {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
     </div>
   );
