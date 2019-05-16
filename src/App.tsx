@@ -4,7 +4,7 @@ import { Router } from "@reach/router";
 import { QuotesPage, SoundsPage } from "./components";
 
 export const App: FunctionComponent = () => (
-  <Router>
+  <Router className="Router">
     <QuotesPage path="/" />
     <SoundsPage path="/sounds/" />
   </Router>

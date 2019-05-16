@@ -1,7 +1,7 @@
 .SoundsPage {
   display: grid;
   margin: 0;
-  padding: 0;
+  padding: 2px;
   list-style: none;
   grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
   grid-auto-rows: 1fr;

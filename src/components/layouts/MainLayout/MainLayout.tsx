@@ -5,7 +5,7 @@ import "./MainLayout.css";
 
 export const MainLayout: FunctionComponent = ({ children }) => (
   <>
-    <main>{children}</main>
+    {children}
     <ul className="Tabs">
       <li className="Tab">
         <NavLink to="/">Quotes</NavLink>

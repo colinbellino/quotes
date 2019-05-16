@@ -1,6 +1,7 @@
 html,
 body,
-[id="root"] {
+[id="root"],
+.Router {
   height: 100%;
 }
 
@@ -13,7 +14,6 @@ body {
 
 main {
   box-sizing: border-box;
-  padding: 16px;
   height: calc(100% - 48px);
   overflow: auto;
 }

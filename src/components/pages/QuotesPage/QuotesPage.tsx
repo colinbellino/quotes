@@ -31,28 +31,30 @@ type QuotesPageViewProps = {
 
 export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
   <MainLayout>
-    <ul className="QuotesPage">
-      {quotes.map(quote => {
-        const date = dateFormatter.format(new Date(quote.date));
-        const person = getPersonData(quote.author);
+    <main>
+      <ul className="QuotesPage">
+        {quotes.map(quote => {
+          const date = dateFormatter.format(new Date(quote.date));
+          const person = getPersonData(quote.author);
 
-        return (
-          <li key={quote.id} className="Quote">
-            <>
-              <blockquote>{quote.text}</blockquote>
-              <cite>
-                <Avatar
-                  color={person.color}
-                  url={person.avatar}
-                  alt={`${quote.author}'s avatar`}
-                />
-                {` ${quote.author} • ${date}`}
-              </cite>
-            </>
-          </li>
-        );
-      })}
-    </ul>
+          return (
+            <li key={quote.id} className="Quote">
+              <>
+                <blockquote>{quote.text}</blockquote>
+                <cite>
+                  <Avatar
+                    color={person.color}
+                    url={person.avatar}
+                    alt={`${quote.author}'s avatar`}
+                  />
+                  {` ${quote.author} • ${date}`}
+                </cite>
+              </>
+            </li>
+          );
+        })}
+      </ul>
+    </main>
   </MainLayout>
 );
 
