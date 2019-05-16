@@ -1,10 +1,15 @@
+import { Handler, Context, Callback, APIGatewayEvent } from "aws-lambda";
 import fetch from "node-fetch";
 import parse from "csv-parse/lib/sync";
 
 const url =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTX-rEV_2QPSPicSDNE_3I5siM_6rPL-UGI112IvTRfCXqcsF4cagiBbq8YxcTHC__hP-RMbZs1rWUc/pub?output=csv";
 
-export async function handler(event, context, callback) {
+export const handler: Handler = async (
+  _event: APIGatewayEvent,
+  _context: Context,
+  callback: Callback,
+) => {
   try {
     const response = await fetch(url);
 
@@ -14,8 +19,8 @@ export async function handler(event, context, callback) {
 
     const text = await response.text();
     const records = parse(text);
-    const [head, ...tail] = records;
-    const data = tail.map((record, key) => ({
+    const [_head, ...tail] = records;
+    const data = tail.map((record: any, key: string) => ({
       id: key,
       text: record[0],
       author: record[1],
@@ -34,4 +39,4 @@ export async function handler(event, context, callback) {
       body: JSON.stringify({ error }),
     });
   }
-}
+};

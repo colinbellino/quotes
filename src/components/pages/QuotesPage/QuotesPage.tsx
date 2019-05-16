@@ -1,17 +1,10 @@
 import React, { FunctionComponent } from "react";
 import { RouteComponentProps } from "@reach/router";
 
-import { persons } from "data";
+import { persons, Quote } from "data";
 import { useFetch } from "useFetch";
 import { Avatar, MainLayout } from "components";
 import "./QuotesPage.css";
-
-type Quote = {
-  id: string;
-  text: string;
-  date: string;
-  author: string;
-};
 
 const locale = "en-US";
 const dateFormat = {

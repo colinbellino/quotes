@@ -91,6 +91,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
   };
 };
 
+// TODO: Split into SoundItem and SoundItemView
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
   const { loading, paused, progress, duration, toggle } = useSoundPlayer(props);
   const { sound } = props;
