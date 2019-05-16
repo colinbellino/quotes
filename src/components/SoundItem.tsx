@@ -27,13 +27,17 @@ const useSoundPlayer = (props: SoundItemProps) => {
   const [audio, setAudio] = useState<HTMLAudioElement | undefined>();
 
   const play = useCallback(() => {
-    if (!audio) return;
+    if (!audio) {
+      return;
+    }
 
-    !activated && setActivated(true);
+    if (!activated) {
+      setActivated(true);
+    }
 
     audio.currentTime = 0;
     audio.play();
-  }, [audio]);
+  }, [audio, activated]);
 
   const pause = useCallback(() => {
     audio && audio.pause();
@@ -76,7 +80,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
     audioElement.addEventListener("timeupdate", () => {
       setProgress(audioElement.currentTime / audioElement.duration);
     });
-  }, [sound]);
+  }, [sound, onPause, onPlay]);
 
   return {
     loading: activated && !loaded,
