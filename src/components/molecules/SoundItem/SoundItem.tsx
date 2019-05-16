@@ -78,7 +78,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
       onPause(sound.id);
     });
     audioElement.addEventListener("timeupdate", () => {
-      setProgress(audioElement.currentTime / audioElement.duration);
+      setProgress((audioElement.currentTime / audioElement.duration) * 100);
     });
   }, [sound, onPause, onPlay]);
 
