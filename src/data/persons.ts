@@ -1,4 +1,4 @@
-export const peopleData: {
+export const persons: {
   [key: string]: { color: string; avatar: string };
 } = {
   Bob: {

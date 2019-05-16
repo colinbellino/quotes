@@ -1,4 +1,4 @@
-.Sounds {
+.SoundsPage {
   display: grid;
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@
   grid-auto-rows: 1fr;
 }
 
-.Sounds::before {
+.SoundsPage::before {
   content: '';
   width: 0;
   padding-bottom: 100%;
@@ -15,7 +15,7 @@
   grid-column: 1 / 1;
 }
 
-.Sounds>*:first-child {
+.SoundsPage>*:first-child {
   grid-row: 1 / 1;
   grid-column: 1 / 1;
 }

@@ -5,8 +5,8 @@ import React, {
   useState,
 } from "react";
 
-import { Sound } from "../sounds";
-import { ProgressBar } from "./ProgressBar";
+import { Sound } from "data";
+import { ProgressBar } from "components";
 import "./SoundItem.css";
 
 type SoundItemProps = {
