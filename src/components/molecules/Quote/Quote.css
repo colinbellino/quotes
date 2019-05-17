@@ -1,0 +1,50 @@
+.Quote {
+  margin: 0;
+  padding: 16px;
+  line-height: 130%;
+  list-style: none;
+}
+
+.Quote:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.Quote:last-child {
+  margin-bottom: 0;
+}
+
+.Quote blockquote {
+  margin: 0 0 8px 0;
+}
+
+.Quote blockquote:before {
+  content: '“';
+}
+
+.Quote blockquote:after {
+  content: '”';
+}
+
+.Quote cite {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.Quote cite a {
+  display: flex;
+  color: inherit;
+  text-decoration: none;
+}
+
+.Quote cite a:hover {
+  color: #e80069;
+}
+
+.Quote .Avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}

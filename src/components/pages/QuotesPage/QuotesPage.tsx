@@ -1,25 +1,15 @@
 import React, { FunctionComponent } from "react";
 import { RouteComponentProps } from "@reach/router";
-
-import { persons, Quote } from "data";
 import useFetch from "fetch-suspense";
-import { Avatar, MainLayout } from "components";
-import "./QuotesPage.css";
 
-const locale = "en-US";
-const dateFormat = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
-const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
+import { persons, Quote as QuoteModel } from "data";
+import { MainLayout, Quote } from "components";
+import "./QuotesPage.css";
 
 const suffix = window.location.hostname === "localhost" ? "-dev" : "";
 
-const getPersonData = (author: string) => persons[author] || {};
-
 type QuotesPageViewProps = {
-  quotes?: Quote[];
+  quotes?: QuoteModel[];
 };
 
 export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
@@ -27,24 +17,8 @@ export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
     <main>
       <ul className="QuotesPage">
         {quotes.map(quote => {
-          const date = dateFormatter.format(new Date(quote.date));
-          const person = getPersonData(quote.author);
-
-          return (
-            <li key={quote.id} className="Quote">
-              <>
-                <blockquote>{quote.text}</blockquote>
-                <cite>
-                  <Avatar
-                    color={person.color}
-                    url={person.avatar}
-                    alt={`${quote.author}'s avatar`}
-                  />
-                  {` ${quote.author} • ${date}`}
-                </cite>
-              </>
-            </li>
-          );
+          const person = persons.find(data => data.id === quote.author);
+          return <Quote key={quote.id} quote={quote} person={person!} />;
         })}
       </ul>
     </main>
@@ -53,8 +27,8 @@ export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
 
 export const QuotesPage: FunctionComponent<RouteComponentProps> = () => {
   const { data: quotes } = useFetch("/.netlify/functions/quotes" + suffix) as {
-    data: Quote[];
+    data: QuoteModel[];
   };
 
-  return QuotesPageView({ quotes: quotes.reverse() });
+  return QuotesPageView({ quotes: quotes });
 };
