@@ -5,6 +5,10 @@ body,
   height: 100%;
 }
 
+:root {
+  --primary-color: #007cad;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -60,8 +64,8 @@ main {
 }
 
 .Tab a.active {
-  color: #e80069;
-  border-color: #e80069;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .Spinner {
