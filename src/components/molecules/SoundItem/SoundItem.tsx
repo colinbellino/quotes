@@ -9,6 +9,31 @@ import { Sound } from "data";
 import { ProgressBar } from "components";
 import "./SoundItem.css";
 
+type SoundItemViewProps = {
+  sound: Sound;
+  paused: boolean;
+  loading: boolean;
+  progress: number;
+  duration: number;
+  toggle: () => void;
+};
+
+export const SoundItemView: FunctionComponent<SoundItemViewProps> = ({
+  sound,
+  paused,
+  loading,
+  progress,
+  duration,
+  toggle,
+}) => (
+  <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
+    <button disabled={loading} onClick={toggle}>
+      <img src={sound.thumbnailUrl} alt={sound.name} />
+    </button>
+    {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
+  </div>
+);
+
 type SoundItemProps = {
   sound: Sound;
   muted: boolean;
@@ -40,7 +65,9 @@ const useSoundPlayer = (props: SoundItemProps) => {
   }, [audio, activated]);
 
   const pause = useCallback(() => {
-    audio && audio.pause();
+    if (audio) {
+      audio.pause();
+    }
   }, [audio]);
 
   const toggle = useCallback(() => (paused ? play() : pause()), [
@@ -50,7 +77,9 @@ const useSoundPlayer = (props: SoundItemProps) => {
   ]);
 
   useEffect(() => {
-    muted && pause();
+    if (muted) {
+      pause();
+    }
   }, [muted, pause]);
 
   useEffect(() => {
@@ -80,7 +109,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
     audioElement.addEventListener("timeupdate", () => {
       setProgress((audioElement.currentTime / audioElement.duration) * 100);
     });
-  }, [sound, onPause, onPlay]);
+  }, [sound]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     loading: activated && !loaded,
@@ -91,17 +120,9 @@ const useSoundPlayer = (props: SoundItemProps) => {
   };
 };
 
-// TODO: Split into SoundItem and SoundItemView
 export const SoundItem: FunctionComponent<SoundItemProps> = props => {
   const { loading, paused, progress, duration, toggle } = useSoundPlayer(props);
   const { sound } = props;
 
-  return (
-    <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
-      <button disabled={loading} onClick={toggle}>
-        <img src={sound.thumbnailUrl} alt={sound.name} />
-      </button>
-      {<ProgressBar value={progress} enabled={!paused && duration > 0.5} />}
-    </div>
-  );
+  return SoundItemView({ sound, paused, loading, progress, duration, toggle });
 };
