@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { RouteComponentProps } from "@reach/router";
 
 import { persons, Quote } from "data";
-import { useFetch } from "useFetch";
+import useFetch from "fetch-suspense";
 import { Avatar, MainLayout } from "components";
 import "./QuotesPage.css";
 
@@ -52,15 +52,9 @@ export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
 );
 
 export const QuotesPage: FunctionComponent<RouteComponentProps> = () => {
-  const [loading, quotes] = useFetch<Quote[]>("/quotes" + suffix);
-
-  if (loading) {
-    return null;
-  }
-
-  if (!quotes) {
-    return null;
-  }
+  const { data: quotes } = useFetch("/.netlify/functions/quotes" + suffix) as {
+    data: Quote[];
+  };
 
   return QuotesPageView({ quotes: quotes.reverse() });
 };

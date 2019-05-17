@@ -5939,6 +5939,13 @@ fbjs@^0.8.0, fbjs@^0.8.1:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
+fetch-suspense@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fetch-suspense/-/fetch-suspense-1.1.0.tgz#dda4633a28dc69813afd4fc3a1d9ab43a4d92426"
+  integrity sha512-clLkKSF38CzPBYRjrGZI4NWz7Maw3shCXe49veikLIxKFhDcRSn7kQS3ihcf7Le6cA2+AGFzlq4nWj5cKG6SGg==
+  dependencies:
+    deep-equal "^1.0.1"
+
 figgy-pudding@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"

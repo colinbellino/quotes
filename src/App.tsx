@@ -1,11 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { Router } from "@reach/router";
 
-import { QuotesPage, SoundsPage } from "./components";
+import { QuotesPage, SoundsPage, MainLayout } from "./components";
 
 export const App: FunctionComponent = () => (
-  <Router className="Router">
-    <QuotesPage path="/" />
-    <SoundsPage path="/sounds/" />
-  </Router>
+  <MainLayout>
+    <Router className="Router">
+      <QuotesPage path="/" />
+      <SoundsPage path="/sounds/" />
+    </Router>
+  </MainLayout>
 );

@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 
 import { sounds } from "data";
-import { SoundItem, MainLayout } from "components";
+import { SoundItem } from "components";
 import "./SoundsPage.css";
 
 type SoundsPageViewProps = {
@@ -16,22 +16,20 @@ export const SoundsPageView = ({
   onPlay = () => {},
   onPause = () => {},
 }: SoundsPageViewProps) => (
-  <MainLayout>
-    <main>
-      <ul className="SoundsPage">
-        {sounds.map(sound => (
-          <li key={sound.id} className="Sound">
-            <SoundItem
-              sound={sound}
-              muted={playing ? playing !== sound.id : false}
-              onPlay={onPlay}
-              onPause={onPause}
-            />
-          </li>
-        ))}
-      </ul>
-    </main>
-  </MainLayout>
+  <main>
+    <ul className="SoundsPage">
+      {sounds.map(sound => (
+        <li key={sound.id} className="Sound">
+          <SoundItem
+            sound={sound}
+            muted={playing ? playing !== sound.id : false}
+            onPlay={onPlay}
+            onPause={onPause}
+          />
+        </li>
+      ))}
+    </ul>
+  </main>
 );
 
 export const SoundsPage: FunctionComponent<RouteComponentProps> = () => {

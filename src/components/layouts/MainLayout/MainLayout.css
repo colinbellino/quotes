@@ -63,3 +63,8 @@ main {
   color: #e80069;
   border-color: #e80069;
 }
+
+.Spinner {
+  display: block;
+  margin: 2rem auto;
+}
