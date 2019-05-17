@@ -43,6 +43,8 @@ main {
 }
 
 .Tab {
+  --tab-color: rgba(0, 0, 0, 0.7);
+
   display: flex;
   flex: 1;
   align-items: center;
@@ -59,13 +61,22 @@ main {
   height: 100%;
   font-size: 0.9em;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--tab-color);
   border-bottom: 2px solid transparent;
+}
+
+.Tab svg {
+  margin-right: 8px;
+  fill: var(--tab-color);
 }
 
 .Tab a.active {
   color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.Tab a.active svg {
+  fill: var(--primary-color);
 }
 
 .Spinner {
