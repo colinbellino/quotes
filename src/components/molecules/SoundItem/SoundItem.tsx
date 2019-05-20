@@ -86,29 +86,43 @@ const useSoundPlayer = (props: SoundItemProps) => {
     const audioElement = new Audio(sound.audioUrl);
     setAudio(audioElement);
 
-    audioElement.addEventListener("canplaythrough", () => {
-      setLoaded(true);
-      setDuration(audioElement.duration);
-    });
-    audioElement.addEventListener("error", () => {
-      console.error(`Error loading: "${sound.audioUrl}".`);
-      setLoaded(false);
-    });
-    audioElement.addEventListener("play", () => {
-      setPaused(false);
-      onPlay(sound.id);
-    });
-    audioElement.addEventListener("ended", () => {
-      setPaused(true);
-      onPause(sound.id);
-    });
-    audioElement.addEventListener("pause", () => {
-      setPaused(true);
-      onPause(sound.id);
-    });
-    audioElement.addEventListener("timeupdate", () => {
-      setProgress((audioElement.currentTime / audioElement.duration) * 100);
-    });
+    const eventListeners: { [key: string]: () => void } = {
+      canplaythrough: () => {
+        setLoaded(true);
+        setDuration(audioElement.duration);
+      },
+      error: () => {
+        console.error(`Error loading: "${sound.audioUrl}".`);
+        setLoaded(false);
+      },
+      play: () => {
+        setPaused(false);
+        onPlay(sound.id);
+      },
+      ended: () => {
+        setPaused(true);
+        onPause(sound.id);
+      },
+      pause: () => {
+        setPaused(true);
+        onPause(sound.id);
+      },
+      timeupdate: () => {
+        setProgress((audioElement.currentTime / audioElement.duration) * 100);
+      },
+    };
+    const eventListenerKeys = Object.keys(eventListeners);
+
+    eventListenerKeys.forEach(key =>
+      audioElement.addEventListener(key, eventListeners[key]),
+    );
+
+    return () => {
+      audioElement.pause();
+      eventListenerKeys.forEach(key =>
+        audioElement.removeEventListener(key, eventListeners[key]),
+      );
+    };
   }, [sound]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
