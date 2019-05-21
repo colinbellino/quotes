@@ -19,20 +19,29 @@ type QuoteProps = {
 
 export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {
   const date = dateFormatter.format(new Date(quote.date));
+  const cite = (
+    <>
+      {person && (
+        <Avatar
+          color={person.color}
+          url={person.avatar}
+          alt={`${quote.author}'s avatar`}
+        />
+      )}
+      {`${quote.author} • ${date}`}
+    </>
+  );
 
   return (
     <li key={quote.id} className="Quote">
       <>
         <blockquote>{quote.text}</blockquote>
         <cite>
-          <NavLink to={`/person/${quote.author}`}>
-            <Avatar
-              color={person && person.color}
-              url={person && person.avatar}
-              alt={`${quote.author}'s avatar`}
-            />
-            {` ${quote.author} • ${date}`}
-          </NavLink>
+          {person ? (
+            <NavLink to={`/person/${quote.author}`}>{cite}</NavLink>
+          ) : (
+            cite
+          )}
         </cite>
       </>
     </li>

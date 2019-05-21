@@ -1,1 +1,43 @@
-.PersonPage {}
+.PersonPage {
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* TODO: Move to PersonCard component */
+.PersonCard {
+  display: grid;
+  grid-template-areas:
+    "avatar info"
+    "quotes quotes";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+}
+
+.PersonCard .Avatar {
+  grid-area: avatar;
+  width: 64px;
+  height: 64px;
+}
+
+.PersonCard .Info {
+  grid-area: info;
+  padding: 0 0 0 16px;
+}
+
+.PersonCard h2 {
+  margin: 4px 0;
+  font-size: 1.5rem;
+}
+
+.PersonCard h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.PersonCard ul {
+  grid-area: quotes;
+  margin: 16px 0 0 0;
+  padding: 0;
+}

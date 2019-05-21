@@ -15,14 +15,14 @@ export const quotes: Quote[] = [
   {
     id: "1",
     text: "Vestibulum sed faucibus odio, id rutrum risus.",
-    author: "Valérie",
+    author: "Unknown",
     date: "2019-03-31T22:00:00.000Z",
   },
   {
     id: "2",
     text:
       "Phasellus nunc nibh, convallis ut facilisis cursus, pharetra eget justo.",
-    author: "Colin",
+    author: "Bob",
     date: "2019-03-31T22:00:00.000Z",
   },
   {
@@ -46,7 +46,7 @@ export const quotes: Quote[] = [
   {
     id: "6",
     text: "Nunc purus mi, egestas et ante eget, lobortis rutrum lorem.",
-    author: "Colin",
+    author: "Bob",
     date: "2019-03-31T22:00:00.000Z",
   },
   {
@@ -180,19 +180,19 @@ export const quotes: Quote[] = [
     id: "27",
     text:
       "Praesent vel eros vehicula, consequat odio eget, scelerisque turpis.",
-    author: "Colin",
+    author: "Bob",
     date: "2019-04-09T04:00:00.000Z",
   },
   {
     id: "28",
     text: "Suspendisse eu auctor erat.",
-    author: "Colin",
+    author: "Bob",
     date: "2019-04-09T08:00:00.000Z",
   },
   {
     id: "29",
     text: "Praesent bibendum ultrices placerat.",
-    author: "Colin",
+    author: "Bob",
     date: "2019-04-09T09:00:00.000Z",
   },
   {

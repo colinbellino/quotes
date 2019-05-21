@@ -1,15 +1,17 @@
 import React, { FunctionComponent } from "react";
 import { RouteComponentProps } from "@reach/router";
+import useFetch from "fetch-suspense";
 
-import { persons, Person, Quote } from "data";
-import { Avatar } from "components";
+import { persons, Person, Quote as QuoteModel } from "data";
+import { Avatar, Quote } from "components";
+import { QUOTES_URL } from "config";
 import "./PersonPage.css";
 
 type EnhancedPerson = Person & { id: string };
 
 type PersonPageViewProps = {
   person: EnhancedPerson;
-  quotes?: Quote[];
+  quotes?: QuoteModel[];
 };
 
 export const PersonPageView = ({
@@ -17,30 +19,22 @@ export const PersonPageView = ({
   quotes = [],
 }: PersonPageViewProps) => (
   <main className="PersonPage">
-    <div className="PersonCard">
+    <section className="PersonCard">
       <Avatar
         color={person.color}
         url={person.avatar}
         alt={`${person.id}'s avatar`}
       />
-      <h1>{person.id}</h1>
-      {/* TODO: Get the correct number of quotes and maybe display them below the person card ? */}
-      {/*
-      ---------------------
-      |                   |
-      |   AVATAR & STUFF  |
-      |                   |
-      ---------------------
-      ---------------------
-      |                   |
-      |   QUOTES (XXX)    |
-      |                   |
-      ---------------------
-       */}
-      <div>
-        <b>Quotes ({quotes.length})</b>
+      <div className="Info">
+        <h2>{person.id}</h2>
+        <h3>{`${quotes.length} quote${quotes.length > 1 ? "s" : ""}`}</h3>
       </div>
-    </div>
+      <ul>
+        {quotes.map(quote => (
+          <Quote key={quote.id} quote={quote} />
+        ))}
+      </ul>
+    </section>
   </main>
 );
 
@@ -48,10 +42,14 @@ export const PersonPage: FunctionComponent<
   RouteComponentProps<{ id: string }>
 > = ({ id }) => {
   const person = persons.find(data => data.id === id);
+  const { data: quotes } = useFetch(QUOTES_URL) as {
+    data: QuoteModel[];
+  };
+  const filteredQuotes = quotes.filter(quote => quote.author === id);
 
   if (!person) {
     return <div>Nope</div>;
   }
 
-  return PersonPageView({ person });
+  return PersonPageView({ person, quotes: filteredQuotes });
 };

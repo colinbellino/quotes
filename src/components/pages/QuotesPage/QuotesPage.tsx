@@ -4,9 +4,8 @@ import useFetch from "fetch-suspense";
 
 import { persons, Quote as QuoteModel } from "data";
 import { MainLayout, Quote } from "components";
+import { QUOTES_URL } from "config";
 import "./QuotesPage.css";
-
-const suffix = window.location.hostname === "localhost" ? "-dev" : "";
 
 type QuotesPageViewProps = {
   quotes?: QuoteModel[];
@@ -26,7 +25,7 @@ export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
 );
 
 export const QuotesPage: FunctionComponent<RouteComponentProps> = () => {
-  const { data: quotes } = useFetch("/.netlify/functions/quotes" + suffix) as {
+  const { data: quotes } = useFetch(QUOTES_URL) as {
     data: QuoteModel[];
   };
 

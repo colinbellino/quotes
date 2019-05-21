@@ -1,16 +1,17 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withKnobs, text, color } from "@storybook/addon-knobs";
+import { withKnobs, text, color as colorKnob } from "@storybook/addon-knobs";
 
 import { Avatar } from "components";
+import { persons } from "data";
 
 const stories = storiesOf("Atoms/Avatar", module);
 stories.addDecorator(withKnobs);
 
 stories.add("with knobs", () => {
-  const url = text("URL", "https://api.adorable.io/avatars/285/pouet");
-  const colorr = color("Color", "#F44336");
+  const bob = persons.find(data => data.id === "Bob");
+  const color = colorKnob("Color", bob!.color);
   const alt = text("Alt", "Alternative text");
 
-  return <Avatar url={url} color={colorr} alt={alt} />;
+  return <Avatar url={bob!.avatar} color={color} alt={alt} />;
 });
