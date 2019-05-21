@@ -5,6 +5,8 @@ import parse from "csv-parse/lib/sync";
 const url =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTX-rEV_2QPSPicSDNE_3I5siM_6rPL-UGI112IvTRfCXqcsF4cagiBbq8YxcTHC__hP-RMbZs1rWUc/pub?output=csv";
 
+const headers = { "Content-Type": "application/json" };
+
 export const handler: Handler = async (
   _event: APIGatewayEvent,
   _context: Context,
@@ -29,6 +31,7 @@ export const handler: Handler = async (
 
     callback(null, {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ data }),
     });
   } catch (error) {
@@ -36,6 +39,7 @@ export const handler: Handler = async (
 
     callback(null, {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error }),
     });
   }

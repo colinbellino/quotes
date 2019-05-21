@@ -14,7 +14,7 @@ const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 
 type QuoteProps = {
   quote: QuoteModel;
-  person: Person;
+  person?: Person;
 };
 
 export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {
@@ -27,8 +27,8 @@ export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {
         <cite>
           <NavLink to={`/person/${quote.author}`}>
             <Avatar
-              color={person.color}
-              url={person.avatar}
+              color={person && person.color}
+              url={person && person.avatar}
               alt={`${quote.author}'s avatar`}
             />
             {` ${quote.author} • ${date}`}
