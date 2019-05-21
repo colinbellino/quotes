@@ -22,12 +22,14 @@ export const handler: Handler = async (
     const text = await response.text();
     const records = parse(text);
     const [_head, ...tail] = records;
-    const data = tail.map((record: any, key: string) => ({
-      id: key,
-      text: record[0],
-      author: record[1],
-      date: new Date(record[2]).toISOString(),
-    }));
+    const data = tail
+      .map((record: any, key: string) => ({
+        id: key,
+        text: record[0],
+        author: record[1],
+        date: new Date(record[2]).toISOString(),
+      }))
+      .reverse();
 
     callback(null, {
       statusCode: 200,
