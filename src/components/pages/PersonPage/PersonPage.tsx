@@ -41,15 +41,15 @@ export const PersonPageView = ({
 export const PersonPage: FunctionComponent<
   RouteComponentProps<{ id: string }>
 > = ({ id }) => {
-  const person = persons.find(data => data.id === id);
+  const person = persons.find(data => data.id === id) || {
+    id: id!,
+    avatar: "",
+    color: "",
+  };
   const { data: quotes } = useFetch(QUOTES_URL) as {
     data: QuoteModel[];
   };
   const filteredQuotes = quotes.filter(quote => quote.author === id);
-
-  if (!person) {
-    return <div>Nope</div>;
-  }
 
   return PersonPageView({ person, quotes: filteredQuotes });
 };
