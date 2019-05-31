@@ -16,10 +16,10 @@
   },
   "scripts": {
     "start": "run-p start:**",
-    "start:app": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "start:app": "react-scripts start",
     "start:lambda": "netlify-lambda serve src/lambda",
     "build": "run-p build:**",
-    "build:app": "SKIP_PREFLIGHT_CHECK=true react-scripts build && yarn build:sw",
+    "build:app": "react-scripts build && yarn build:sw",
     "build:sw": "sw-precache --config=sw-precache-config.js",
     "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",
@@ -55,7 +55,7 @@
     "@types/storybook__addon-knobs": "^5.0.0",
     "@types/storybook__react": "^4.0.1",
     "aws-lambda": "^0.1.2",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "8.0.5",
     "http-proxy-middleware": "^0.19.1",
     "npm-run-all": "^4.1.5",
     "sw-precache": "^5.2.1"
