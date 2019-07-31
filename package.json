@@ -44,7 +44,7 @@
     "@storybook/addon-knobs": "^5.1.10",
     "@storybook/addon-links": "5.1.10",
     "@storybook/addons": "5.1.10",
-    "@storybook/react": "5.1.4",
+    "@storybook/react": "5.1.10",
     "@types/aws-lambda": "^8.10.25",
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.2",
