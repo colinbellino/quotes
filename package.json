@@ -42,7 +42,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@storybook/addon-actions": "5.2.2",
     "@storybook/addon-knobs": "^5.2.2",
-    "@storybook/addon-links": "5.2.0",
+    "@storybook/addon-links": "5.2.2",
     "@storybook/addons": "5.2.0",
     "@storybook/react": "5.2.0",
     "@types/aws-lambda": "^8.10.25",
