@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.4",
     "@reach/router": "^1.2.1",
-    "csv-parse": "^4.4.1",
+    "csv-parse": "^4.4.6",
     "fetch-suspense": "^1.1.0",
     "netlify-lambda": "^1.4.9",
     "node-fetch": "^2.6.0",
