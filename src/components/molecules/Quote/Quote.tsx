@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { Person, Quote as QuoteModel } from "data";
+import { Person as PersonModel, Quote as QuoteModel } from "data";
 import { NavLink, Avatar } from "components";
 import "./Quote.css";
 
@@ -14,7 +14,7 @@ const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 
 type QuoteProps = {
   quote: QuoteModel;
-  person?: Person;
+  person?: PersonModel;
 };
 
 export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {

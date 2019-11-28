@@ -1,8 +1,8 @@
 import { Handler, Context, Callback, APIGatewayEvent } from "aws-lambda";
 
-import { quotes } from "../data/quotes";
+import { persons, quotes } from "../data";
 
-const body = { data: quotes };
+const body = { data: { persons, quotes } };
 
 export const handler: Handler = (
   _event: APIGatewayEvent,

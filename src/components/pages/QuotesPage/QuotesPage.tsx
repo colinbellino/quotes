@@ -2,16 +2,20 @@ import React, { FunctionComponent } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useFetch from "fetch-suspense";
 
-import { persons, Quote as QuoteModel } from "data";
+import { Person as PersonModel, Quote as QuoteModel } from "data";
 import { MainLayout, Quote } from "components";
 import { QUOTES_URL } from "config";
 import "./QuotesPage.css";
 
 type QuotesPageViewProps = {
   quotes?: QuoteModel[];
+  persons?: PersonModel[];
 };
 
-export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
+export const QuotesPageView = ({
+  persons = [],
+  quotes = [],
+}: QuotesPageViewProps) => (
   <MainLayout>
     <main>
       <ul className="QuotesPage">
@@ -25,9 +29,14 @@ export const QuotesPageView = ({ quotes = [] }: QuotesPageViewProps) => (
 );
 
 export const QuotesPage: FunctionComponent<RouteComponentProps> = () => {
-  const { data: quotes } = useFetch(QUOTES_URL) as {
-    data: QuoteModel[];
+  const {
+    data: { quotes, persons },
+  } = useFetch(QUOTES_URL) as {
+    data: {
+      quotes: QuoteModel[];
+      persons: PersonModel[];
+    };
   };
 
-  return QuotesPageView({ quotes: quotes });
+  return QuotesPageView({ quotes, persons });
 };

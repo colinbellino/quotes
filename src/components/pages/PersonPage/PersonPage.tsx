@@ -38,9 +38,9 @@ export const PersonPageView = ({
   </main>
 );
 
-export const PersonPage: FunctionComponent<
-  RouteComponentProps<{ id: string }>
-> = ({ id }) => {
+export const PersonPage: FunctionComponent<RouteComponentProps<{
+  id: string;
+}>> = ({ id }) => {
   const person = persons.find(data => data.id === id) || {
     id: id!,
     avatar: "",
