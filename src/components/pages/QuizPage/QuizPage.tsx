@@ -51,18 +51,20 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
       persons: PersonModel[];
     };
   };
+
   const answerDuration = 1500;
   const getRandomQuote = () => suffle(quotes)[0];
-  const onSuccess = () => {
-    setStatus("✅");
-    setQuote(getRandomQuote());
+  const setStatusWithTimeout = (status: string) => {
+    setStatus(status);
 
-    setTimeout(() => {
-      setStatus(undefined);
-    }, answerDuration);
+    setTimeout(() => setStatus(undefined), answerDuration);
+  };
+  const onSuccess = () => {
+    setStatusWithTimeout("✅");
+    setQuote(getRandomQuote());
   };
   const onFail = () => {
-    setStatus("❌");
+    setStatusWithTimeout("❌");
   };
 
   const [quote, setQuote] = useState(getRandomQuote());
