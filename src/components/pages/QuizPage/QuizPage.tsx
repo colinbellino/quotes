@@ -10,6 +10,7 @@ import "./QuizPage.css";
 type QuizPageViewProps = {
   quote: QuoteModel;
   persons?: PersonModel[];
+  status?: string;
   onSuccess?: () => void;
   onFail?: () => void;
 };
@@ -17,6 +18,7 @@ type QuizPageViewProps = {
 export const QuizPageView = ({
   quote,
   persons = [],
+  status,
   onSuccess = () => {},
   onFail = () => {},
 }: QuizPageViewProps) => {
@@ -33,6 +35,7 @@ export const QuizPageView = ({
       <QuizCard
         quote={quote}
         persons={persons}
+        status={status}
         onSelectPerson={onSelectPerson}
       />
     </main>
@@ -48,23 +51,24 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
       persons: PersonModel[];
     };
   };
-  const randomQuote = suffle(quotes)[0];
-
-  const [key, setKey] = useState();
+  const answerDuration = 1500;
+  const getRandomQuote = () => suffle(quotes)[0];
   const onSuccess = () => {
-    alert("🎉");
-    setKey(Math.random());
+    setStatus("✅");
+    setQuote(getRandomQuote());
+
+    setTimeout(() => {
+      setStatus(undefined);
+    }, answerDuration);
   };
   const onFail = () => {
-    alert("💔");
-    setKey(Math.random());
+    setStatus("❌");
   };
 
-  return (
-    <div key={key}>
-      {QuizPageView({ persons, quote: randomQuote, onSuccess, onFail })}
-    </div>
-  );
+  const [quote, setQuote] = useState(getRandomQuote());
+  const [status, setStatus] = useState<string | undefined>();
+
+  return QuizPageView({ persons, quote, status, onSuccess, onFail });
 };
 
 function suffle(list: any[]) {

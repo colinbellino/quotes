@@ -8,16 +8,18 @@ import "./QuizCard.css";
 type QuizCardProps = {
   quote: QuoteModel;
   persons: PersonModel[];
+  status?: string;
   onSelectPerson?: (person: PersonModel) => void;
 };
 
 export const QuizCard: FunctionComponent<QuizCardProps> = ({
   quote,
   persons,
+  status,
   onSelectPerson = () => {},
 }) => (
   <section className="QuizCard">
-    <h1>Who said that ?</h1>
+    <h1>Who said that ? {status && <span>{status}</span>}</h1>
     <Quote quote={quote} interactive={false} />
     <ul>
       {persons.map(person => (
