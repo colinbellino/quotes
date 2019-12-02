@@ -8,31 +8,29 @@ import { QUOTES_URL } from "config";
 import "./QuizPage.css";
 
 type QuizPageViewProps = {
-  key: string;
   quote: QuoteModel;
   persons?: PersonModel[];
-  onAnswer?: () => void;
+  onSuccess?: () => void;
+  onFail?: () => void;
 };
 
 export const QuizPageView = ({
-  key,
   quote,
   persons = [],
-  onAnswer = () => {},
+  onSuccess = () => {},
+  onFail = () => {},
 }: QuizPageViewProps) => {
   const onSelectPerson = (person: PersonModel) => {
     if (person.id === quote.author) {
-      alert("Yusss!");
+      onSuccess();
     } else {
-      alert("Nope!");
+      onFail();
     }
-    onAnswer();
   };
 
   return (
     <main className="QuizPage">
       <QuizCard
-        key={key}
         quote={quote}
         persons={persons}
         onSelectPerson={onSelectPerson}
@@ -53,11 +51,20 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   const randomQuote = suffle(quotes)[0];
 
   const [key, setKey] = useState();
-  const onAnswer = () => {
+  const onSuccess = () => {
+    alert("🎉");
+    setKey(Math.random());
+  };
+  const onFail = () => {
+    alert("💔");
     setKey(Math.random());
   };
 
-  return QuizPageView({ key, persons, quote: randomQuote, onAnswer });
+  return (
+    <div key={key}>
+      {QuizPageView({ persons, quote: randomQuote, onSuccess, onFail })}
+    </div>
+  );
 };
 
 function suffle(list: any[]) {

@@ -13,14 +13,16 @@ stories.add("with knobs", () => {
   const key = "hi";
   const quote = object("Quote", quotesData[0]);
   const persons = object("Persons", personsData);
-  const onAnswer = action("onAnswer");
+  const onSuccess = action("onSuccess");
+  const onFail = action("onFail");
 
   return (
     <QuizPageView
       key={key}
       quote={quote}
       persons={persons}
-      onAnswer={onAnswer}
+      onSuccess={onSuccess}
+      onFail={onFail}
     />
   );
 });
