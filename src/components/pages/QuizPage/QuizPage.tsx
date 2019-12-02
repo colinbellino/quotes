@@ -52,25 +52,40 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
     };
   };
 
+  const filteredQuotes = quotes.filter(quote => quote.author !== "Anonymous");
+  const filteredPersons = persons.filter(person => person.id !== "Anonymous");
   const answerDuration = 1500;
-  const getRandomQuote = () => suffle(quotes)[0];
-  const setStatusWithTimeout = (status: string) => {
-    setStatus(status);
-
-    setTimeout(() => setStatus(undefined), answerDuration);
-  };
-  const onSuccess = () => {
-    setStatusWithTimeout("✅");
-    setQuote(getRandomQuote());
-  };
-  const onFail = () => {
-    setStatusWithTimeout("❌");
-  };
-
   const [quote, setQuote] = useState(getRandomQuote());
   const [status, setStatus] = useState<string | undefined>();
 
-  return QuizPageView({ persons, quote, status, onSuccess, onFail });
+  function getRandomQuote() {
+    return suffle(filteredQuotes)[0];
+  }
+
+  function setStatusWithTimeout(status: string) {
+    setStatus(status);
+
+    setTimeout(() => {
+      setStatus(undefined);
+    }, answerDuration);
+  }
+
+  function onSuccess() {
+    setStatusWithTimeout("✅");
+    setQuote(getRandomQuote());
+  }
+
+  function onFail() {
+    setStatusWithTimeout("❌");
+  }
+
+  return QuizPageView({
+    persons: filteredPersons,
+    quote,
+    status,
+    onSuccess,
+    onFail,
+  });
 };
 
 function suffle(list: any[]) {
