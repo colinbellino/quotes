@@ -21,7 +21,12 @@ export const QuotesPageView = ({
       <ul className="QuotesPage">
         {quotes.map(quote => {
           const person = persons.find(data => data.id === quote.author);
-          return <Quote key={quote.id} quote={quote} person={person!} />;
+
+          return (
+            <li key={quote.id}>
+              <Quote quote={quote} person={person!} />
+            </li>
+          );
         })}
       </ul>
     </main>

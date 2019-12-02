@@ -21,24 +21,22 @@ export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {
   const date = dateFormatter.format(new Date(quote.date));
 
   return (
-    <li key={quote.id} className="Quote">
-      <>
-        <blockquote>{quote.text}</blockquote>
-        <cite>
-          <NavLink to={`/person/${quote.author}`}>
-            <>
-              {person && (
-                <Avatar
-                  color={person.color}
-                  url={person.avatar}
-                  alt={`${quote.author}'s avatar`}
-                />
-              )}
-              {`${quote.author} • ${date}`}
-            </>
-          </NavLink>
-        </cite>
-      </>
-    </li>
+    <div className="Quote">
+      <blockquote>{quote.text}</blockquote>
+      <cite>
+        <NavLink to={`/person/${quote.author}`}>
+          <>
+            {person && (
+              <Avatar
+                color={person.color}
+                url={person.avatar}
+                alt={`${quote.author}'s avatar`}
+              />
+            )}
+            {`${quote.author} • ${date}`}
+          </>
+        </NavLink>
+      </cite>
+    </div>
   );
 };

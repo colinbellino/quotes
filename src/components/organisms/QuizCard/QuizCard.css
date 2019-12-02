@@ -1,0 +1,19 @@
+.QuizCard {
+  padding: 16px;
+}
+
+.QuizCard .Quote {
+  padding: 0;
+}
+
+.QuizCard ul {
+  display: grid;
+  margin: 32px 0 0 0;
+  padding: 0;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 16px;
+}
+
+.QuizCard li {
+  list-style: none;
+}

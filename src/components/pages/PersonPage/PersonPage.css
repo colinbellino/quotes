@@ -1,16 +1,18 @@
 .PersonPage {
-  padding: 16px;
   color: rgba(0, 0, 0, 0.8);
 }
 
 /* TODO: Move to PersonCard component */
-.PersonCard {
+.PersonCard {}
+
+.PersonCard header {
   display: grid;
   grid-template-areas:
     "avatar info"
     "quotes quotes";
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
+  padding: 16px;
 }
 
 .PersonCard .Avatar {
@@ -38,6 +40,5 @@
 
 .PersonCard ul {
   grid-area: quotes;
-  margin: 16px 0 0 0;
   padding: 0;
 }
