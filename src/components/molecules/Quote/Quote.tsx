@@ -15,27 +15,36 @@ const dateFormatter = new Intl.DateTimeFormat(locale, dateFormat);
 type QuoteProps = {
   quote: QuoteModel;
   person?: PersonModel;
+  interactive?: boolean;
 };
 
-export const Quote: FunctionComponent<QuoteProps> = ({ quote, person }) => {
+export const Quote: FunctionComponent<QuoteProps> = ({
+  quote,
+  person,
+  interactive = true,
+}) => {
   const date = dateFormatter.format(new Date(quote.date));
 
   return (
-    <div className="Quote">
+    <div className={`Quote ${interactive && "interactive"}`}>
       <blockquote>{quote.text}</blockquote>
       <cite>
-        <NavLink to={`/person/${quote.author}`}>
-          <>
-            {person && (
-              <Avatar
-                color={person.color}
-                url={person.avatar}
-                alt={`${quote.author}'s avatar`}
-              />
-            )}
-            {`${quote.author} • ${date}`}
-          </>
-        </NavLink>
+        {person ? (
+          <NavLink to={`/person/${quote.author}`}>
+            <>
+              {person && (
+                <Avatar
+                  color={person.color}
+                  url={person.avatar}
+                  alt={`${quote.author}'s avatar`}
+                />
+              )}
+              {`${quote.author} • ${date}`}
+            </>
+          </NavLink>
+        ) : (
+          date
+        )}
       </cite>
     </div>
   );

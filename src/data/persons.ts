@@ -70,4 +70,9 @@ export const persons: Person[] = [
     color: "#2D334A",
     avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UQRG6JHKN-bef37b678641-120",
   },
+  {
+    id: "Anonymous",
+    color: "#000000",
+    avatar: "",
+  },
 ];

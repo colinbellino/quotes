@@ -1,0 +1,17 @@
+.Tooltip {
+  position: relative;
+}
+
+.Tooltip .Content {
+  display: none;
+  position: absolute;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  padding: 8px 12px;
+  top: 54px;
+}
+
+.Tooltip:hover .Content {
+  display: block;
+}

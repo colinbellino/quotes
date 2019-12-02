@@ -15,7 +15,7 @@ export const quotes: Quote[] = [
   {
     id: "1",
     text: "Vestibulum sed faucibus odio, id rutrum risus.",
-    author: "Unknown",
+    author: "Anonymous",
     date: "2019-03-31T22:00:00.000Z",
   },
   {

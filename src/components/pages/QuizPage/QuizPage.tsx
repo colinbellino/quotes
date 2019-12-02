@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useFetch from "fetch-suspense";
 
@@ -8,14 +8,35 @@ import { QUOTES_URL } from "config";
 import "./QuizPage.css";
 
 type QuizPageViewProps = {
+  key: string;
   quote: QuoteModel;
   persons?: PersonModel[];
+  onAnswer?: () => void;
 };
 
-export const QuizPageView = ({ quote, persons = [] }: QuizPageViewProps) => {
+export const QuizPageView = ({
+  key,
+  quote,
+  persons = [],
+  onAnswer = () => {},
+}: QuizPageViewProps) => {
+  const onSelectPerson = (person: PersonModel) => {
+    if (person.id === quote.author) {
+      alert("Yusss!");
+    } else {
+      alert("Nope!");
+    }
+    onAnswer();
+  };
+
   return (
     <main className="QuizPage">
-      <QuizCard quote={quote} persons={persons} />
+      <QuizCard
+        key={key}
+        quote={quote}
+        persons={persons}
+        onSelectPerson={onSelectPerson}
+      />
     </main>
   );
 };
@@ -31,7 +52,12 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   };
   const randomQuote = suffle(quotes)[0];
 
-  return QuizPageView({ persons, quote: randomQuote });
+  const [key, setKey] = useState();
+  const onAnswer = () => {
+    setKey(Math.random());
+  };
+
+  return QuizPageView({ key, persons, quote: randomQuote, onAnswer });
 };
 
 function suffle(list: any[]) {
