@@ -13,66 +13,79 @@ export const persons: Person[] = [
   {
     id: "Cédric",
     color: "#F50057",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UA7TTD0BD-ga403e40113b-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=C&background=F50057&color=ffffff",
   },
   {
     id: "Colin",
     color: "#651FFF",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UD0GHUHBR-d5960196159c-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=C&background=651FFF&color=ffffff",
   },
   {
     id: "David",
     color: "#3D5AFE",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UH25TVDB4-8a8b8bb6b26e-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=D&background=3D5AFE&color=ffffff",
   },
   {
     id: "Julie",
     color: "#42A5F5",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-U830H23DJ-c34ef65daf1f-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=J&background=42A5F5&color=ffffff",
   },
   {
     id: "Julien",
     color: "#26A69A",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UF7ALEVQQ-g8913afed5a7-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=J&background=26A69A&color=ffffff",
   },
   {
     id: "Rudy",
     color: "#8BC34A",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-U9VC2SD2M-337efcaf401d-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=R&background=8BC34A&color=ffffff",
   },
   {
     id: "Valérie",
     color: "#546E7A",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UGMH3BV1V-g14ffeaeddec-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=V&background=546E7A&color=ffffff",
   },
   {
     id: "Wolfgang",
     color: "#8D6E63",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UCL8TF62H-350ba56bac47-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=W&background=8D6E63&color=ffffff",
   },
   {
     id: "Thaïs",
     color: "#FF9100",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UCB0RPYRX-88269b24a0f5-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=T&background=FF9100&color=ffffff",
   },
   {
     id: "Ricardo",
     color: "#78909C",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UMMEHMBD2-0f774b706011-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=R&background=78909C&color=ffffff",
   },
   {
     id: "Céline",
     color: "#146616",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UM5RS7BDL-39ef555ff6e6-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=C&background=146616&color=ffffff",
   },
   {
     id: "Emmanuel",
     color: "#2D334A",
-    avatar: "https://ca.slack-edge.com/T6K4Y3HD2-UQRG6JHKN-bef37b678641-120",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=E&background=2D334A&color=ffffff",
   },
   {
     id: "Anonymous",
     color: "#000000",
-    avatar: "",
+    avatar:
+      "https://eu.ui-avatars.com/api/?name=A&background=000000&color=ffffff",
   },
 ];
