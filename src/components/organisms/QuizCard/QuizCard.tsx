@@ -8,27 +8,38 @@ import "./QuizCard.css";
 type QuizCardProps = {
   quote: QuoteModel;
   persons: PersonModel[];
-  status?: string;
+  guesses?: string[];
   onSelectPerson?: (person: PersonModel) => void;
 };
 
 export const QuizCard: FunctionComponent<QuizCardProps> = ({
   quote,
   persons,
-  status,
+  guesses = [],
   onSelectPerson = () => {},
 }) => (
   <section className="QuizCard">
-    <h1>Who said that ? {status && <span>{status}</span>}</h1>
+    <h1>Who said that ?</h1>
     <Quote quote={quote} interactive={false} />
     <ul>
-      {persons.map(person => (
-        <li key={person.id} onClick={() => onSelectPerson(person)}>
-          <Tooltip content={person.id}>
-            <Avatar url={person.avatar} color={person.color} alt={person.id} />
-          </Tooltip>
-        </li>
-      ))}
+      {persons.map(person => {
+        const isGuess = guesses.includes(person.id);
+        const isAnswer = person.id === quote.author;
+        const resultClass = isGuess && (isAnswer ? "Success" : "Failure");
+
+        return (
+          <li key={person.id} onClick={() => onSelectPerson(person)}>
+            <Tooltip content={person.id}>
+              <Avatar
+                url={person.avatar}
+                color={person.color}
+                alt={person.id}
+              />
+              <div className={`Result ${resultClass}`} />
+            </Tooltip>
+          </li>
+        );
+      })}
     </ul>
   </section>
 );

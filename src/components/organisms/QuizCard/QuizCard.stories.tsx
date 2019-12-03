@@ -12,9 +12,15 @@ stories.addDecorator(withKnobs);
 stories.add("with knobs", () => {
   const quote = object("Quote", quotesData[0]);
   const persons = object("Persons", personsData);
+  const guesses = object("Guesses", ["Bob", "Colin", "Julie"]);
   const onSelectPerson = action("onSelectPerson");
 
   return (
-    <QuizCard quote={quote} persons={persons} onSelectPerson={onSelectPerson} />
+    <QuizCard
+      quote={quote}
+      persons={persons}
+      guesses={guesses}
+      onSelectPerson={onSelectPerson}
+    />
   );
 });

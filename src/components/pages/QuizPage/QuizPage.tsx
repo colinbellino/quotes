@@ -10,24 +10,18 @@ import "./QuizPage.css";
 type QuizPageViewProps = {
   quote: QuoteModel;
   persons?: PersonModel[];
-  status?: string;
-  onSuccess?: () => void;
-  onFail?: () => void;
+  guesses?: string[];
+  onAnswer?: (person: PersonModel) => void;
 };
 
 export const QuizPageView = ({
   quote,
   persons = [],
-  status,
-  onSuccess = () => {},
-  onFail = () => {},
+  guesses = [],
+  onAnswer = () => {},
 }: QuizPageViewProps) => {
   const onSelectPerson = (person: PersonModel) => {
-    if (person.id === quote.author) {
-      onSuccess();
-    } else {
-      onFail();
-    }
+    onAnswer(person);
   };
 
   return (
@@ -35,7 +29,7 @@ export const QuizPageView = ({
       <QuizCard
         quote={quote}
         persons={persons}
-        status={status}
+        guesses={guesses}
         onSelectPerson={onSelectPerson}
       />
     </main>
@@ -54,37 +48,30 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
 
   const filteredQuotes = quotes.filter(quote => quote.author !== "Anonymous");
   const filteredPersons = persons.filter(person => person.id !== "Anonymous");
-  const answerDuration = 1500;
+  const answerDuration = 1000;
   const [quote, setQuote] = useState(getRandomQuote());
-  const [status, setStatus] = useState<string | undefined>();
+  const [guesses, setGuesses] = useState<string[]>([]);
 
   function getRandomQuote() {
     return suffle(filteredQuotes)[0];
   }
 
-  function setStatusWithTimeout(status: string) {
-    setStatus(status);
+  function onAnswer(person: PersonModel) {
+    setGuesses([...guesses, person.id]);
 
-    setTimeout(() => {
-      setStatus(undefined);
-    }, answerDuration);
-  }
-
-  function onSuccess() {
-    setStatusWithTimeout("✅");
-    setQuote(getRandomQuote());
-  }
-
-  function onFail() {
-    setStatusWithTimeout("❌");
+    if (person.id === quote.author) {
+      setTimeout(() => {
+        setQuote(getRandomQuote());
+        setGuesses([]);
+      }, answerDuration);
+    }
   }
 
   return QuizPageView({
     persons: filteredPersons,
     quote,
-    status,
-    onSuccess,
-    onFail,
+    guesses,
+    onAnswer,
   });
 };
 

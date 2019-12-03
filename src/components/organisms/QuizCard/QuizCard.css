@@ -16,5 +16,23 @@
 }
 
 .QuizCard li {
+  position: relative;
   list-style: none;
+}
+
+.Result {
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  font-size: 1.2em;
+}
+
+.Result.Success:before {
+  content: '✓';
+  color: green;
+}
+
+.Result.Failure:before {
+  content: '✗';
+  color: red;
 }

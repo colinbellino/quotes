@@ -10,19 +10,9 @@ const stories = storiesOf("Pages/Quiz", module);
 stories.addDecorator(withKnobs);
 
 stories.add("with knobs", () => {
-  const key = "hi";
   const quote = object("Quote", quotesData[0]);
   const persons = object("Persons", personsData);
-  const onSuccess = action("onSuccess");
-  const onFail = action("onFail");
+  const onAnswer = action("onAnswer");
 
-  return (
-    <QuizPageView
-      key={key}
-      quote={quote}
-      persons={persons}
-      onSuccess={onSuccess}
-      onFail={onFail}
-    />
-  );
+  return <QuizPageView quote={quote} persons={persons} onAnswer={onAnswer} />;
 });

@@ -26,3 +26,6 @@ yarn-error.log*
 
 .history
 .vscode
+
+# Local Netlify folder
+.netlify
