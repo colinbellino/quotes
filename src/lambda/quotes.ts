@@ -2,11 +2,8 @@ import { Handler, Context, Callback, APIGatewayEvent } from "aws-lambda";
 import fetch from "node-fetch";
 import parse from "csv-parse/lib/sync";
 
-const quotesURL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTX-rEV_2QPSPicSDNE_3I5siM_6rPL-UGI112IvTRfCXqcsF4cagiBbq8YxcTHC__hP-RMbZs1rWUc/pub?output=csv";
-const personsURL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTX-rEV_2QPSPicSDNE_3I5siM_6rPL-UGI112IvTRfCXqcsF4cagiBbq8YxcTHC__hP-RMbZs1rWUc/pub?output=csv&gid=1425935995";
-
+const quotesURL = process.env.QUOTES_URL!;
+const personsURL = process.env.PERSONS_URL!;
 const headers = { "Content-Type": "application/json" };
 
 export const handler: Handler = async (
