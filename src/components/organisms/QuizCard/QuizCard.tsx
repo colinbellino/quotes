@@ -35,6 +35,8 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
                 color={person.color}
                 alt={person.id}
               />
+              {/* TODO: Style this */}
+              <div>{person.id}</div>
               <div className={`Result ${resultClass}`} />
             </Tooltip>
           </li>

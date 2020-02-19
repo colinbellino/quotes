@@ -1,87 +1,88 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useReducer } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useFetch from "fetch-suspense";
+import { take, propEq, reject } from "ramda";
 
 import { Person as PersonModel, Quote as QuoteModel } from "data";
-import { QuizCard } from "components";
 import { QUOTES_URL } from "config";
-import "./QuizPage.css";
+import { shuffle } from "shuffle";
+import { QuizPageView } from "components";
 
-type QuizPageViewProps = {
-  quote: QuoteModel;
-  persons?: PersonModel[];
-  guesses?: string[];
-  onAnswer?: (person: PersonModel) => void;
-};
-
-export const QuizPageView = ({
-  quote,
-  persons = [],
-  guesses = [],
-  onAnswer = () => {},
-}: QuizPageViewProps) => {
-  const onSelectPerson = (person: PersonModel) => {
-    onAnswer(person);
+type FetchResult = {
+  data: {
+    quotes: QuoteModel[];
+    persons: PersonModel[];
   };
-
-  return (
-    <main className="QuizPage">
-      <QuizCard
-        quote={quote}
-        persons={persons}
-        guesses={guesses}
-        onSelectPerson={onSelectPerson}
-      />
-    </main>
-  );
 };
 
 export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   const {
-    data: { persons, quotes },
-  } = useFetch(QUOTES_URL) as {
-    data: {
-      quotes: QuoteModel[];
-      persons: PersonModel[];
-    };
-  };
+    data: { persons: allPersons, quotes: allQuotes },
+  } = useFetch(QUOTES_URL) as FetchResult;
+  const persons = reject(isPerson("Anonymous"), allPersons);
+  const quotes = reject(isAuthor("Anonymous"), allQuotes);
+  const [state, dispatch] = useReducer(reducer, getInitialState());
 
-  const filteredQuotes = quotes.filter(quote => quote.author !== "Anonymous");
-  const filteredPersons = persons.filter(person => person.id !== "Anonymous");
   const answerDuration = 1000;
-  const [quote, setQuote] = useState(getRandomQuote());
-  const [guesses, setGuesses] = useState<string[]>([]);
 
-  function getRandomQuote() {
-    return suffle(filteredQuotes)[0];
+  function getInitialState(): State {
+    const quote = shuffle(quotes)[0];
+    const validAnswer = persons.find(isPerson(quote.author))!;
+    const choices: PersonModel[] = [
+      validAnswer,
+      ...getInvalidChoices(quote.author, 2),
+    ];
+
+    return { quote, choices };
   }
 
-  function onAnswer(person: PersonModel) {
-    setGuesses([...guesses, person.id]);
+  function getInvalidChoices(author: string, count: number) {
+    const invalidAnswers = shuffle(reject(isPerson(author))(persons));
+    return take(count, invalidAnswers);
+  }
 
-    if (person.id === quote.author) {
-      setTimeout(() => {
-        setQuote(getRandomQuote());
-        setGuesses([]);
-      }, answerDuration);
+  function isValidChoice(person: PersonModel) {
+    return state.quote.author === person.id;
+  }
+
+  function onAnswer(guess: PersonModel) {
+    console.log(`FIXME: Do something ${state.quote.author} --> ${guess.id}`);
+
+    if (isValidChoice(guess)) {
+      console.log("yay");
+    } else {
+      console.log("nay");
     }
+    // setGuesses([...choices, person.id]);
+
+    // if (person.id === quote.author) {
+    //   setTimeout(() => {
+    //     const randomQuote = shuffledQuotes[0];
+    //     const randomAnswers = [
+    //       shuffle(persons.find(person => person.id === randomQuote.author)),
+    //     ];
+    //     setAnswers(answers);
+    //     setQuote(randomQuote);
+    //     setGuesses([]);
+    //   }, answerDuration);
+    // }
   }
 
   return QuizPageView({
-    persons: filteredPersons,
-    quote,
-    guesses,
+    quote: state.quote,
+    choices: state.choices,
     onAnswer,
   });
 };
 
-function suffle(list: any[]) {
-  const copy = [...list];
+type State = {
+  quote: QuoteModel;
+  choices: PersonModel[];
+};
 
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-
-  return copy;
+function reducer(state: State): State {
+  return state;
 }
+
+const isPerson = propEq("id");
+const isAuthor = propEq("author");

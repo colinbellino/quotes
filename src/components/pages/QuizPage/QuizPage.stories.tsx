@@ -11,8 +11,8 @@ stories.addDecorator(withKnobs);
 
 stories.add("with knobs", () => {
   const quote = object("Quote", quotesData[0]);
-  const persons = object("Persons", personsData);
+  const choices = object("Choices", personsData);
   const onAnswer = action("onAnswer");
 
-  return <QuizPageView quote={quote} persons={persons} onAnswer={onAnswer} />;
+  return <QuizPageView quote={quote} choices={choices} onAnswer={onAnswer} />;
 });
