@@ -1,87 +1,96 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useReducer } from "react";
 import { RouteComponentProps } from "@reach/router";
 import useFetch from "fetch-suspense";
+import { take, propEq, reject } from "ramda";
 
 import { Person as PersonModel, Quote as QuoteModel } from "data";
-import { QuizCard } from "components";
 import { QUOTES_URL } from "config";
-import "./QuizPage.css";
+import { shuffle } from "shuffle";
+import { QuizPageView } from "components";
 
-type QuizPageViewProps = {
-  quote: QuoteModel;
-  persons?: PersonModel[];
-  guesses?: string[];
-  onAnswer?: (person: PersonModel) => void;
-};
-
-export const QuizPageView = ({
-  quote,
-  persons = [],
-  guesses = [],
-  onAnswer = () => {},
-}: QuizPageViewProps) => {
-  const onSelectPerson = (person: PersonModel) => {
-    onAnswer(person);
+type FetchResult = {
+  data: {
+    quotes: QuoteModel[];
+    persons: PersonModel[];
   };
-
-  return (
-    <main className="QuizPage">
-      <QuizCard
-        quote={quote}
-        persons={persons}
-        guesses={guesses}
-        onSelectPerson={onSelectPerson}
-      />
-    </main>
-  );
 };
 
 export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   const {
-    data: { persons, quotes },
-  } = useFetch(QUOTES_URL) as {
-    data: {
-      quotes: QuoteModel[];
-      persons: PersonModel[];
-    };
-  };
+    data: { persons: allPersons, quotes: allQuotes },
+  } = useFetch(QUOTES_URL) as FetchResult;
+  const persons = reject(isPerson("Anonymous"), allPersons);
+  const quotes = reject(isAuthor("Anonymous"), allQuotes);
+  const [{ quote, choices, guesses }, dispatch] = useReducer(
+    reducer,
+    getInitialState(),
+  );
 
-  const filteredQuotes = quotes.filter(quote => quote.author !== "Anonymous");
-  const filteredPersons = persons.filter(person => person.id !== "Anonymous");
-  const answerDuration = 1000;
-  const [quote, setQuote] = useState(getRandomQuote());
-  const [guesses, setGuesses] = useState<string[]>([]);
+  function getInitialState(): State {
+    const quote = shuffle(quotes)[0];
+    const validAnswer = persons.find(isPerson(quote.author))!;
+    const choices: PersonModel[] = [
+      validAnswer,
+      ...getInvalidChoices(quote.author, 2),
+    ];
+    const guesses: string[] = [];
 
-  function getRandomQuote() {
-    return suffle(filteredQuotes)[0];
+    return { quote, choices, guesses };
   }
 
-  function onAnswer(person: PersonModel) {
-    setGuesses([...guesses, person.id]);
+  function getInvalidChoices(author: string, count: number) {
+    const invalidAnswers = shuffle(reject(isPerson(author))(persons));
+    return take(count, invalidAnswers);
+  }
 
-    if (person.id === quote.author) {
-      setTimeout(() => {
-        setQuote(getRandomQuote());
-        setGuesses([]);
-      }, answerDuration);
+  function isValidChoice(person: PersonModel) {
+    return quote.author === person.id;
+  }
+
+  function onAnswer(guess: PersonModel) {
+    if (isValidChoice(guess)) {
+      nextQuote();
+    } else {
+      if (guesses.length >= choices.length - 1) {
+        nextQuote();
+      }
+
+      if (guesses.includes(guess.id) === false) {
+        dispatch({ type: "SELECT_GUESS", guess: guess.id });
+      }
     }
   }
 
-  return QuizPageView({
-    persons: filteredPersons,
-    quote,
-    guesses,
-    onAnswer,
-  });
-};
-
-function suffle(list: any[]) {
-  const copy = [...list];
-
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+  function nextQuote() {
+    dispatch({ type: "RESET", state: getInitialState() });
   }
 
-  return copy;
+  return QuizPageView({ quote, choices, onAnswer, guesses });
+};
+
+type State = {
+  quote: QuoteModel;
+  choices: PersonModel[];
+  guesses: string[];
+};
+
+type Dispatch =
+  | {
+      type: "SELECT_GUESS";
+      guess: string;
+    }
+  | { type: "RESET"; state: State };
+
+function reducer(state: State, action: Dispatch): State {
+  switch (action.type) {
+    case "SELECT_GUESS":
+      return { ...state, guesses: [...state.guesses, action.guess] };
+    case "RESET":
+      return { ...action.state };
+    default:
+      return state;
+  }
 }
+
+const isPerson = propEq("id");
+const isAuthor = propEq("author");

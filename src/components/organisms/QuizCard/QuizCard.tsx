@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 
 import { Person as PersonModel, Quote as QuoteModel } from "data";
 import { Quote, Avatar } from "components";
-import { Tooltip } from "./Tooltip";
 import "./QuizCard.css";
 
 type QuizCardProps = {
@@ -19,7 +18,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
   onSelectPerson = () => {},
 }) => (
   <section className="QuizCard">
-    <h1>Who said that ?</h1>
+    <h1>Qui a dit ?</h1>
     <Quote quote={quote} interactive={false} />
     <ul>
       {persons.map(person => {
@@ -29,14 +28,9 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
 
         return (
           <li key={person.id} onClick={() => onSelectPerson(person)}>
-            <Tooltip content={person.id}>
-              <Avatar
-                url={person.avatar}
-                color={person.color}
-                alt={person.id}
-              />
-              <div className={`Result ${resultClass}`} />
-            </Tooltip>
+            <Avatar url={person.avatar} color={person.color} alt={person.id} />
+            <div>{person.id}</div>
+            <div className={`Result ${resultClass}`} />
           </li>
         );
       })}

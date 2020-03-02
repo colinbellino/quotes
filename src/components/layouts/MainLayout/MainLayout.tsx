@@ -15,7 +15,7 @@ export const MainLayout: FunctionComponent = ({ children }) => (
     <ul className="Tabs">
       <li className="Tab">
         <NavLink to="/">
-          <BubbleIcon /> <div>Quotes</div>
+          <BubbleIcon /> <div>Citations</div>
         </NavLink>
       </li>
       <li className="Tab">
@@ -25,7 +25,7 @@ export const MainLayout: FunctionComponent = ({ children }) => (
       </li>
       <li className="Tab">
         <NavLink to="/sounds/">
-          <AudioIcon /> <div>Sounds</div>
+          <AudioIcon /> <div>Sons</div>
         </NavLink>
       </li>
     </ul>
