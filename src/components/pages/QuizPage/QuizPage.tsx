@@ -50,14 +50,11 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   function onAnswer(guess: PersonModel) {
     if (isValidChoice(guess)) {
       nextQuote();
-    } else {
-      if (guesses.length >= choices.length - 1) {
-        nextQuote();
-      }
+      return;
+    }
 
-      if (guesses.includes(guess.id) === false) {
-        dispatch({ type: "SELECT_GUESS", guess: guess.id });
-      }
+    if (guesses.includes(guess.id) === false) {
+      dispatch({ type: "SELECT_GUESS", guess: guess.id });
     }
   }
 
