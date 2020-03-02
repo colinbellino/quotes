@@ -7,12 +7,14 @@ import "./QuizPage.css";
 type QuizPageViewProps = {
   quote: QuoteModel;
   choices?: PersonModel[];
+  guesses?: string[];
   onAnswer?: (person: PersonModel) => void;
 };
 
 export const QuizPageView = ({
   quote,
   choices = [],
+  guesses = [],
   onAnswer = () => {},
 }: QuizPageViewProps) => {
   const onSelectPerson = (person: PersonModel) => onAnswer(person);
@@ -22,6 +24,7 @@ export const QuizPageView = ({
       <QuizCard
         quote={quote}
         persons={choices}
+        guesses={guesses}
         onSelectPerson={onSelectPerson}
       />
     </main>
