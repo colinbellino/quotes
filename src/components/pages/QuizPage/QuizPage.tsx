@@ -29,10 +29,10 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
   function getInitialState(): State {
     const quote = shuffle(quotes)[0];
     const validAnswer = persons.find(isPerson(quote.author))!;
-    const choices: PersonModel[] = [
+    const choices: PersonModel[] = shuffle([
       validAnswer,
       ...getInvalidChoices(quote.author, 2),
-    ];
+    ]);
     const guesses: string[] = [];
 
     return { quote, choices, guesses };
@@ -49,7 +49,9 @@ export const QuizPage: FunctionComponent<RouteComponentProps> = () => {
 
   function onAnswer(guess: PersonModel) {
     if (isValidChoice(guess)) {
-      nextQuote();
+      dispatch({ type: "SELECT_GUESS", guess: guess.id });
+      const delayInMilliseconds = 1000;
+      setTimeout(nextQuote, delayInMilliseconds);
       return;
     }
 
