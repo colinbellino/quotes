@@ -162,4 +162,10 @@ export const sounds: Sound[] = [
     thumbnailUrl: "/images/200x200/sorina.png",
     audioUrl: "/sounds/320kbps/pousse-mousse.mp3",
   },
+  {
+    id: "sound-27",
+    name: "🦆",
+    thumbnailUrl: "/images/200x200/duck.jpg",
+    audioUrl: "/sounds/320kbps/laughing-duck.mp3",
+  },
 ];
