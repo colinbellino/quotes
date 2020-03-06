@@ -48,7 +48,7 @@
     "@storybook/react": "^5.3.8",
     "@types/aws-lambda": "^8.10.40",
     "@types/jest": "^25.1.0",
-    "@types/node": "^13.1.0",
+    "@types/node": "^13.9.0",
     "@types/node-fetch": "^2.3.4",
     "@types/ramda": "^0.26.41",
     "@types/reach__router": "^1.2.4",
