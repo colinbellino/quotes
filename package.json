@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.8.7",
+    "@babel/runtime": "^7.9.0",
     "@reach/router": "^1.3.3",
     "csv-parse": "^4.8.8",
     "fetch-suspense": "^1.1.0",
