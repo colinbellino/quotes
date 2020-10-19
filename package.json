@@ -20,7 +20,7 @@
     "start:app": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "start:lambda": "netlify-lambda serve src/lambda",
     "build": "run-p build:**",
-    "build:app": "react-scripts build && yarn build:sw",
+    "build:app": "react-scripts build && npm run build:sw",
     "build:sw": "sw-precache --config=sw-precache-config.js",
     "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",

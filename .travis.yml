@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - stable
-cache: yarn
-install: yarn install
-before_install: yarn global add greenkeeper-lockfile@1
+cache: npm run
+install: npm run install
+before_install: npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
