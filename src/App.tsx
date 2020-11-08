@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Router } from "@reach/router";
 
 import {
+  GamePage,
   MainLayout,
   PersonPage,
   QuizPage,
@@ -16,6 +17,7 @@ export const App: FunctionComponent = () => (
       <SoundsPage path="/sounds" />
       <QuizPage path="/quiz" />
       <PersonPage path="/person/:id" />
+      <GamePage path="/game" />
     </Router>
   </MainLayout>
 );

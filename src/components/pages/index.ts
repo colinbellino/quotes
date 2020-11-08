@@ -1,3 +1,4 @@
+export * from "./GamePage";
 export * from "./PersonPage";
 export * from "./QuizPage";
 export * from "./QuotesPage";

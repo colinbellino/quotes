@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{1CFA4605-9060-4859-B0A9-841A3BCA36DD}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>Game</RootNamespace>
+        <AssemblyName>Game</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml" />
+        <Reference Include="UnityEngine">
+            <HintPath>/Applications/Unity/Hub/Editor/2019.3.11f1/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>../../Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEditor">
+            <HintPath>/Applications/Unity/Hub/Editor/2019.3.11f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="GameEvents.cs" />
+        <Compile Include="GameManager.cs" />
+        <Compile Include="MessageDisplay.cs" />
+        <Compile Include="PatrolComponent.cs" />
+        <Compile Include="Person.cs" />
+        <Compile Include="PersonComponent.cs" />
+        <Compile Include="PersonSpawner.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Quote.cs" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+        <Copy SourceFiles="bin\Debug\Game.dll" DestinationFolder="..\..\Assets\Code" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+        <Copy SourceFiles="bin\Debug\Game.pdb" DestinationFolder="..\..\Assets\Code" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+        <Copy SourceFiles="bin\Release\Game.dll" DestinationFolder="..\..\Assets\Code" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+        <Copy SourceFiles="bin\Release\Game.pdb" DestinationFolder="..\..\Assets\Code" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+    </Target>
+</Project>
