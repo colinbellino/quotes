@@ -14,11 +14,16 @@ public class MessageUI : MonoBehaviour
 		_root.SetActive(false);
 	}
 
-	public void Show(string title, string text, Color color)
+	public void Show(string title, string text, Color color, Sprite avatar)
 	{
 		_text.text = text;
 		_author.text = title;
 		_color.color = color;
+
+		if (avatar)
+		{
+        	_avatar.sprite = avatar;
+		}
 		_root.SetActive(true);
 
 		CancelInvoke(nameof(Hide));

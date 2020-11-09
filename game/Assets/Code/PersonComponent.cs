@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PersonComponent : MonoBehaviour
 {
-	[SerializeField] private SpriteRenderer _spriteRenderer;
+	[SerializeField] private SpriteRenderer _body;
+	[SerializeField] private SpriteRenderer _head;
 
 	private Person _person;
 
@@ -10,14 +11,15 @@ public class PersonComponent : MonoBehaviour
 	{
 		_person = person;
 		name = $"Person ({_person.Id})";
+
 		if (person.Sprite)
 		{
-			_spriteRenderer.sprite = _person.Sprite;
+			_head.sprite = _person.Sprite;
 		}
 
 		if (person.Color != null)
 		{
-			_spriteRenderer.color = person.Color;
+			_body.color = person.Color;
 		}
 	}
 }
