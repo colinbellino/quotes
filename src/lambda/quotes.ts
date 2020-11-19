@@ -28,13 +28,20 @@ export const handler: Handler = async (
     callback(null, {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error }),
+      body: JSON.stringify({
+        error: error.message
+      }),
     });
   }
 };
 
 const fetchQuotes = async () => {
   const response = await fetch(quotesURL);
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.indexOf("text/csv") === -1) {
+    throw Error("Invalid response content type, expected: text/csv");
+  }
 
   if (!response.ok) {
     throw Error("Fuck");
@@ -57,6 +64,11 @@ const fetchQuotes = async () => {
 
 const fetchPersons = async () => {
   const response = await fetch(personsURL);
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.indexOf("text/csv") === -1) {
+    throw Error("Invalid response content type, expected: text/csv");
+  }
 
   if (!response.ok) {
     throw Error("Fuck");
