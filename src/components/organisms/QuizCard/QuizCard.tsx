@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 import { Quote, Avatar } from "components";
 import styles from "./QuizCard.module.css";
 

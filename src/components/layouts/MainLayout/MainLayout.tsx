@@ -9,15 +9,26 @@ import SpinnerIcon from "./spinner.svg";
 
 type MainLayoutProps = {
   loading: boolean;
+  error?: string;
 };
 
 export const MainLayout: FunctionComponent<MainLayoutProps> = ({
   loading,
+  error,
   children,
 }) => (
   <>
     <main>
-      {loading ? <SpinnerIcon className={styles.Spinner} /> : children}
+      {loading ? (
+        <SpinnerIcon className={styles.Spinner} />
+      ) : error ? (
+        <div style={{ padding: "1em" }}>
+          <div>Failed to load quotes :(</div>
+          <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
+        </div>
+      ) : (
+        children
+      )}
     </main>
     <Tabs />
   </>

@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 
 import { QUOTES_URL } from "config";
 import { QuizPage } from "components";
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(QUOTES_URL);

@@ -1,10 +1,10 @@
-export type Person = {
+export type PersonModel = {
   id: string;
   color: string;
   avatar: string;
 };
 
-export const persons: Person[] = [
+export const persons: PersonModel[] = [
   {
     id: "Bob",
     color: "#F44336",

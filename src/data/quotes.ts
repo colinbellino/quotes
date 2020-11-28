@@ -1,11 +1,11 @@
-export type Quote = {
+export type QuoteModel = {
   id: string;
   text: string;
   date: string;
   author: string;
 };
 
-export const quotes: Quote[] = [
+export const quotes: QuoteModel[] = [
   {
     id: "0",
     text: "Class aptent taciti per conubia nostra sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. (Julie)",

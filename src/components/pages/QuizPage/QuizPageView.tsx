@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 import { MainLayout, QuizCard } from "components";
 import styles from "./QuizPage.module.css";
 

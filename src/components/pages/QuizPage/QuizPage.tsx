@@ -3,7 +3,7 @@ import take from "ramda/src/take";
 import propEq from "ramda/src/propEq";
 import reject from "ramda/src/reject";
 
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 import { QuizPageView } from "components";
 import { shuffle } from "shuffle";
 

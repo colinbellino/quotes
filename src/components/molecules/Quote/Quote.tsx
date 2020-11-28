@@ -1,6 +1,6 @@
 import React, { FunctionComponent, MutableRefObject } from "react";
 
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 import { NavLink, Avatar } from "components";
 import styles from "./Quote.module.css";
 
@@ -16,7 +16,7 @@ type QuoteProps = {
   quote: QuoteModel;
   person?: PersonModel;
   interactive?: boolean;
-  reference: MutableRefObject<null | HTMLDivElement>;
+  reference?: MutableRefObject<null | HTMLDivElement>;
 };
 
 export const Quote: FunctionComponent<QuoteProps> = ({

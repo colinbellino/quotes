@@ -1,21 +1,16 @@
-import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
-import { QUOTES_URL } from "config";
 import { PersonPage } from "components";
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { useQuotes } from "data";
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const res = await fetch(QUOTES_URL);
-  const {
-    data: { persons, quotes },
-  }: {
-    data: { persons: PersonModel[]; quotes: QuoteModel[] };
-  } = await res.json();
+const PersonPageWrapper = () => {
+  const { query } = useRouter();
+  const { loading, error, quotes, persons } = useQuotes();
 
-  const person = persons.find((data) => data.id === query.id);
-  const filteredQuotes = quotes.filter((quote) => quote.author === query.id);
+  const person = persons && persons.find((data) => data.id === query.id);
+  const filteredQuotes = quotes!.filter((quote) => quote.author === query.id);
 
-  return { props: { person, quotes: filteredQuotes } };
+  return PersonPage({ loading, error, quotes: filteredQuotes, person });
 };
 
-export default PersonPage;
+export default PersonPageWrapper;

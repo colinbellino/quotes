@@ -2,15 +2,14 @@ import React, { createContext, useContext, useEffect, useRef } from "react";
 import { VariableSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { Person as PersonModel, Quote as QuoteModel } from "data";
+import { PersonModel, QuoteModel } from "data";
 import { MainLayout, Quote } from "components";
-import styles from "./QuotesPage.module.css";
 
 type QuotesPageProps = {
-  loading: boolean;
+  loading?: boolean;
+  error?: string;
   quotes?: QuoteModel[];
   persons?: PersonModel[];
-  error?: string;
 };
 
 const DynamicListContext = createContext<
@@ -38,7 +37,7 @@ const ListRow = ({ index, width, quotes, persons, style }: any) => {
 };
 
 export const QuotesPage = ({
-  loading,
+  loading = true,
   persons = [],
   quotes = [],
   error,
@@ -70,37 +69,30 @@ export const QuotesPage = ({
   }, []);
 
   return (
-    <MainLayout loading={loading}>
-      {error ? (
-        <div style={{ padding: "1em" }}>
-          <div>Failed to load quotes :(</div>
-          <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
-        </div>
-      ) : (
-        <DynamicListContext.Provider value={{ setSize }}>
-          <AutoSizer>
-            {({ width, height }) => (
-              <VariableSizeList
-                ref={listRef}
-                width={width}
-                height={height}
-                itemCount={quotes.length}
-                itemSize={getSize}
-                estimatedItemSize={calcEstimatedSize()}
-              >
-                {({ ...props }) => (
-                  <ListRow
-                    {...props}
-                    width={width}
-                    quotes={quotes}
-                    persons={persons}
-                  />
-                )}
-              </VariableSizeList>
-            )}
-          </AutoSizer>
-        </DynamicListContext.Provider>
-      )}
+    <MainLayout loading={loading} error={error}>
+      <DynamicListContext.Provider value={{ setSize }}>
+        <AutoSizer>
+          {({ width, height }) => (
+            <VariableSizeList
+              ref={listRef}
+              width={width}
+              height={height}
+              itemCount={quotes.length}
+              itemSize={getSize}
+              estimatedItemSize={calcEstimatedSize()}
+            >
+              {({ ...props }) => (
+                <ListRow
+                  {...props}
+                  width={width}
+                  quotes={quotes}
+                  persons={persons}
+                />
+              )}
+            </VariableSizeList>
+          )}
+        </AutoSizer>
+      </DynamicListContext.Provider>
     </MainLayout>
   );
 };
