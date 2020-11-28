@@ -6,7 +6,7 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_DOCUMENT_ID!);
 doc.useApiKey(process.env.GOOGLE_API_KEY!);
 
 export default async (_req: any, res: any) => {
-  if (process.env.QUOTES_ENV !== "production") {
+  if (process.env.QUOTES_ENV === "development") {
     res.statusCode = 200;
     return res.json({ data: fakeData });
   }
