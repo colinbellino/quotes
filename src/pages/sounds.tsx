@@ -1,3 +1,14 @@
+import Head from "next/head";
+
 import { SoundsPage } from "components";
 
-export default SoundsPage;
+const SoundsPageWrapper = () => (
+  <>
+    <Head>
+      <title>Sons</title>
+    </Head>
+    {SoundsPage()}
+  </>
+);
+
+export default SoundsPageWrapper;

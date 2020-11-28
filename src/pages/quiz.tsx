@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 
 import { QUOTES_URL } from "config";
@@ -15,4 +16,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return { props: { persons, quotes } };
 };
 
-export default QuizPage;
+const QuizPageWrapper = (props: any) => (
+  <>
+    <Head>
+      <title>Quiz</title>
+    </Head>
+    {QuizPage(props)}
+  </>
+);
+
+export default QuizPageWrapper;
