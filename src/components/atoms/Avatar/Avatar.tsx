@@ -4,8 +4,6 @@ import styles from "./Avatar.module.css";
 
 type AvatarProps = {
   url?: string;
-  /** Deprecated */
-  color?: string;
   alt?: string;
 };
 

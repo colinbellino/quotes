@@ -36,11 +36,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
         {person ? (
           <NavLink to={`/person/${quote.author}`}>
             {person && (
-              <Avatar
-                color={person.color}
-                url={person.avatar}
-                alt={`${quote.author}'s avatar`}
-              />
+              <Avatar url={person.avatar} alt={`${quote.author}'s avatar`} />
             )}
             <div>
               <b style={{ color: person.color }}>{quote.author}</b>

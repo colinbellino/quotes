@@ -22,13 +22,9 @@ export const PersonPage = ({
       {person && (
         <section className={styles.PersonCard}>
           <header>
-            <Avatar
-              color={person.color}
-              url={person.avatar}
-              alt={`${person.id}'s avatar`}
-            />
+            <Avatar url={person.avatar} alt={`${person.id}'s avatar`} />
             <div className={styles.Info}>
-              <h2>{person.id}</h2>
+              <h2 style={{ color: person.color }}>{person.id}</h2>
               <h3>{`${quotes.length} quote${quotes.length > 1 ? "s" : ""}`}</h3>
             </div>
           </header>

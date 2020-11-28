@@ -28,7 +28,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
 
         return (
           <li key={person.id} onClick={() => onSelectPerson(person)}>
-            <Avatar url={person.avatar} color={person.color} alt={person.id} />
+            <Avatar url={person.avatar} alt={person.id} />
             <div>{person.id}</div>
             <div className={`${styles.Result} ${resultClass}`} />
           </li>
