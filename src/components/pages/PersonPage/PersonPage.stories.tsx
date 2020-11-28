@@ -13,5 +13,7 @@ stories.add("with knobs", () => {
   const filteredQuotes = quotes.filter((data) => data.author === "Bob");
   const person = object("Person", bob);
 
-  return <PersonPage person={person!} quotes={filteredQuotes} />;
+  return (
+    <PersonPage person={person!} quotes={filteredQuotes} loading={false} />
+  );
 });

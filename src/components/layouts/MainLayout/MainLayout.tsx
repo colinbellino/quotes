@@ -16,23 +16,29 @@ export const MainLayout: FunctionComponent<MainLayoutProps> = ({
   loading,
   error,
   children,
-}) => (
-  <>
-    <main>
-      {loading ? (
-        <SpinnerIcon className={styles.Spinner} />
-      ) : error ? (
-        <div style={{ padding: "1em" }}>
-          <div>Failed to load quotes :(</div>
-          <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
-        </div>
-      ) : (
-        children
-      )}
-    </main>
-    <Tabs />
-  </>
-);
+}) => {
+  let content = children;
+
+  if (loading) {
+    content = <SpinnerIcon className={styles.Spinner} />;
+  }
+
+  if (error) {
+    content = (
+      <div style={{ padding: "1em" }}>
+        <div>Failed to load quotes :(</div>
+        <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <main>{content}</main>
+      <Tabs />
+    </>
+  );
+};
 
 const Tabs = () => (
   <ul className={styles.Tabs}>
