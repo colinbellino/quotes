@@ -24,7 +24,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
       {persons.map((person) => {
         const isGuess = guesses.includes(person.id);
         const isAnswer = person.id === quote.author;
-        const resultClass = isGuess && (isAnswer ? "Success" : "Failure");
+        const resultClass = isGuess ? (isAnswer ? "Success" : "Failure") : "";
 
         return (
           <li key={person.id} onClick={() => onSelectPerson(person)}>

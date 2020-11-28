@@ -1,4 +1,4 @@
-import { FunctionComponent, useReducer, useEffect } from "react";
+import { FunctionComponent, useReducer } from "react";
 import take from "ramda/src/take";
 import propEq from "ramda/src/propEq";
 import reject from "ramda/src/reject";
@@ -74,7 +74,9 @@ export const QuizPage: FunctionComponent<QuizPageProps> = ({
       dispatch({ type: "RESET", state: getInitialState() });
     }
 
-    const onSelectPerson = (person: PersonModel) => onAnswer(person);
+    const onSelectPerson = (person: PersonModel) => {
+      onAnswer(person);
+    };
 
     return (
       <QuizCard
