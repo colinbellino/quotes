@@ -17,7 +17,7 @@ class MyDocument extends Document {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if ('serviceWorker' in navigator) {
+              if ('serviceWorker' in navigator && location.protocol === "https:") {
                 window.addEventListener('load', () => {
                   navigator.serviceWorker.register('/service-worker.js');
                 });
