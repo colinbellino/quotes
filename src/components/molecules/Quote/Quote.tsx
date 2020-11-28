@@ -4,7 +4,7 @@ import { PersonModel, QuoteModel } from "data";
 import { NavLink, Avatar } from "components";
 import styles from "./Quote.module.css";
 
-const locale = "en-US";
+const locale = "fr-FR";
 const dateFormat = {
   year: "numeric",
   month: "long",
