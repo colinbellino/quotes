@@ -11,15 +11,32 @@
   bottom: 0;
   margin: 0;
   padding: 0;
-  height: 64px;
+  height: 48px;
   list-style: none;
   background: #fff;
   box-shadow: 0 -3px 6px -3px #bdbdbd;
 }
 
+.Tabs a {
+  position: relative;
+}
+
 .Tabs a:global(.active) {
   color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.Tabs a:global(.active):after {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  opacity: 0.05;
+  background: var(--primary-color);
+  pointer-events: none;
 }
 
 .Tabs a:global(.active svg) {
@@ -43,15 +60,15 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-size: 0.9em;
+  font-size: 0.8em;
   text-decoration: none;
   color: var(--tab-color);
-  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
   flex-direction: column;
 }
 
 .Tab svg {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   fill: var(--tab-color);
 }
 

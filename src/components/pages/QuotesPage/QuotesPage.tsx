@@ -1,4 +1,6 @@
-import React from "react";
+import React, { createContext, useContext, useEffect, useRef } from "react";
+import { VariableSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 import { Person as PersonModel, Quote as QuoteModel } from "data";
 import { MainLayout, Quote } from "components";
@@ -11,30 +13,94 @@ type QuotesPageProps = {
   error?: string;
 };
 
+const DynamicListContext = createContext<
+  Partial<{ setSize: (index: number, size: number) => void }>
+>({});
+
+const ListRow = ({ index, width, quotes, persons, style }: any) => {
+  const { setSize } = useContext(DynamicListContext);
+  const rowRoot = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (rowRoot.current) {
+      setSize && setSize(index, rowRoot.current.getBoundingClientRect().height);
+    }
+  }, [index, setSize, width]);
+
+  const quote = quotes[index];
+  const person = persons.find((person: any) => person.id === quote.author);
+
+  return (
+    <div style={{ ...style, paddingTop: 8, paddingBottom: 8 }}>
+      <Quote reference={rowRoot} quote={quote} person={person} />
+    </div>
+  );
+};
+
 export const QuotesPage = ({
   loading,
   persons = [],
   quotes = [],
   error,
-}: QuotesPageProps) => (
-  <MainLayout loading={loading}>
-    {error ? (
-      <div style={{ padding: "1em" }}>
-        <div>Failed to load quotes :(</div>
-        <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
-      </div>
-    ) : (
-      <ul className={styles.QuotesPage}>
-        {quotes.map((quote) => {
-          const person = persons.find((data) => data.id === quote.author);
+}: QuotesPageProps) => {
+  const listRef = useRef<VariableSizeList | null>(null);
+  const sizeMap = React.useRef<{ [key: string]: number }>({});
 
-          return (
-            <li key={quote.id}>
-              <Quote quote={quote} person={person!} />
-            </li>
-          );
-        })}
-      </ul>
-    )}
-  </MainLayout>
-);
+  const getSize = React.useCallback((index) => {
+    return sizeMap.current[index] || 100;
+  }, []);
+
+  const setSize = React.useCallback((index: number, size: number) => {
+    // Performance: Only update the sizeMap and reset cache if an actual value changed
+    if (sizeMap.current[index] !== size) {
+      sizeMap.current = { ...sizeMap.current, [index]: size };
+      if (listRef.current) {
+        // Clear cached data and rerender
+        listRef.current.resetAfterIndex(0);
+      }
+    }
+  }, []);
+
+  // Increases accuracy by calculating an average row height
+  // Fixes the scrollbar behaviour described here: https://github.com/bvaughn/react-window/issues/408
+  const calcEstimatedSize = React.useCallback(() => {
+    const keys = Object.keys(sizeMap.current);
+    const estimatedHeight = keys.reduce((p, i) => p + sizeMap.current[i], 0);
+    return estimatedHeight / keys.length;
+  }, []);
+
+  return (
+    <MainLayout loading={loading}>
+      {error ? (
+        <div style={{ padding: "1em" }}>
+          <div>Failed to load quotes :(</div>
+          <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
+        </div>
+      ) : (
+        <DynamicListContext.Provider value={{ setSize }}>
+          <AutoSizer>
+            {({ width, height }) => (
+              <VariableSizeList
+                ref={listRef}
+                width={width}
+                height={height}
+                itemCount={quotes.length}
+                itemSize={getSize}
+                estimatedItemSize={calcEstimatedSize()}
+              >
+                {({ ...props }) => (
+                  <ListRow
+                    {...props}
+                    width={width}
+                    quotes={quotes}
+                    persons={persons}
+                  />
+                )}
+              </VariableSizeList>
+            )}
+          </AutoSizer>
+        </DynamicListContext.Provider>
+      )}
+    </MainLayout>
+  );
+};

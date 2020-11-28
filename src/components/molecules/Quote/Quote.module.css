@@ -1,6 +1,7 @@
 .Quote {
+  box-sizing: border-box;
   margin: 0;
-  padding: 16px;
+  padding: 8px 16px 8px 16px;
   line-height: 130%;
   list-style: none;
 }
@@ -9,26 +10,19 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-.Quote:last-child {
-  margin-bottom: 0;
-}
-
 .Quote blockquote {
-  margin: 0 0 8px 0;
-}
-
-.Quote blockquote:before {
-  content: '“';
-}
-
-.Quote blockquote:after {
-  content: '”';
+  display: block;
+  margin: 0;
+  padding: 16px;
+  border-radius: 10px;
+  border: 0;
+  background: #e0e0e0;
 }
 
 .Quote cite {
   display: flex;
   align-items: center;
-  margin-left: 16px;
+  margin-top: 8px;
   line-height: 150%;
   color: rgba(0, 0, 0, 0.65);
 }

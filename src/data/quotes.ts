@@ -8,7 +8,7 @@ export type Quote = {
 export const quotes: Quote[] = [
   {
     id: "0",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. (Julie)",
+    text: "Class aptent taciti per conubia nostra sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. (Julie)",
     author: "Julie",
     date: "2019-03-31T22:00:00.000Z",
   },

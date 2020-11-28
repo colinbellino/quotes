@@ -28,7 +28,7 @@ const Tabs = () => (
     <li className={styles.Tab}>
       <NavLink to="/">
         <>
-          <BubbleIcon />
+          <BubbleIcon width={18} />
           <div>Citations</div>
         </>
       </NavLink>
@@ -36,7 +36,7 @@ const Tabs = () => (
     <li className={styles.Tab}>
       <NavLink to="/quiz">
         <>
-          <HelpIcon />
+          <HelpIcon width={18} />
           <div>Quiz</div>
         </>
       </NavLink>
@@ -44,7 +44,7 @@ const Tabs = () => (
     <li className={styles.Tab}>
       <NavLink to="/sounds">
         <>
-          <AudioIcon />
+          <AudioIcon width={18} />
           <div>Sons</div>
         </>
       </NavLink>

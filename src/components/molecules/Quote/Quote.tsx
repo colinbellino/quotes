@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MutableRefObject } from "react";
 
 import { Person as PersonModel, Quote as QuoteModel } from "data";
 import { NavLink, Avatar } from "components";
@@ -16,17 +16,20 @@ type QuoteProps = {
   quote: QuoteModel;
   person?: PersonModel;
   interactive?: boolean;
+  reference: MutableRefObject<null | HTMLDivElement>;
 };
 
 export const Quote: FunctionComponent<QuoteProps> = ({
   quote,
   person,
   interactive = true,
+  reference,
 }) => {
   const date = dateFormatter.format(new Date(quote.date));
 
   return (
     <div
+      ref={reference}
       className={`Quote ${styles.Quote} ${interactive && styles.Interactive}`}
     >
       <blockquote>{quote.text}</blockquote>

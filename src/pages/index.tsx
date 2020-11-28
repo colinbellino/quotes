@@ -9,10 +9,11 @@ const fetcher = (...args: any[]) =>
 const QuotesPageWrapper = () => {
   const { data, error } = useSWR<any>(QUOTES_URL, fetcher);
 
+  const loading = data == undefined;
   const quotes: any = data?.data?.quotes || [];
   const persons: any = data?.data?.persons || [];
 
-  return QuotesPage({ error, loading: data == undefined, quotes, persons });
+  return QuotesPage({ error, loading, quotes, persons });
 };
 
 export default QuotesPageWrapper;
