@@ -14,7 +14,8 @@
     "next-on-netlify": "2.6.3",
     "ramda": "0.27.1",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "swr": "^0.3.9"
   },
   "devDependencies": {
     "@storybook/addon-actions": "6.0.16",

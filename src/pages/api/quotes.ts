@@ -1,4 +1,4 @@
-import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 
 import * as fakeData from "../../data";
 
@@ -16,10 +16,14 @@ export default async (_req: any, res: any) => {
     console.log(`Loading data from: ${doc.title}.`);
 
     const quotesSheet = doc.sheetsById[process.env.GOOGLE_SHEET_QUOTES_ID!];
-    const quotes = (await quotesSheet.getRows()).map(rowToQuote).reverse();
-
     const personsSheet = doc.sheetsById[process.env.GOOGLE_SHEET_PERSONS_ID!];
-    const persons = (await personsSheet.getRows()).map(rowToPerson);
+    const [quotesRows = [], personsRows = []] = await Promise.all([
+      quotesSheet.getRows(),
+      personsSheet.getRows(),
+    ]);
+
+    const quotes = quotesRows.map(rowToQuote).reverse();
+    const persons = personsRows.map(rowToPerson);
 
     res.statusCode = 200;
     return res.json({ data: { persons, quotes } });

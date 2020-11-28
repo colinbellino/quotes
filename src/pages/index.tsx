@@ -1,13 +1,18 @@
-import { GetServerSideProps } from "next";
+import useSWR from "swr";
 
 import { QUOTES_URL } from "config";
 import { QuotesPage } from "components";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(QUOTES_URL);
-  const { data } = await res.json();
+const fetcher = (...args: any[]) =>
+  fetch(args[0], args[1]).then((res) => res.json());
 
-  return { props: data };
+const QuotesPageWrapper = () => {
+  const { data, error } = useSWR<any>(QUOTES_URL, fetcher);
+
+  const quotes: any = data?.data?.quotes || [];
+  const persons: any = data?.data?.persons || [];
+
+  return QuotesPage({ error, quotes, persons });
 };
 
-export default QuotesPage;
+export default QuotesPageWrapper;
