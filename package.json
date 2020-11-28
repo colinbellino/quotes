@@ -9,6 +9,7 @@
     "postbuild": "next-on-netlify"
   },
   "dependencies": {
+    "google-spreadsheet": "3.0.14",
     "next": "10.0.3",
     "next-on-netlify": "2.6.3",
     "ramda": "0.27.1",
@@ -22,6 +23,7 @@
     "@storybook/addons": "6.0.16",
     "@storybook/react": "6.0.16",
     "@svgr/webpack": "5.5.0",
+    "@types/google-spreadsheet": "3.0.2",
     "@types/node": "14.14.10",
     "@types/ramda": "0.27.32",
     "@types/react": "17.0.0",
