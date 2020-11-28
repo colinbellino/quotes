@@ -3,11 +3,6 @@
   functions = "out_functions"
   publish = "out_publish"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [dev]
   functions = "out_functions"
   publish = "out_publish"
