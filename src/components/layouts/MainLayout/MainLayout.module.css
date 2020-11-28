@@ -55,6 +55,7 @@
 
 .Tab a {
   display: flex;
+  padding-bottom: 2px;
   box-sizing: border-box;
   flex: 1;
   align-items: center;

@@ -32,25 +32,26 @@ export const Quote: FunctionComponent<QuoteProps> = ({
       ref={reference}
       className={`Quote ${styles.Quote} ${interactive && styles.Interactive}`}
     >
-      <blockquote>{quote.text}</blockquote>
       <cite>
         {person ? (
           <NavLink to={`/person/${quote.author}`}>
-            <>
-              {person && (
-                <Avatar
-                  color={person.color}
-                  url={person.avatar}
-                  alt={`${quote.author}'s avatar`}
-                />
-              )}
-              {`${quote.author} • ${date}`}
-            </>
+            {person && (
+              <Avatar
+                color={person.color}
+                url={person.avatar}
+                alt={`${quote.author}'s avatar`}
+              />
+            )}
+            <div>
+              <b style={{ color: person.color }}>{quote.author}</b>
+              <i>&nbsp;{date}</i>
+            </div>
           </NavLink>
         ) : (
-          date
+          <i>{date}</i>
         )}
       </cite>
+      <blockquote>{quote.text}</blockquote>
     </div>
   );
 };
