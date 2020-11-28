@@ -20,15 +20,15 @@ export const QuizPageView = ({
   const onSelectPerson = (person: PersonModel) => onAnswer(person);
 
   return (
-    <MainLayout>
-      <main className={styles.QuizPage}>
+    <MainLayout loading={quote === undefined}>
+      <div className={styles.QuizPage}>
         <QuizCard
           quote={quote}
           persons={choices}
           guesses={guesses}
           onSelectPerson={onSelectPerson}
         />
-      </main>
+      </div>
     </MainLayout>
   );
 };

@@ -15,21 +15,19 @@ export const SoundsPageView = ({
   onPlay = () => {},
   onPause = () => {},
 }: SoundsPageViewProps) => (
-  <MainLayout>
-    <main>
-      <ul className={styles.SoundsPage}>
-        {sounds.map((sound) => (
-          <li key={sound.id} className={styles.Sound}>
-            <SoundItem
-              sound={sound}
-              muted={playing ? playing !== sound.id : false}
-              onPlay={onPlay}
-              onPause={onPause}
-            />
-          </li>
-        ))}
-      </ul>
-    </main>
+  <MainLayout loading={false}>
+    <ul className={styles.SoundsPage}>
+      {sounds.map((sound) => (
+        <li key={sound.id} className={styles.Sound}>
+          <SoundItem
+            sound={sound}
+            muted={playing ? playing !== sound.id : false}
+            onPlay={onPlay}
+            onPause={onPause}
+          />
+        </li>
+      ))}
+    </ul>
   </MainLayout>
 );
 

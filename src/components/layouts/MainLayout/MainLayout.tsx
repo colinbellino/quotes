@@ -5,15 +5,20 @@ import styles from "./MainLayout.module.css";
 import BubbleIcon from "./bubble.svg";
 import AudioIcon from "./audio.svg";
 import HelpIcon from "./help.svg";
-// import SpinnerIcon from "./spinner.svg";
+import SpinnerIcon from "./spinner.svg";
 
-// const isServer = typeof window === "undefined";
-// const fallback = <SpinnerIcon className={styles.Spinner} />;
+type MainLayoutProps = {
+  loading: boolean;
+};
 
-export const MainLayout: FunctionComponent = ({ children }) => (
+export const MainLayout: FunctionComponent<MainLayoutProps> = ({
+  loading,
+  children,
+}) => (
   <>
-    {/* {isServer ? fallback : <Suspense fallback={fallback}>{children}</Suspense>} */}
-    {children}
+    <main>
+      {loading ? <SpinnerIcon className={styles.Spinner} /> : children}
+    </main>
     <Tabs />
   </>
 );

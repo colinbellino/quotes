@@ -12,7 +12,7 @@ const QuotesPageWrapper = () => {
   const quotes: any = data?.data?.quotes || [];
   const persons: any = data?.data?.persons || [];
 
-  return QuotesPage({ error, quotes, persons });
+  return QuotesPage({ error, loading: data == undefined, quotes, persons });
 };
 
 export default QuotesPageWrapper;
