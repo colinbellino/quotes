@@ -9,6 +9,7 @@
     "postbuild": "next-on-netlify && node ./build-sw.js"
   },
   "dependencies": {
+    "faunadb": "^4.0.0",
     "google-spreadsheet": "3.0.14",
     "next": "10.0.3",
     "next-on-netlify": "2.6.3",

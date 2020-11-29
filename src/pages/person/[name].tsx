@@ -8,13 +8,13 @@ const PersonPageWrapper = () => {
   const { query } = useRouter();
   const { loading, error, quotes, persons } = useQuotes();
 
-  const person = persons && persons.find((data) => data.id === query.id);
-  const filteredQuotes = quotes!.filter((quote) => quote.author === query.id);
+  const person = persons && persons.find((data) => data.name === query.name);
+  const filteredQuotes = quotes!.filter((quote) => quote.author === query.name);
 
   return (
     <>
       <Head>
-        <title>{person && person.id}</title>
+        <title>{person && person.name}</title>
       </Head>
       {PersonPage({ loading, error, quotes: filteredQuotes, person })}
     </>

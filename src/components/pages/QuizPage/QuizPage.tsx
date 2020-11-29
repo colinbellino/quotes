@@ -54,7 +54,7 @@ export const QuizPage: FunctionComponent<QuizPageProps> = ({
     }
 
     function isValidChoice(person: PersonModel) {
-      return quote.author === person.id;
+      return quote.author === person.name;
     }
 
     function onAnswer(guess: PersonModel) {

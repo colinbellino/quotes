@@ -24,11 +24,11 @@ export const PersonPage = ({
           <header>
             <Avatar
               url={person.avatar}
-              alt={`${person.id}'s avatar`}
+              alt={person.name}
               color={person.color}
             />
             <div className={styles.Info}>
-              <h2 style={{ color: person.color }}>{person.id}</h2>
+              <h2 style={{ color: person.color }}>{person.name}</h2>
               <h3>{`${quotes.length} quote${quotes.length > 1 ? "s" : ""}`}</h3>
             </div>
           </header>

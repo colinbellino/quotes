@@ -27,7 +27,7 @@ const ListRow = ({ index, width, quotes, persons, style }: any) => {
   }, [index, setSize, width]);
 
   const quote = quotes[index];
-  const person = persons.find((person: any) => person.id === quote.author);
+  const person = persons.find((person: any) => person.name === quote.author);
 
   return (
     <div style={{ ...style, paddingTop: 8, paddingBottom: 8 }}>

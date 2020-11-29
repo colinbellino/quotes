@@ -22,14 +22,18 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
     <Quote quote={quote} interactive={false} />
     <ul>
       {persons.map((person) => {
-        const isGuess = guesses.includes(person.id);
-        const isAnswer = person.id === quote.author;
+        const isGuess = guesses.includes(person.name);
+        const isAnswer = person.name === quote.author;
         const resultClass = isGuess ? (isAnswer ? "Success" : "Failure") : "";
 
         return (
           <li key={person.id} onClick={() => onSelectPerson(person)}>
-            <Avatar url={person.avatar} alt={person.id} color={person.color} />
-            <div>{person.id}</div>
+            <Avatar
+              url={person.avatar}
+              alt={person.name}
+              color={person.color}
+            />
+            <div>{person.name}</div>
             <div className={`${styles.Result} ${resultClass}`} />
           </li>
         );

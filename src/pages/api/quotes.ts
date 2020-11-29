@@ -1,48 +1,45 @@
-import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
+import faunadb from "faunadb";
 
-import * as fakeData from "data";
-
-const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_DOCUMENT_ID!);
-doc.useApiKey(process.env.GOOGLE_API_KEY!);
+import fixtures from "data/fixtures.json";
+import { QuoteModel } from "data";
 
 export default async (_req: any, res: any) => {
   if (process.env.QUOTES_ENV === "development") {
     console.log("Loading fake data.");
     res.statusCode = 200;
-    return res.json({ data: fakeData });
+    return res.json({ data: fixtures });
   }
 
   try {
-    await doc.loadInfo();
-    console.log(`Loading data from: ${doc.title}.`);
+    const query = faunadb.query;
+    const client = new faunadb.Client({
+      secret: process.env.FAUNADB_SERVER_SECRET!,
+    });
 
-    const quotesSheet = doc.sheetsById[process.env.GOOGLE_SHEET_QUOTES_ID!];
-    const personsSheet = doc.sheetsById[process.env.GOOGLE_SHEET_PERSONS_ID!];
-    const [quotesRows = [], personsRows = []] = await Promise.all([
-      quotesSheet.getRows(),
-      personsSheet.getRows(),
+    let quotes: QuoteModel[] = [];
+    let persons: QuoteModel[] = [];
+
+    await Promise.all([
+      client
+        .paginate(query.Match(query.Index("allQuotes")), { size: 2000 })
+        .map((ref) => query.Get(ref))
+        .eachReverse((page: any) => {
+          quotes = quotes.concat(page.map((row: any) => row.data));
+        }),
+      client
+        .paginate(query.Match(query.Index("allPersons")))
+        .map((ref) => query.Get(ref))
+        .each((page: any) => {
+          persons = persons.concat(page.map((row: any) => row.data));
+        }),
     ]);
-
-    const quotes = quotesRows.map(rowToQuote).reverse();
-    const persons = personsRows.map(rowToPerson);
 
     res.statusCode = 200;
     return res.json({ data: { persons, quotes } });
   } catch (error) {
     res.statusCode = 500;
-    return res.json({ data: { persons: [], quotes: [], error: error.message } });
+    return res.json({
+      data: { persons: [], quotes: [], error },
+    });
   }
-}
-
-const rowToQuote = (row: GoogleSpreadsheetRow) => ({
-  id: row.rowIndex,
-  text: row.Text,
-  author: row.Author,
-  date: new Date(row.Date).toISOString(),
-})
-
-const rowToPerson = (row: GoogleSpreadsheetRow) => ({
-  id: row.Name,
-  color: row.Color,
-  avatar: row.Avatar,
-})
+};
