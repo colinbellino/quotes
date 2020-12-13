@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import "./ProgressBar.css";
+import styles from "./ProgressBar.module.css";
 
 type ProgressBarProps = {
   value: number;
@@ -11,9 +11,13 @@ export const ProgressBar: FunctionComponent<ProgressBarProps> = ({
   value,
   enabled = false,
 }) => (
-  <div className={`ProgressBar ${enabled ? "Enabled" : "Disabled"}`}>
+  <div
+    className={`${styles.ProgressBar} ${
+      enabled ? styles.Enabled : styles.Disabled
+    }`}
+  >
     <div
-      className="ProgressSlider"
+      className={styles.ProgressSlider}
       style={{ transform: `scaleX(${enabled ? value / 100 : 0})` }}
     />
   </div>

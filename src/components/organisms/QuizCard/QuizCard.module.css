@@ -2,8 +2,12 @@
   padding: 16px;
 }
 
-.QuizCard .Quote {
+.QuizCard :global(.Quote) {
   padding: 0;
+}
+
+.QuizCard :global(.Avatar) {
+  margin: 0 auto 8px;
 }
 
 .QuizCard ul {
@@ -23,10 +27,6 @@
   text-align: center;
 }
 
-.QuizCard .Avatar {
-  margin: 0 auto 8px;
-}
-
 .Result {
   position: absolute;
   top: -5px;
@@ -34,12 +34,12 @@
   font-size: 3em;
 }
 
-.Result.Success:before {
+.Result:global(.Success):before {
   content: "✓";
   color: green;
 }
 
-.Result.Failure:before {
+.Result:global(.Failure):before {
   content: "✗";
   color: red;
 }

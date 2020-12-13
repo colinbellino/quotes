@@ -7,7 +7,7 @@ import React, {
 
 import { Sound } from "data";
 import { ProgressBar } from "components";
-import "./SoundItem.css";
+import styles from "./SoundItem.module.css";
 
 type SoundItemViewProps = {
   sound: Sound;
@@ -26,7 +26,9 @@ export const SoundItemView: FunctionComponent<SoundItemViewProps> = ({
   duration,
   toggle,
 }) => (
-  <div className={`SoundItem ${paused ? "Paused" : "Playing"}`}>
+  <div
+    className={`${styles.SoundItem} ${paused ? styles.Paused : styles.Playing}`}
+  >
     <button disabled={loading} onClick={toggle}>
       <img src={sound.thumbnailUrl} alt={sound.name} />
     </button>
@@ -113,13 +115,13 @@ const useSoundPlayer = (props: SoundItemProps) => {
     };
     const eventListenerKeys = Object.keys(eventListeners);
 
-    eventListenerKeys.forEach(key =>
+    eventListenerKeys.forEach((key) =>
       audioElement.addEventListener(key, eventListeners[key]),
     );
 
     return () => {
       audioElement.pause();
-      eventListenerKeys.forEach(key =>
+      eventListenerKeys.forEach((key) =>
         audioElement.removeEventListener(key, eventListeners[key]),
       );
     };
@@ -134,7 +136,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
   };
 };
 
-export const SoundItem: FunctionComponent<SoundItemProps> = props => {
+export const SoundItem: FunctionComponent<SoundItemProps> = (props) => {
   const { loading, paused, progress, duration, toggle } = useSoundPlayer(props);
   const { sound } = props;
 

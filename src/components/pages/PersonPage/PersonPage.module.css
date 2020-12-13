@@ -2,9 +2,6 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-/* TODO: Move to PersonCard component */
-.PersonCard {}
-
 .PersonCard header {
   display: grid;
   grid-template-areas:
@@ -28,12 +25,12 @@
 
 .PersonCard h2 {
   margin: 4px 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .PersonCard h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.7);
 }

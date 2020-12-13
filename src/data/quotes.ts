@@ -1,10 +1,10 @@
 import fixtures from "./fixtures.json";
 
-export type Quote = {
+export type QuoteModel = {
   id: string;
   text: string;
   date: string;
   author: string;
 };
 
-export const quotes: Quote[] = fixtures.quotes;
+export const quotes: QuoteModel[] = fixtures.quotes;

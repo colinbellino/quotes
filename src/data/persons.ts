@@ -1,9 +1,9 @@
 import fixtures from "./fixtures.json";
 
-export type Person = {
+export type PersonModel = {
   id: string;
   color: string;
   avatar: string;
 };
 
-export const persons: Person[] = fixtures.persons;
+export const persons: PersonModel[] = fixtures.persons;

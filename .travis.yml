@@ -1,8 +1,8 @@
 language: node_js
 node_js:
   - stable
-cache: npm run
-install: npm run install
+cache: npm
+install: npm install
 before_install: npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload

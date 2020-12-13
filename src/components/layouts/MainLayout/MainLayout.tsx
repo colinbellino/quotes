@@ -1,33 +1,70 @@
-import React, { FunctionComponent, Suspense } from "react";
+import React, { FunctionComponent } from "react";
 
 import { NavLink } from "components";
-import { ReactComponent as SpinnerIcon } from "./spinner.svg";
-import { ReactComponent as BubbleIcon } from "./bubble.svg";
-import { ReactComponent as AudioIcon } from "./audio.svg";
-import { ReactComponent as HelpIcon } from "./help.svg";
-import "./MainLayout.css";
+import styles from "./MainLayout.module.css";
+import BubbleIcon from "./bubble.svg";
+import AudioIcon from "./audio.svg";
+import HelpIcon from "./help.svg";
+import SpinnerIcon from "./spinner.svg";
 
-export const MainLayout: FunctionComponent = ({ children }) => (
-  <>
-    <Suspense fallback={<SpinnerIcon className="Spinner" />}>
-      {children}
-    </Suspense>
-    <ul className="Tabs">
-      <li className="Tab">
-        <NavLink to="/">
-          <BubbleIcon /> <div>Citations</div>
-        </NavLink>
-      </li>
-      <li className="Tab">
-        <NavLink to="/quiz">
-          <HelpIcon /> <div>Quiz</div>
-        </NavLink>
-      </li>
-      <li className="Tab">
-        <NavLink to="/sounds/">
-          <AudioIcon /> <div>Sons</div>
-        </NavLink>
-      </li>
-    </ul>
-  </>
+type MainLayoutProps = {
+  loading: boolean;
+  error?: string;
+};
+
+export const MainLayout: FunctionComponent<MainLayoutProps> = ({
+  loading,
+  error,
+  children,
+}) => {
+  let content = children;
+
+  if (loading) {
+    content = <SpinnerIcon className={styles.Spinner} />;
+  }
+
+  if (error) {
+    content = (
+      <div style={{ padding: "1em" }}>
+        <div>Failed to load quotes :(</div>
+        <pre style={{ whiteSpace: "break-spaces" }}>{error}</pre>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <main>{content}</main>
+      <Tabs />
+    </>
+  );
+};
+
+const Tabs = () => (
+  <ul className={styles.Tabs}>
+    <li className={styles.Tab}>
+      <NavLink to="/">
+        <>
+          <BubbleIcon width={18} />
+          <div>Citations</div>
+        </>
+      </NavLink>
+    </li>
+    <li className={styles.Tab}>
+      <NavLink to="/quiz">
+        <>
+          <HelpIcon width={18} />
+          <div>Quiz</div>
+        </>
+      </NavLink>
+    </li>
+    <li className={styles.Tab}>
+      <NavLink to="/sounds">
+        <>
+          <AudioIcon width={18} />
+          <div>Sons</div>
+        </>
+      </NavLink>
+    </li>
+  </ul>
 );

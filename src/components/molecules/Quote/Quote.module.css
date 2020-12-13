@@ -1,0 +1,46 @@
+.Quote {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px;
+  line-height: 130%;
+  list-style: none;
+}
+
+.Quote blockquote {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 16px;
+  border-radius: 0 15px 15px 15px;
+  border: 0;
+  background: #e0e0e0;
+}
+
+.Quote cite {
+  display: flex;
+  margin-bottom: 4px;
+  align-items: center;
+  line-height: 150%;
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.Quote cite a {
+  display: flex;
+  color: inherit;
+  text-decoration: none;
+}
+
+.Quote cite a i {
+  font-size: 0.8em;
+}
+
+.Quote.Interactive cite a:hover {
+  text-decoration: underline;
+}
+
+.Quote :global(.Avatar) {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+}
