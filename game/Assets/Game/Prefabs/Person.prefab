@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2412529949044987692}
   - component: {fileID: 2412529949044987695}
-  - component: {fileID: -1828944161281511272}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -48,19 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _body: {fileID: 2412529949550008995}
   _head: {fileID: 421189957869273434}
---- !u!114 &-1828944161281511272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2412529949044987693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d1fb3713daa45ffb6552e4616db2be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _points: []
 --- !u!1 &2412529949550008992
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +93,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -188,6 +175,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

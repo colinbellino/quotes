@@ -24,28 +24,39 @@ public class DataLoader
 		var raw = (await UnityWebRequest.Get(_apiURL).SendWebRequest()).downloadHandler.text;
 		var response = JsonConvert.DeserializeObject<Response>(raw, new ColorConverter());
 
+		var personsTasks = new List<UniTask>();
+
 		foreach (var person in response.Data.Persons)
 		{
-			if (string.IsNullOrEmpty(person.Avatar) == false)
-			{
-				// Debug.Log(person.Id + " -> " +  person.Avatar);
-				var downloadHandler = (await UnityWebRequestTexture.GetTexture(person.Avatar).SendWebRequest()).downloadHandler as DownloadHandlerTexture;
-				var sprite = Sprite.Create(
-					downloadHandler.texture,
-					new Rect(0, 0, downloadHandler.texture.width, downloadHandler.texture.height),
-					new Vector2(0.5f, 0.5f),
-					downloadHandler.texture.width
-				);
-				person.Sprite = sprite;
-			}
-
-			Persons.Add(person.Id, person);
+			personsTasks.Add(DownloadSprite(person, Persons));
 		}
+
+		await UniTask.WhenAll(personsTasks);
 
 		foreach (var quote in response.Data.Quotes)
 		{
 			Quotes.Add(quote.Id, quote);
 		}
+	}
+
+	private static async UniTask DownloadSprite(Person person, Dictionary<string, Person> persons)
+	{
+		if (string.IsNullOrEmpty(person.Avatar))
+		{
+			return;
+		}
+
+		var webRequestTask = UnityWebRequestTexture.GetTexture(person.Avatar).SendWebRequest();
+		var downloadHandler = (await webRequestTask).downloadHandler as DownloadHandlerTexture;
+		var sprite = Sprite.Create(
+			downloadHandler.texture,
+			new Rect(0, 0, downloadHandler.texture.width, downloadHandler.texture.height),
+			new Vector2(0.5f, 0.5f),
+			downloadHandler.texture.width
+		);
+
+		person.Sprite = sprite;
+		persons.Add(person.Id, person);
 	}
 }
 
