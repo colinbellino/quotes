@@ -2,24 +2,36 @@ using UnityEngine;
 
 public class RootUI : MonoBehaviour
 {
-	[SerializeField] private MessageUI _messageUI;
+	[SerializeField] private LoaderUI _loaderUI;
+	[SerializeField] private GameUI _gameUI;
 
 	private void OnEnable()
 	{
-		GameEvents.QuoteAdded += OnQuoteAdded;
+		GameEvents.DataLoadStarted += DataLoadStarted;
+		GameEvents.DataLoadFinished += DataLoadFinished;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.QuoteAdded -= OnQuoteAdded;
+		GameEvents.DataLoadStarted -= DataLoadStarted;
+		GameEvents.DataLoadFinished -= DataLoadFinished;
 	}
 
-	private void OnQuoteAdded(string quoteId)
+	private void Awake()
 	{
-		var quote = GameManager.GetQuote(quoteId);
-		var author = GameManager.GetPerson(quote.Author);
-
-		_messageUI.Show(author.Id, quote.Text, author.Color, author.Sprite);
+		_loaderUI.Hide();
+		_gameUI.Hide();
 	}
 
+	private void DataLoadStarted()
+	{
+		_loaderUI.Show();
+		_gameUI.Hide();
+	}
+
+	private void DataLoadFinished()
+	{
+		_loaderUI.Hide();
+		_gameUI.Show();
+	}
 }

@@ -14,8 +14,8 @@ public class PatrolComponent : MonoBehaviour
 	    if (_points == null || _points.Length == 0)
 	    {
 		    _points = new Vector3[2];
-		    _points[0] = transform.position + new Vector3(Random.Range(0, 5f), 0f, Random.Range(0f, 5f));
-		    _points[1] = transform.position + new Vector3(Random.Range(-5f, 0), 0f, Random.Range(-5f, 0f));
+		    _points[0] = transform.position + new Vector3(Random.Range(0, 5f), Random.Range(0f, 5f), 0f);
+		    _points[1] = transform.position + new Vector3(Random.Range(-5f, 0),Random.Range(-5f, 0f), 0f);
 	    }
     }
 

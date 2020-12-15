@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+    "com.unity.2d.pixel-perfect": "3.0.2",
+    "com.unity.2d.tilemap": "1.0.0",
     "com.unity.ide.rider": "2.0.7",
+    "com.unity.ide.visualstudio": "2.0.5",
     "com.unity.ide.vscode": "1.2.3",
     "com.unity.probuilder": "4.4.0",
     "com.unity.progrids": "3.0.3-preview.6",
@@ -34,15 +37,5 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "com.cysharp.unitask": {
-      "revision": "HEAD",
-      "hash": "a2eb75df681a841351eadd8fd2f9fb31a63294fc"
-    },
-    "io.tinu.asepriteimporter": {
-      "revision": "HEAD",
-      "hash": "27c75ae7aff5fd06b5eced71a0612a9d98856daa"
-    }
   }
 }
