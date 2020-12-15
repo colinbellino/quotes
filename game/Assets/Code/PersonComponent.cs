@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public class PersonComponent : MonoBehaviour
@@ -7,6 +8,12 @@ public class PersonComponent : MonoBehaviour
 	[SerializeField] private SpriteRenderer _head;
 
 	private Person _data;
+	public IAstarAI AStarAI { get; private set; }
+
+	private void Awake()
+	{
+		AStarAI = GetComponent<IAstarAI>();
+	}
 
 	public void Init(Person person)
 	{

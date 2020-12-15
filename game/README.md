@@ -1,6 +1,6 @@
 ## Tasks
 
-- [ ] Person tasks & timing
-- [ ] Add some geometry
-- [ ] Pathfinding
+- [x] Person tasks & timing
+- [x] Add some geometry
+- [x] Pathfinding
 - [ ] Sprite & animation
