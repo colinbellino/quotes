@@ -3,6 +3,7 @@ using UnityEngine;
 public class Game
 {
 	private const string _apiURL = "http://localhost:3000/api/quotes";
+	// private const string _apiURL = "https://pouett.netlify.app/api/quotes";
 
 	// public GameConfig Config { get; private set; }
 	public DataLoader Data { get; private set; }

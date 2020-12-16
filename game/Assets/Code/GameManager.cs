@@ -24,10 +24,8 @@ public class GameManager : MonoBehaviour
 		StartOfficeScene();
 	}
 
-	private void StartOfficeScene()
+	private async void StartOfficeScene()
 	{
-		AstarPath.active.Scan();
-
 		foreach (var item in Game.Instance.Data.Persons)
 		{
 			var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);

@@ -19,11 +19,11 @@ public class PersonComponent : MonoBehaviour
 	{
 		_data = person;
 		name = $"Person ({_data.Id})";
-
-		if (person.Sprite)
-		{
-			_head.sprite = _data.Sprite;
-		}
+		
+		// if (person.Sprite)
+		// {
+		// 	_head.sprite = _data.Sprite;
+		// }
 
 		if (person.Color != null)
 		{
