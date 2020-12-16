@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,6 +25,7 @@ public class GameManager : MonoBehaviour
 
 	private void StartOfficeScene()
 	{
+		// _persons.Add(SpawnPerson(Game.Instance.Data.Persons["Rena"], new Vector3(5, 5, 0)));
 		foreach (var item in Game.Instance.Data.Persons)
 		{
 			var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);

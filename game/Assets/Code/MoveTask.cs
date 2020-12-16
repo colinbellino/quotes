@@ -13,11 +13,15 @@ public class MoveTask : ITask
 
 	public async UniTask Execute(PersonComponent person)
 	{
+		person.Animator.Play("Walk");
 		person.AStarAI.canSearch = true;
 		person.AStarAI.destination = _destination;
 
 		while (person.AStarAI.reachedDestination == false && person.AStarAI.isStopped == false)
 		{
+			var scale = person.transform.localScale;
+			scale.x = person.AStarAI.desiredVelocity.x > 0f ? 1f : -1f;
+			person.transform.localScale = scale;
 			await UniTask.NextFrame();
 		}
 

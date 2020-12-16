@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using Pathfinding;
+using UnityEditor;
 using UnityEngine;
 
 public class PersonComponent : MonoBehaviour
 {
 	[SerializeField] private SpriteRenderer _body;
-	[SerializeField] private SpriteRenderer _head;
 
-	private Person _data;
 	public IAstarAI AStarAI { get; private set; }
+	public Animator Animator { get; private set; }
+	private Person _data;
+	private Color[] _originalColors;
+	private Color[] _newColors;
 
 	private void Awake()
 	{
 		AStarAI = GetComponent<IAstarAI>();
+		Animator = GetComponentInChildren<Animator>();
 	}
 
 	public void Init(Person person)
@@ -20,21 +24,16 @@ public class PersonComponent : MonoBehaviour
 		_data = person;
 		name = $"Person ({_data.Id})";
 
-		// if (person.Sprite)
-		// {
-		// 	_head.sprite = _data.Sprite;
-		// }
-
-		if (person.Color != null)
+		if (person.Color != null && person.Color2 != null)
 		{
-			var originalColors = new Color[]
+			_originalColors = new Color[]
 			{
 				new Color32(217, 87, 99, 255),
 				new Color32(172, 50, 50, 255),
 				new Color32(99, 155, 255, 255),
 				new Color32(91, 110, 225, 255),
 			};
-			var newColors = new Color[]
+			_newColors = new[]
 			{
 				person.Color,
 				Lighten(person.Color),
@@ -42,13 +41,8 @@ public class PersonComponent : MonoBehaviour
 				Lighten(person.Color2),
 			};
 
-			_body.sprite = ReplaceSpriteColors(_body.sprite, originalColors, newColors);
+			ApplyPalette(Animator);
 		}
-	}
-
-	private static Color Lighten(Color color)
-	{
-		return new Color(color.r * 0.9f, color.g * 0.9f, color.b * 0.9f, 1f);
 	}
 
 	public async void StartTasks(List<ITask> tasks)
@@ -66,21 +60,68 @@ public class PersonComponent : MonoBehaviour
 		StartTasks(tasks);
 	}
 
+	private void ApplyPalette(Animator animator)
+	{
+		foreach (var clip in animator.runtimeAnimatorController.animationClips)
+		{
+			var newClip = Instantiate(clip);
+
+			var curveBinding = new EditorCurveBinding
+			{
+				type = typeof(SpriteRenderer),
+				path = "",
+				propertyName = "m_Sprite"
+			};
+
+			foreach (var binding in AnimationUtility.GetObjectReferenceCurveBindings(newClip))
+			{
+				var keyframes = AnimationUtility.GetObjectReferenceCurve(newClip, binding);
+				var newKeyframes = new ObjectReferenceKeyframe[keyframes.Length];
+
+				for (var frameIndex = 0; frameIndex < keyframes.Length; frameIndex++)
+				{
+					var frame = keyframes[frameIndex];
+					if (frame.value is Sprite sprite)
+					{
+						newKeyframes[frameIndex] = new ObjectReferenceKeyframe
+						{
+							time = frame.time,
+							value = ApplyPalette(sprite),
+						};
+					}
+				}
+
+				AnimationUtility.SetObjectReferenceCurve(newClip, curveBinding, newKeyframes);
+			}
+
+			var animatorOverrideController = new AnimatorOverrideController();
+			animatorOverrideController.runtimeAnimatorController = animator.runtimeAnimatorController;
+			animatorOverrideController[clip.name] = newClip;
+			Animator.runtimeAnimatorController = animatorOverrideController;
+		}
+	}
+
+	private Sprite ApplyPalette(Sprite sprite)
+	{
+		return ReplaceSpriteColors(sprite, _originalColors, _newColors);
+	}
+
 	private static Sprite ReplaceSpriteColors(Sprite sprite, Color[] originalColors, Color[] newColors)
 	{
 		var texture = Instantiate(sprite.texture);
 
 		var pixels = texture.GetPixels();
-		for (var index = 0; index < pixels.Length; index++)
+		for (var pixelIndex = 0; pixelIndex < pixels.Length; pixelIndex++)
 		{
-			var pixel = pixels[index];
-			var x = index % texture.width;
-			var y = index / texture.width;
+			var pixel = pixels[pixelIndex];
 
 			for (var colorIndex = 0; colorIndex < originalColors.Length; colorIndex++)
 			{
 				if (originalColors[colorIndex] == pixel)
 				{
+					var x = pixelIndex % texture.width;
+					var y = pixelIndex / texture.width;
+
 					texture.SetPixel(x, y, newColors[colorIndex]);
 				}
 			}
@@ -90,7 +131,8 @@ public class PersonComponent : MonoBehaviour
 		return Sprite.Create(texture, sprite.textureRect, new Vector2(0.5f, 0), sprite.pixelsPerUnit);
 	}
 
-	private Color ConvertColor(int r, int g, int b) {
-		return new Color(r/255f, g/255f, b/255f, 1f);
+	private static Color Lighten(Color color)
+	{
+		return new Color(color.r * 0.9f, color.g * 0.9f, color.b * 0.9f, 1f);
 	}
 }
