@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Pathfinding;
 using UnityEngine;
 
@@ -28,7 +27,28 @@ public class PersonComponent : MonoBehaviour
 
 		if (person.Color != null)
 		{
-			SetColor(person.Color);
+			var clothColor = person.Color;
+			var hairColor = new Color(
+				Random.Range(0f, 1f),
+				Random.Range(0f, 1f),
+				Random.Range(0f, 1f),
+				255
+			);
+			var originalColors = new Color[]
+			{
+				new Color32(217, 87, 99, 255),
+				new Color32(172, 50, 50, 255),
+				new Color32(91, 110, 225, 255),
+				new Color32(99, 155, 255, 255),
+			};
+			var newColors = new Color[]
+			{
+				clothColor,
+				new Color(clothColor.r * 0.8f, clothColor.g * 0.8f, clothColor.b * 0.8f, 1f),
+				hairColor,
+				new Color(hairColor.r * 0.8f, hairColor.g * 0.8f, hairColor.b * 0.8f, 1f),
+			};
+			SetColor(originalColors, newColors);
 		}
 	}
 
@@ -47,21 +67,9 @@ public class PersonComponent : MonoBehaviour
 		StartTasks(tasks);
 	}
 
-	private void SetColor(Color color)
+	private void SetColor(Color[] originalColors, Color[] newColors)
 	{
-		// _body.color = color;
-
-		var colors = new Color[]
-		{
-			new Color32(172, 50, 50, 255),
-			new Color32(217, 87, 99, 255),
-		};
-		var colors2 = new Color[]
-		{
-			new Color(color.r * 0.8f, color.g * 0.8f, color.b * 0.8f, 1f),
-			color,
-		};
-		var texture = Texture.Instantiate(_body.sprite.texture);
+		var texture = Instantiate(_body.sprite.texture);
 
 		var pixels = texture.GetPixels();
 		for (var index = 0; index < pixels.Length; index++)
@@ -70,25 +78,15 @@ public class PersonComponent : MonoBehaviour
 			var x = index % texture.width;
 			var y = index / texture.width;
 
-			for (var colorIndex = 0; colorIndex < colors.Length; colorIndex++)
+			for (var colorIndex = 0; colorIndex < originalColors.Length; colorIndex++)
 			{
-				if (colors[colorIndex] == pixel)
+				if (originalColors[colorIndex] == pixel)
 				{
-					texture.SetPixel(x, y, colors2[colorIndex]);
+					texture.SetPixel(x, y, newColors[colorIndex]);
 				}
 			}
 		}
 		texture.Apply();
-
-		{
-			var pixel = texture.GetPixel(0, 0);
-			Debug.Log($"{pixel}");
-		}
-		{
-			var pixel = texture.GetPixel(1, 0);
-			Debug.Log($"{pixel}");
-			// texture.SetPixel(0, 0, colors[new Color32(172, 50, 50, 255)]);
-		}
 
 		var sprite = Sprite.Create(texture, _body.sprite.textureRect, new Vector2(0.5f, 0), _body.sprite.pixelsPerUnit);
 		_body.sprite = sprite;
