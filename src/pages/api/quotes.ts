@@ -30,19 +30,22 @@ export default async (_req: any, res: any) => {
     return res.json({ data: { persons, quotes } });
   } catch (error) {
     res.statusCode = 500;
-    return res.json({ data: { persons: [], quotes: [], error: error.message } });
+    return res.json({
+      data: { persons: [], quotes: [], error: error.message },
+    });
   }
-}
+};
 
 const rowToQuote = (row: GoogleSpreadsheetRow) => ({
   id: row.rowIndex,
   text: row.Text,
   author: row.Author,
   date: new Date(row.Date).toISOString(),
-})
+});
 
 const rowToPerson = (row: GoogleSpreadsheetRow) => ({
   id: row.Name,
-  color: row.Color,
+  color: row.Color || "#111111",
+  color2: row.Color2 || "#ffffff",
   avatar: row.Avatar,
-})
+});

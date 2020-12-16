@@ -16,8 +16,11 @@ internal class ColorConverter : JsonConverter
 
 	public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 	{
-		string value = (string) reader.Value;
-		ColorUtility.TryParseHtmlString(value, out var color);
-		return color;
+		var value = (string) reader.Value;
+		if (ColorUtility.TryParseHtmlString(value, out var color))
+		{
+			return color;
+		}
+		return Color.white;
 	}
 }
