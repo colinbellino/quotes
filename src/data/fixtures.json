@@ -197,46 +197,55 @@
     {
       "id": "Andre",
       "color": "#F44336",
+      "color2": "#2D334A",
       "avatar": "https://i.imgur.com/xUwKOJe.jpg"
     },
     {
       "id": "Theo",
       "color": "#F50057",
+      "color2": "#3D5AFE",
       "avatar": "https://eu.ui-avatars.com/api/?name=C&background=F50057&color=ffffff"
     },
     {
       "id": "Anri",
       "color": "#651FFF",
+      "color2": "#42A5F5",
       "avatar": "https://eu.ui-avatars.com/api/?name=C&background=651FFF&color=ffffff"
     },
     {
       "id": "Gaius",
       "color": "#3D5AFE",
+      "color2": "#546E7A",
       "avatar": "https://eu.ui-avatars.com/api/?name=D&background=3D5AFE&color=ffffff"
     },
     {
       "id": "Rena",
       "color": "#42A5F5",
+      "color2": "#8BC34A",
       "avatar": "https://eu.ui-avatars.com/api/?name=J&background=42A5F5&color=ffffff"
     },
     {
       "id": "Marceline",
       "color": "#8BC34A",
+      "color2": "#651FFF",
       "avatar": "https://eu.ui-avatars.com/api/?name=R&background=8BC34A&color=ffffff"
     },
     {
       "id": "Mariel",
       "color": "#546E7A",
+      "color2": "#8D6E63",
       "avatar": "https://eu.ui-avatars.com/api/?name=V&background=546E7A&color=ffffff"
     },
     {
       "id": "Jesse",
       "color": "#8D6E63",
+      "color2": "#F44336",
       "avatar": "https://eu.ui-avatars.com/api/?name=W&background=8D6E63&color=ffffff"
     },
     {
       "id": "Anonymous",
       "color": "#2D334A",
+      "color2": "#F50057",
       "avatar": "https://eu.ui-avatars.com/api/?name=A&background=000000&color=ffffff"
     }
   ]

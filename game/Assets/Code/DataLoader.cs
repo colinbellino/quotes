@@ -84,5 +84,6 @@ public class Person
 	[JsonProperty("id")] public string Id;
 	[JsonProperty("avatar")] public string Avatar;
 	[JsonProperty("color")] public Color Color;
+	[JsonProperty("color2")] public Color Color2;
 	public Sprite Sprite;
 }

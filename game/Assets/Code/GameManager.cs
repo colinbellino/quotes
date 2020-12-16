@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 		StartOfficeScene();
 	}
 
-	private async void StartOfficeScene()
+	private void StartOfficeScene()
 	{
 		foreach (var item in Game.Instance.Data.Persons)
 		{

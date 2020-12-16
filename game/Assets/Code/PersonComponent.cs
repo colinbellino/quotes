@@ -27,29 +27,28 @@ public class PersonComponent : MonoBehaviour
 
 		if (person.Color != null)
 		{
-			var clothColor = person.Color;
-			var hairColor = new Color(
-				Random.Range(0f, 1f),
-				Random.Range(0f, 1f),
-				Random.Range(0f, 1f),
-				255
-			);
 			var originalColors = new Color[]
 			{
 				new Color32(217, 87, 99, 255),
 				new Color32(172, 50, 50, 255),
-				new Color32(91, 110, 225, 255),
 				new Color32(99, 155, 255, 255),
+				new Color32(91, 110, 225, 255),
 			};
 			var newColors = new Color[]
 			{
-				clothColor,
-				new Color(clothColor.r * 0.8f, clothColor.g * 0.8f, clothColor.b * 0.8f, 1f),
-				hairColor,
-				new Color(hairColor.r * 0.8f, hairColor.g * 0.8f, hairColor.b * 0.8f, 1f),
+				person.Color,
+				Lighten(person.Color),
+				person.Color2,
+				Lighten(person.Color2),
 			};
-			SetColor(originalColors, newColors);
+
+			_body.sprite = ReplaceSpriteColors(_body.sprite, originalColors, newColors);
 		}
+	}
+
+	private static Color Lighten(Color color)
+	{
+		return new Color(color.r * 0.8f, color.g * 0.8f, color.b * 0.8f, 1f);
 	}
 
 	public async void StartTasks(List<ITask> tasks)
@@ -67,9 +66,9 @@ public class PersonComponent : MonoBehaviour
 		StartTasks(tasks);
 	}
 
-	private void SetColor(Color[] originalColors, Color[] newColors)
+	private static Sprite ReplaceSpriteColors(Sprite sprite, Color[] originalColors, Color[] newColors)
 	{
-		var texture = Instantiate(_body.sprite.texture);
+		var texture = Instantiate(sprite.texture);
 
 		var pixels = texture.GetPixels();
 		for (var index = 0; index < pixels.Length; index++)
@@ -88,8 +87,7 @@ public class PersonComponent : MonoBehaviour
 		}
 		texture.Apply();
 
-		var sprite = Sprite.Create(texture, _body.sprite.textureRect, new Vector2(0.5f, 0), _body.sprite.pixelsPerUnit);
-		_body.sprite = sprite;
+		return Sprite.Create(texture, sprite.textureRect, new Vector2(0.5f, 0), sprite.pixelsPerUnit);
 	}
 
 	private Color ConvertColor(int r, int g, int b) {
