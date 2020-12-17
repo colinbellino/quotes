@@ -133,6 +133,6 @@ public class PersonComponent : MonoBehaviour
 
 	private static Color Lighten(Color color)
 	{
-		return new Color(color.r * 0.9f, color.g * 0.9f, color.b * 0.9f, 1f);
+		return new Color(color.r * 0.8f, color.g * 0.8f, color.b * 0.8f, 1f);
 	}
 }

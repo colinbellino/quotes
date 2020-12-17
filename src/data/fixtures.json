@@ -198,55 +198,55 @@
       "id": "Andre",
       "color": "#F44336",
       "color2": "#2D334A",
-      "avatar": "https://i.imgur.com/xUwKOJe.jpg"
+      "avatar": "https://eu.ui-avatars.com/api/?name=C&background=F44336&color=ffffff&size=256"
     },
     {
       "id": "Theo",
       "color": "#F50057",
       "color2": "#3D5AFE",
-      "avatar": "https://eu.ui-avatars.com/api/?name=C&background=F50057&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=C&background=F50057&color=ffffff&size=256"
     },
     {
       "id": "Anri",
       "color": "#651FFF",
       "color2": "#42A5F5",
-      "avatar": "https://eu.ui-avatars.com/api/?name=C&background=651FFF&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=C&background=651FFF&color=ffffff&size=256"
     },
     {
       "id": "Gaius",
       "color": "#3D5AFE",
       "color2": "#546E7A",
-      "avatar": "https://eu.ui-avatars.com/api/?name=D&background=3D5AFE&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=D&background=3D5AFE&color=ffffff&size=256"
     },
     {
       "id": "Rena",
       "color": "#42A5F5",
       "color2": "#8BC34A",
-      "avatar": "https://eu.ui-avatars.com/api/?name=J&background=42A5F5&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=J&background=42A5F5&color=ffffff&size=256"
     },
     {
       "id": "Marceline",
       "color": "#8BC34A",
       "color2": "#651FFF",
-      "avatar": "https://eu.ui-avatars.com/api/?name=R&background=8BC34A&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=R&background=8BC34A&color=ffffff&size=256"
     },
     {
       "id": "Mariel",
       "color": "#546E7A",
       "color2": "#8D6E63",
-      "avatar": "https://eu.ui-avatars.com/api/?name=V&background=546E7A&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=V&background=546E7A&color=ffffff&size=256"
     },
     {
       "id": "Jesse",
       "color": "#8D6E63",
       "color2": "#F44336",
-      "avatar": "https://eu.ui-avatars.com/api/?name=W&background=8D6E63&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=W&background=8D6E63&color=ffffff&size=256"
     },
     {
       "id": "Anonymous",
-      "color": "#2D334A",
+      "color": "#FFF04F",
       "color2": "#F50057",
-      "avatar": "https://eu.ui-avatars.com/api/?name=A&background=000000&color=ffffff"
+      "avatar": "https://eu.ui-avatars.com/api/?name=A&background=000000&color=ffffff&size=256"
     }
   ]
 }

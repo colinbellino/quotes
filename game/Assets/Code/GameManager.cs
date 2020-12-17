@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,14 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		_persons = new List<PersonComponent>();
+	}
+
+	private void Update()
+	{
+		if (Keyboard.current.enterKey.wasReleasedThisFrame)
+		{
+			CreateRandomQuote();
+		}
 	}
 
 	private async void Start()
@@ -28,6 +37,11 @@ public class GameManager : MonoBehaviour
 		// _persons.Add(SpawnPerson(Game.Instance.Data.Persons["Rena"], new Vector3(5, 5, 0)));
 		foreach (var item in Game.Instance.Data.Persons)
 		{
+			// if (item.Value.Color == Color.clear)
+			// {
+			// 	continue;
+			// }
+
 			var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);
 			_persons.Add(SpawnPerson(item.Value, origin));
 		}

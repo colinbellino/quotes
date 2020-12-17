@@ -21,6 +21,6 @@ internal class ColorConverter : JsonConverter
 		{
 			return color;
 		}
-		return Color.white;
+		return Color.clear;
 	}
 }

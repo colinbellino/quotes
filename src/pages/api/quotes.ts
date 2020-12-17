@@ -45,7 +45,7 @@ const rowToQuote = (row: GoogleSpreadsheetRow) => ({
 
 const rowToPerson = (row: GoogleSpreadsheetRow) => ({
   id: row.Name,
-  color: row.Color || "#111111",
-  color2: row.Color2 || "#ffffff",
+  color: row.Color,
+  color2: row.Color2,
   avatar: row.Avatar,
 });

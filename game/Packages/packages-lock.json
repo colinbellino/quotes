@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.colinbellino.plugins.pixelfonts": {
+      "version": "https://github.com/colinbellino/unity-private-plugins.git?path=Assets/Plugins/PixelFonts/",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8470a562590e67dad78e6801693f93015b91bbb8"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
@@ -50,13 +57,11 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.probuilder": {
-      "version": "4.4.0",
+    "com.unity.inputsystem": {
+      "version": "1.0.1",
       "depth": 0,
       "source": "registry",
-      "dependencies": {
-        "com.unity.settings-manager": "1.0.3"
-      },
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.progrids": {
@@ -69,7 +74,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {
-      "version": "1.0.3",
+      "version": "1.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},

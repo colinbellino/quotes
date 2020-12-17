@@ -3,4 +3,6 @@
 - [x] Person tasks & timing
 - [x] Add some geometry
 - [x] Pathfinding
-- [ ] Sprite & animation
+- [x] Sprite & animation
+- [x] Cleaner message UI
+- [ ] Idle animation
