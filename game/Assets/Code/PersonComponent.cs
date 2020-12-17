@@ -6,6 +6,7 @@ using UnityEngine;
 public class PersonComponent : MonoBehaviour
 {
 	[SerializeField] private SpriteRenderer _body;
+	[SerializeField] private Sprite _sprite;
 
 	public IAstarAI AStarAI { get; private set; }
 	public Animator Animator { get; private set; }
@@ -41,7 +42,8 @@ public class PersonComponent : MonoBehaviour
 				Lighten(person.Color2),
 			};
 
-			ApplyPalette(Animator);
+			// ApplyPalette(_sprite);
+			// ApplyPalette(Animator);
 		}
 	}
 

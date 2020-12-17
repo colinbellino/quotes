@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _body: {fileID: 2412529949550008995}
+  _sprite: {fileID: -9127884219707002847, guid: 894386b3eaafc4ffa90bfb4a779914a5,
+    type: 3}
 --- !u!114 &7677714782142649624
 MonoBehaviour:
   m_ObjectHideFlags: 0

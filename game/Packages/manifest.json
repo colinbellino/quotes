@@ -9,6 +9,7 @@
     "com.unity.ide.vscode": "1.2.3",
     "com.unity.inputsystem": "1.0.1",
     "com.unity.progrids": "3.0.3-preview.6",
+    "com.unity.shadergraph": "10.2.2",
     "com.unity.timeline": "1.4.4",
     "com.unity.ugui": "1.0.0",
     "io.tinu.asepriteimporter": "https://github.com/martinhodler/unity-aseprite-importer.git",
