@@ -6,3 +6,4 @@
 - [x] Sprite & animation
 - [x] Cleaner message UI
 - [ ] Idle animation
+- [ ] Tap a person to get a random quote from them
