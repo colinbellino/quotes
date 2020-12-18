@@ -21,8 +21,8 @@ public class DataLoader
 
 	public async UniTask LoadAll()
 	{
-		var raw = (await UnityWebRequest.Get(_apiURL).SendWebRequest()).downloadHandler.text;
-		var response = JsonConvert.DeserializeObject<Response>(raw, new ColorConverter());
+		var request = await UnityWebRequest.Get(_apiURL).SendWebRequest();
+		var response = JsonConvert.DeserializeObject<Response>(request.downloadHandler.text, new ColorConverter());
 
 		var personsTasks = new List<UniTask>();
 

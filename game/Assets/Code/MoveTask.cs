@@ -22,6 +22,7 @@ public class MoveTask : ITask
 			var scale = person.transform.localScale;
 			scale.x = person.AStarAI.desiredVelocity.x > 0f ? 1f : -1f;
 			person.transform.localScale = scale;
+
 			await UniTask.NextFrame();
 		}
 

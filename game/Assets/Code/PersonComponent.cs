@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Pathfinding;
 using UnityEngine;
 
@@ -10,11 +12,14 @@ public class PersonComponent : MonoBehaviour
 	public IAstarAI AStarAI { get; private set; }
 	public Animator Animator { get; private set; }
 	private Person _data;
+	private CancellationToken _cancellationToken;
 
 	private void Awake()
 	{
 		AStarAI = GetComponent<IAstarAI>();
 		Animator = GetComponentInChildren<Animator>();
+
+		_cancellationToken = this.GetCancellationTokenOnDestroy();
 	}
 
 	public void Init(Person person)
@@ -31,16 +36,20 @@ public class PersonComponent : MonoBehaviour
 
 	public async void StartTasks(List<ITask> tasks)
 	{
-		if (tasks.Count == 0)
+		try
 		{
-			return;
-		}
+			if (tasks.Count == 0)
+			{
+				return;
+			}
 
-		foreach (var task in tasks)
-		{
-			await task.Execute(this);
-		}
+			foreach (var task in tasks)
+			{
+				await task.Execute(this).WithCancellation(_cancellationToken);
+			}
 
-		StartTasks(tasks);
+			StartTasks(tasks);
+		}
+		catch { }
 	}
 }
