@@ -12,7 +12,7 @@ public class MessageUI : MonoBehaviour
 		_root.SetActive(false);
 	}
 
-	public void Show(string text, Sprite avatar)
+	public void Show(string text, Sprite avatar, float duration = 10f)
 	{
 		_text.text = text;
 
@@ -23,7 +23,7 @@ public class MessageUI : MonoBehaviour
 		_root.SetActive(true);
 
 		CancelInvoke(nameof(Hide));
-		Invoke(nameof(Hide), 5f);
+		Invoke(nameof(Hide), duration);
 	}
 
 	private void Hide()

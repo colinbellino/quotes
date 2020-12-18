@@ -5,7 +5,7 @@ public static class GameEvents
 {
 	public static Action DataLoadStarted;
 	public static Action DataLoadFinished;
-	public static Action<string> QuoteAdded;
+	public static Action<Quote, Person> QuoteAdded;
 
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 	static void Init()

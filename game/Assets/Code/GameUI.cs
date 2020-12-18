@@ -25,10 +25,8 @@ public class GameUI : MonoBehaviour
 		_root.SetActive(false);
 	}
 
-	private void OnQuoteAdded(string quoteId)
+	private void OnQuoteAdded(Quote quote, Person author)
 	{
-		var quote = Game.Instance.Data.Quotes[quoteId];
-		var author = Game.Instance.Data.Persons[quote.Author];
 		var color = $"#{ColorUtility.ToHtmlStringRGB(author.Color)}";
 		var text = $"<color=\"{color}\">{author.Id}:</color> {quote.Text}";
 

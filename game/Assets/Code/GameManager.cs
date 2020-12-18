@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -9,41 +10,65 @@ public class GameManager : MonoBehaviour
 	[SerializeField] public PersonComponent _personPrefab;
 
 	private List<PersonComponent> _persons;
+	private double _refreshTimestamp;
+	private const double _refreshDelay = 10f;
 
 	private void Awake()
 	{
 		_persons = new List<PersonComponent>();
 	}
 
-	private void Update()
-	{
-		if (Keyboard.current.enterKey.wasReleasedThisFrame)
-		{
-			CreateRandomQuote();
-		}
-	}
-
 	private async void Start()
 	{
+		_refreshTimestamp = Time.time + _refreshDelay;
+
 		GameEvents.DataLoadStarted?.Invoke();
-		await Game.Instance.Data.LoadAll();
+		await Game.Instance.Data.InitialLoad();
 		GameEvents.DataLoadFinished?.Invoke();
 
 		StartOfficeScene();
 	}
 
-	private void StartOfficeScene()
+	private async void Update()
 	{
-		// _persons.Add(SpawnPerson(Game.Instance.Data.Persons["Rena"], new Vector3(5, 5, 0)));
-		foreach (var item in Game.Instance.Data.Persons)
+		#if UNITY_EDITOR
+		if (Keyboard.current.enterKey.wasReleasedThisFrame)
 		{
-			// if (item.Value.Color == Color.clear)
+			var randomQuote = Game.Instance.Data.GetRandomQuote();
+			GameEvents.QuoteAdded?.Invoke(randomQuote, Game.Instance.Data.GetPerson(randomQuote.Author));
+		}
+		#endif
+
+		if (Time.time > _refreshTimestamp)
+		{
+			_refreshTimestamp = Time.time + _refreshDelay;
+
+			Debug.Log("Refreshing data");
+			var (newPersons, newQuotes) = await Game.Instance.Data.Refresh();
+
+			foreach (var person in newPersons)
+			{
+				var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);
+				_persons.Add(SpawnPerson(person, origin));
+			}
+			foreach (var quote in newQuotes)
+			{
+				GameEvents.QuoteAdded?.Invoke(quote, Game.Instance.Data.GetPerson(quote.Author));
+			}
+		}
+	}
+
+	private async void StartOfficeScene()
+	{
+		foreach (var person in Game.Instance.Data.GetPersons())
+		{
+			// if (person.Color == Color.clear)
 			// {
 			// 	continue;
 			// }
 
 			var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);
-			_persons.Add(SpawnPerson(item.Value, origin));
+			_persons.Add(SpawnPerson(person, origin));
 		}
 
 		foreach (var person in _persons)
@@ -61,6 +86,12 @@ public class GameManager : MonoBehaviour
 			};
 			person.StartTasks(tasks);
 		}
+
+		{
+			await UniTask.Delay(1000);
+			var quote = Game.Instance.Data.GetLastQuote();
+			GameEvents.QuoteAdded?.Invoke(quote, Game.Instance.Data.GetPerson(quote.Author));
+		}
 	}
 
 	private PersonComponent SpawnPerson(Person data, Vector3 position)
@@ -68,11 +99,5 @@ public class GameManager : MonoBehaviour
 		var instance = Instantiate(_personPrefab, position, Quaternion.identity);
 		instance.Init(data);
 		return instance;
-	}
-
-	public void CreateRandomQuote()
-	{
-		var randomQuote = Game.Instance.Data.Quotes.ElementAt(Random.Range(0, Game.Instance.Data.Quotes.Count)).Value;
-		GameEvents.QuoteAdded?.Invoke(randomQuote.Id);
 	}
 }
