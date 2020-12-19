@@ -17,7 +17,7 @@ public class MoveTask : ITask
 		person.AStarAI.canSearch = true;
 		person.AStarAI.destination = _destination;
 
-		while (person.AStarAI.reachedDestination == false && person.AStarAI.isStopped == false)
+		while (person.AStarAI.remainingDistance > person.AStarAI.radius)
 		{
 			var scale = person.transform.localScale;
 			scale.x = person.AStarAI.desiredVelocity.x > 0f ? 1f : -1f;

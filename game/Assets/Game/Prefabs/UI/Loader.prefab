@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4441191491503232616}
   - component: {fileID: 4441191491503232622}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,8 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1164052635514373865, guid: 03fd3058d2ca840c1851fb916edb880f,
-    type: 3}
+  m_Sprite: {fileID: 302528250548171635, guid: 03fd3058d2ca840c1851fb916edb880f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
