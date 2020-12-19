@@ -15,6 +15,7 @@ public class MoveTask : ITask
 	{
 		person.Animator.Play("Walk");
 		person.AStarAI.canSearch = true;
+		person.AStarAI.maxSpeed = _speed;
 		person.AStarAI.destination = _destination;
 
 		while (person.AStarAI.remainingDistance > person.AStarAI.radius)

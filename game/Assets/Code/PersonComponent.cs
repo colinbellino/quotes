@@ -9,6 +9,7 @@ public class PersonComponent : MonoBehaviour
 	[SerializeField] private SpriteRenderer _body;
 	[SerializeField] private PersonWorldUI _worldUI;
 
+	public string Id => _data.Id;
 	public IAstarAI AStarAI { get; private set; }
 	public Animator Animator { get; private set; }
 	public SpriteRenderer Body => _body;

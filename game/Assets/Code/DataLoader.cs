@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -71,6 +72,12 @@ public class DataLoader
 	{
 		var index = Random.Range(0, _quotes.Count);
 		return _quotes[index];
+	}
+	public Quote GetRandomQuoteByPerson(string personId)
+	{
+		var quotes = _quotes.Where(quote => quote.Author == personId).ToList();
+		var index = Random.Range(0, quotes.Count);
+		return quotes[index];
 	}
 
 	private async UniTask<(Person[], Quote[])> FetchData()

@@ -8,5 +8,5 @@
 - [ ] Idle animation
 - [x] Person name over head
 - [ ] Handle loading error
-- [ ] Tap a person to get a random quote from them
+- [x] Tap a person to get a random quote from them
 - [ ] Quiz: show a mistery quote and tap the person who said that

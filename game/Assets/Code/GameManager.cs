@@ -38,6 +38,18 @@ public class GameManager : MonoBehaviour
 		}
 		#endif
 
+		if (Mouse.current.leftButton.wasReleasedThisFrame)
+		{
+			var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			var hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+			var person = hit.collider?.GetComponentInParent<PersonComponent>();
+			if (person != null)
+			{
+				var randomQuote = Game.Instance.Data.GetRandomQuoteByPerson(person.Id);
+				GameEvents.QuoteAdded?.Invoke(randomQuote, Game.Instance.Data.GetPerson(randomQuote.Author));
+			}
+		}
+
 		if (Time.time > _refreshTimestamp)
 		{
 			_refreshTimestamp = Time.time + _refreshDelay;
