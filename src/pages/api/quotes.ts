@@ -1,3 +1,4 @@
+import Cors from "cors";
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 
 import * as fakeData from "data";
@@ -5,7 +6,27 @@ import * as fakeData from "data";
 const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_DOCUMENT_ID!);
 doc.useApiKey(process.env.GOOGLE_API_KEY!);
 
-export default async (_req: any, res: any) => {
+function initMiddleware(middleware: any) {
+  return (req: any, res: any) =>
+    new Promise((resolve, reject) => {
+      middleware(req, res, (result: any) => {
+        if (result instanceof Error) {
+          return reject(result);
+        }
+        return resolve(result);
+      });
+    });
+}
+
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "OPTIONS"],
+  }),
+);
+
+export default async (req: any, res: any) => {
+  await cors(req, res);
+
   if (process.env.QUOTES_ENV === "development") {
     console.log("Loading fake data.");
     res.statusCode = 200;
