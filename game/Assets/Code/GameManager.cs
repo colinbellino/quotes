@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -62,10 +61,10 @@ public class GameManager : MonoBehaviour
 	{
 		foreach (var person in Game.Instance.Data.GetPersons())
 		{
-			// if (person.Color == Color.clear)
-			// {
-			// 	continue;
-			// }
+			if (person.ShowInGame == false)
+			{
+				continue;
+			}
 
 			var origin = new Vector3(Random.Range(2, 30), Random.Range(2, 16), 0);
 			_persons.Add(SpawnPerson(person, origin));

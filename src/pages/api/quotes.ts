@@ -48,4 +48,5 @@ const rowToPerson = (row: GoogleSpreadsheetRow) => ({
   color: row.Color,
   color2: row.Color2,
   avatar: row.Avatar,
+  showInGame: row.ShowInGame || false,
 });

@@ -7,10 +7,12 @@ using UnityEngine;
 public class PersonComponent : MonoBehaviour
 {
 	[SerializeField] private SpriteRenderer _body;
-	[SerializeField] private Sprite _sprite;
+	[SerializeField] private PersonWorldUI _worldUI;
 
 	public IAstarAI AStarAI { get; private set; }
 	public Animator Animator { get; private set; }
+	public SpriteRenderer Body => _body;
+
 	private Person _data;
 	private CancellationToken _cancellationToken;
 
@@ -25,6 +27,11 @@ public class PersonComponent : MonoBehaviour
 	public void Init(Person person)
 	{
 		_data = person;
+
+		var color = $"#{ColorUtility.ToHtmlStringRGB(person.Color)}";
+		var formattedName = $"<color=\"{color}\">{TextHelpers.RemoveDiacritics(person.Id)}</color>";
+		_worldUI.SetName(formattedName);
+
 		name = $"Person ({_data.Id})";
 
 		if (person.Color != null && person.Color2 != null)

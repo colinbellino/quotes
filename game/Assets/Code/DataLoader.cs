@@ -137,5 +137,6 @@ public class Person
 	[JsonProperty("avatar")] public string Avatar;
 	[JsonProperty("color")] public Color Color;
 	[JsonProperty("color2")] public Color Color2;
+	[JsonProperty("showInGame")] public bool ShowInGame;
 	public Sprite Sprite;
 }
