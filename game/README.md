@@ -7,3 +7,4 @@
 - [x] Cleaner message UI
 - [ ] Idle animation
 - [ ] Tap a person to get a random quote from them
+- [ ] Quiz: show a mistery quote and tap the person who said that
