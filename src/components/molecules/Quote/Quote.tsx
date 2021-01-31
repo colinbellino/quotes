@@ -32,6 +32,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
 }) => {
   const date = dateFormatter.format(new Date(quote.date));
 
+  const [focused, setFocused] = useState(false);
   const [loading, setLoading] = useState(false);
   const [reactions, setReactions] = useState(defaultReactions);
   const addReaction = useAddReaction();
@@ -43,15 +44,18 @@ export const Quote: FunctionComponent<QuoteProps> = ({
         .then(result => {
           const reaction = (result as any).data.reaction;
           setReactions([...reactions, reaction]);
-          console.table([...reactions, reaction]);
         })
-        .finally(() => { setLoading(false); });
+        .finally(() => {
+          setLoading(false); setFocused(false);
+        });
   }
 
   return (
     <div
       ref={reference}
       className={`Quote ${styles.Quote} ${interactive && styles.Interactive}`}
+      onMouseEnter={() => { setFocused(true); }}
+      onMouseLeave={() => { setFocused(false); }}
     >
       <cite>
         {person ? (
@@ -73,22 +77,41 @@ export const Quote: FunctionComponent<QuoteProps> = ({
         )}
       </cite>
       <blockquote>{quote.text}</blockquote>
-      {showReactions && <div className={styles.QuoteReactions}>
-        {reactionIds.map((label, reactionId) => {
-          const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
+      {showReactions && (
+        <div className={styles.QuoteReactions}>
+          {focused ? reactionIds.map((label, reactionId) => {
+            const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
 
-          return (
-            <button
-              key={reactionId}
-              className={`QuoteReaction ${styles.QuoteReaction}`}
-              disabled={loading}
-              onClick={() => onReactionClick({ quoteId: quote.id, personId: 2, reactionId })}
-            >
-              {label}{currentReactions.length > 0 ? currentReactions.length :  ""}
-            </button>
-          );
-        })}
-      </div>}
+            return (
+              <button
+                key={reactionId}
+                className={`QuoteReaction ${styles.QuoteReaction}`}
+                disabled={loading}
+                onClick={() => onReactionClick({ quoteId: quote.id, personId: 2, reactionId })}
+              >
+                {label}{currentReactions.length > 0 ? currentReactions.length :  ""}
+              </button>
+            );
+          }) : reactionIds.map((label, reactionId) => {
+              const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
+
+              if (currentReactions.length == 0) {
+                return;
+              }
+
+              return (
+                <button
+                  key={reactionId}
+                  className={`QuoteReaction ${styles.QuoteReaction}`}
+                  disabled={true}
+                >
+                  {label}{currentReactions.length > 0 ? currentReactions.length :  ""}
+                </button>
+              );
+            })
+          }
+        </div>
+      )}
     </div>
   );
 };
