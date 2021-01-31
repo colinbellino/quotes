@@ -13,5 +13,5 @@ stories.add("with knobs", () => {
   const quote = object("Quote", quotes[0]);
   const person = object("Person", bob);
 
-  return <Quote quote={quote!} person={person!} />;
+  return <Quote quote={quote!} person={person!} reactions={[]} />;
 });
