@@ -19,7 +19,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
 }) => (
   <section className={styles.QuizCard}>
     <h1>Qui a dit ?</h1>
-    <Quote quote={quote} interactive={false} />
+    <Quote quote={quote} interactive={false} reactions={[]} showReactions={false} />
     <ul>
       {persons.map((person) => {
         const isGuess = guesses.includes(person.id);

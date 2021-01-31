@@ -18,6 +18,7 @@ type QuoteProps = {
   person?: PersonModel;
   reactions: ReactionModel[];
   interactive?: boolean;
+  showReactions?: boolean;
   reference?: MutableRefObject<null | HTMLDivElement>;
 };
 
@@ -26,6 +27,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
   person,
   reactions: defaultReactions,
   interactive = true,
+  showReactions = true,
   reference,
 }) => {
   const date = dateFormatter.format(new Date(quote.date));
@@ -71,7 +73,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
         )}
       </cite>
       <blockquote>{quote.text}</blockquote>
-      <div className={styles.QuoteReactions}>
+      {showReactions && <div className={styles.QuoteReactions}>
         {reactionIds.map((label, reactionId) => {
           const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
 
@@ -86,7 +88,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
             </button>
           );
         })}
-      </div>
+      </div>}
     </div>
   );
 };
