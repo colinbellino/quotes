@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PersonModel, QuoteModel } from "data";
+import { PersonModel, QuoteModel, ReactionModel } from "data";
 import { MainLayout, Avatar, Quote } from "components";
 import styles from "./PersonPage.module.css";
 
@@ -8,13 +8,15 @@ export type PersonPageProps = {
   loading?: boolean;
   error?: string;
   person?: PersonModel;
-  quotes?: QuoteModel[];
+  quotes: QuoteModel[];
+  reactions: ReactionModel[];
 };
 
 export const PersonPage = ({
   loading = true,
   error,
   person,
+  reactions,
   quotes = [],
 }: PersonPageProps) => (
   <MainLayout loading={loading} error={error}>
@@ -35,7 +37,7 @@ export const PersonPage = ({
           <ul>
             {quotes.map((quote) => (
               <li key={quote.id}>
-                <Quote quote={quote} />
+                <Quote quote={quote} reactions={reactions.filter(reaction => reaction.quoteId == quote.id)} />
               </li>
             ))}
           </ul>
