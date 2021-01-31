@@ -44,3 +44,26 @@
   height: 24px;
   margin-right: 4px;
 }
+
+.QuoteReactions {
+  position: relative;
+  float: right;
+  z-index: 2;
+  top: -16px;
+}
+
+.QuoteReaction {
+  margin: 0 8px 0 0;
+  padding: 0 4px 0 8px;
+  border: 0;
+  height: 28px;
+  background: #007cad;
+  color: #ffffff;
+  letter-spacing: 4px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.QuoteReaction:global(:disabled) {
+  background: #757575;
+}

@@ -2,21 +2,31 @@ import React, { createContext, useContext, useEffect, useRef } from "react";
 import { VariableSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import { PersonModel, QuoteModel } from "data";
+import { PersonModel, QuoteModel, ReactionModel } from "data";
 import { MainLayout, Quote } from "components";
 
 type QuotesPageProps = {
   loading?: boolean;
   error?: string;
-  quotes?: QuoteModel[];
-  persons?: PersonModel[];
+  quotes: QuoteModel[];
+  persons: PersonModel[];
+  reactions: ReactionModel[];
 };
 
 const DynamicListContext = createContext<
   Partial<{ setSize: (index: number, size: number) => void }>
 >({});
 
-const ListRow = ({ index, width, quotes, persons, style }: any) => {
+type ListRowProps = {
+  index: number,
+  width: number,
+  quotes: QuoteModel[];
+  persons: PersonModel[];
+  reactions: ReactionModel[];
+  style: object,
+};
+
+const ListRow = ({ index, width, quotes, persons, reactions, style }: ListRowProps) => {
   const { setSize } = useContext(DynamicListContext);
   const rowRoot = useRef<null | HTMLDivElement>(null);
 
@@ -31,7 +41,7 @@ const ListRow = ({ index, width, quotes, persons, style }: any) => {
 
   return (
     <div style={{ ...style, paddingTop: 8, paddingBottom: 8 }}>
-      <Quote reference={rowRoot} quote={quote} person={person} />
+      <Quote reference={rowRoot} quote={quote} person={person} reactions={reactions.filter(reaction => reaction.quoteId == quote.id)} />
     </div>
   );
 };
@@ -40,6 +50,7 @@ export const QuotesPage = ({
   loading = true,
   persons = [],
   quotes = [],
+  reactions = [],
   error,
 }: QuotesPageProps) => {
   const listRef = useRef<VariableSizeList | null>(null);
@@ -87,6 +98,7 @@ export const QuotesPage = ({
                   width={width}
                   quotes={quotes}
                   persons={persons}
+                  reactions={reactions}
                 />
               )}
             </VariableSizeList>
