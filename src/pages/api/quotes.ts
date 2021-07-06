@@ -1,9 +1,15 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
-const { performance } = require("perf_hooks");
 
-const cache: any = {
+type Cache = {
+  data: Object | null;
+  time: number;
+  duration: number;
+}
+
+const cache: Cache = {
   data: null,
   time: 0,
+  duration: 6000 * 5,
 };
 
 export default async (_req: any, res: any) => {
@@ -17,54 +23,26 @@ export default async (_req: any, res: any) => {
   try {
     let data = {};
 
-    const startTime = performance.now();
-
-    if (Date.now() > cache.time + 1000 * 60 * 2) {
-      console.log("burst cache");
-    }
-
-    if (cache.data == null || Date.now() > cache.time + 1000 * 60 * 2) {
+    if (cache.data == null || Date.now() > cache.time + cache.duration) {
       const sheets = await loadDoc();
 
-      const loadTime = performance.now();
-      console.log("load:          ", loadTime - startTime);
+      const [quotesRows = [], personsRows = [], reactionsRows = []] = await Promise.all([
+        sheets.quotes.getRows(),
+        sheets.persons.getRows(),
+        sheets.reactions.getRows(),
+      ]);
 
-      // const [quotesRows = [], personsRows = [], reactionsRows = []] = await Promise.all([
-      //   sheets.quotes.getRows(),
-      //   sheets.persons.getRows(),
-      //   sheets.reactions.getRows(),
-      // ]);
+      data = {
+        quotes: quotesRows.map(rowToQuote).reverse(),
+        persons: personsRows.map(rowToPerson),
+        reactions: reactionsRows.map(rowToReaction)
+      };
 
-      const quotesRows = await sheets.quotes.getRows();
-      const quotesTime = performance.now();
-      console.log("quotesRows:    ", quotesTime - loadTime);
-
-      const personsRows = await sheets.persons.getRows();
-      const personsTime = performance.now();
-      console.log("personsTime:   ", personsTime - quotesTime);
-
-      const reactionsRows = await sheets.reactions.getRows();
-      const reactionsTime = performance.now();
-      console.log("reactionsTime: ", reactionsTime - quotesTime);
-
-      const rowsTime = performance.now();
-      // console.log("getRows: ", rowsTime - loadTime);
-
-      const quotes = quotesRows.map(rowToQuote).reverse();
-      const persons = personsRows.map(rowToPerson);
-      const reactions = reactionsRows.map(rowToReaction);
-
-      console.log("map:           ", performance.now() - rowsTime);
-
-      data = { persons, quotes, reactions };
       cache.data = data;
       cache.time = Date.now();
     } else {
       data = cache.data;
     }
-
-    const endTime = performance.now();
-    console.log("total:         ", endTime - startTime);
 
     res.statusCode = 200;
     return res.json({ data });
