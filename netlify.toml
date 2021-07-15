@@ -6,6 +6,9 @@
 [functions]
   directory = "out_functions"
 
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
 [dev]
   functions = "out_functions"
   publish = "out_publish"
