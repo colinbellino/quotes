@@ -3,6 +3,9 @@
   functions = "out_functions"
   publish = "out_publish"
 
+[functions]
+  directory = "out_functions"
+
 [dev]
   functions = "out_functions"
   publish = "out_publish"
