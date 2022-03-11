@@ -28,6 +28,7 @@ export const PersonPage = ({
               url={person.avatar}
               alt={`${person.id}'s avatar`}
               color={person.color}
+              width={48}
             />
             <div className={styles.Info}>
               <h2 style={{ color: person.color }}>{person.id}</h2>

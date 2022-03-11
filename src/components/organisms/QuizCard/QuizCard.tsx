@@ -15,7 +15,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
   quote,
   persons,
   guesses = [],
-  onSelectPerson = () => {},
+  onSelectPerson = () => { },
 }) => (
   <section className={styles.QuizCard}>
     <h1>Qui a dit ?</h1>
@@ -28,7 +28,7 @@ export const QuizCard: FunctionComponent<QuizCardProps> = ({
 
         return (
           <li key={person.id} onClick={() => onSelectPerson(person)}>
-            <Avatar url={person.avatar} alt={person.id} color={person.color} />
+            <Avatar url={person.avatar} alt={person.id} color={person.color} width={48} />
             <div>{person.id}</div>
             <div className={`${styles.Result} ${resultClass}`} />
           </li>

@@ -1,10 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 
 type Cache = {
-  data: Object | null;
+  data: Object | null;
   time: number;
   duration: number;
-}
+};
 
 const cache: Cache = {
   data: null,
@@ -12,9 +13,9 @@ const cache: Cache = {
   duration: 6000 * 5,
 };
 
-export default async (_req: any, res: any) => {
-  if (process.env.QUOTES_ENV === "development") {
-    const fakeData = require("data");
+export default async function quotes(_req: NextApiRequest, res: NextApiResponse) {
+  if (process.env.QUOTES_ENV !== "production") {
+    const fakeData = await require("data");
     console.log("Loading fake data.");
     res.statusCode = 200;
     return res.json({ data: fakeData });
@@ -26,7 +27,7 @@ export default async (_req: any, res: any) => {
     if (cache.data == null || Date.now() > cache.time + cache.duration) {
       const sheets = await loadDoc();
 
-      const [quotesRows = [], personsRows = [], reactionsRows = []] = await Promise.all([
+      const [quotesRows = [], personsRows = [], reactionsRows = []] = await Promise.all([
         sheets.quotes.getRows(),
         sheets.persons.getRows(),
         sheets.reactions.getRows(),
@@ -35,7 +36,7 @@ export default async (_req: any, res: any) => {
       data = {
         quotes: quotesRows.map(rowToQuote).reverse(),
         persons: personsRows.map(rowToPerson),
-        reactions: reactionsRows.map(rowToReaction)
+        reactions: reactionsRows.map(rowToReaction),
       };
 
       cache.data = data;
@@ -58,13 +59,16 @@ export default async (_req: any, res: any) => {
       },
     });
   }
-};
+}
 
 export async function loadDoc() {
+  const googleEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "";
+  const googleKey = process.env.GOOGLE_PRIVATE_KEY || "";
+
   const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_DOCUMENT_ID!);
   await doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL!,
-    private_key: process.env.GOOGLE_PRIVATE_KEY!.replace(/\\n/gm, "\n"),
+    client_email: googleEmail,
+    private_key: googleKey.replace(/\\n/gm, "\n"),
   });
 
   await doc.loadInfo();

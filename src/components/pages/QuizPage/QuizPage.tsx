@@ -1,15 +1,9 @@
 import { FunctionComponent, useReducer } from "react";
-import take from "ramda/src/take";
-import propEq from "ramda/src/propEq";
-import reject from "ramda/src/reject";
 
 import { MainLayout, QuizCard } from "components";
 import { PersonModel, QuoteModel } from "data";
 import { shuffle } from "shuffle";
 import styles from "./QuizPage.module.css";
-
-const isPerson = propEq("id");
-const isAuthor = propEq("author");
 
 type QuizPageProps = {
   quotes?: QuoteModel[];
@@ -25,8 +19,8 @@ export const QuizPage: FunctionComponent<QuizPageProps> = ({
   quotes: allQuotes = [],
 }) => {
   function Content() {
-    const persons = reject(isPerson("Anonymous"), allPersons);
-    const quotes = reject(isAuthor("Anonymous"), allQuotes);
+    const persons = allPersons.filter(person => person.id !== "Anonymous");
+    const quotes = allQuotes.filter(quote => quote.author !== "Anonymous");
     const [{ quote, choices, guesses }, dispatch] = useReducer(
       reducer,
       getInitialState(),
@@ -38,7 +32,7 @@ export const QuizPage: FunctionComponent<QuizPageProps> = ({
       }
 
       const quote = shuffle(quotes)[0];
-      const validAnswer = persons.find(isPerson(quote.author))!;
+      const validAnswer = persons.find(person => person.id === quote.author)!;
       const choices: PersonModel[] = shuffle([
         validAnswer,
         ...getInvalidChoices(quote.author, 2),
@@ -49,8 +43,8 @@ export const QuizPage: FunctionComponent<QuizPageProps> = ({
     }
 
     function getInvalidChoices(author: string, count: number) {
-      const invalidAnswers = shuffle(reject(isPerson(author))(persons));
-      return take(count, invalidAnswers);
+      const invalidAnswers = shuffle(persons.filter(person => person.id !== author));
+      return invalidAnswers.slice(0, count);
     }
 
     function isValidChoice(person: PersonModel) {
@@ -105,9 +99,9 @@ type State = {
 
 type Dispatch =
   | {
-      type: "SELECT_GUESS";
-      guess: string;
-    }
+    type: "SELECT_GUESS";
+    guess: string;
+  }
   | { type: "RESET"; state: State };
 
 function reducer(state: State, action: Dispatch): State {

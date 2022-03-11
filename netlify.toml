@@ -1,18 +1,3775 @@
-[build]
-  command = "npm run build"
-  functions = "out_functions"
-  publish = "out_publish"
-
 [functions]
-  directory = "out_functions"
+
+  [functions._ipx]
+  node_bundler = "nft"
+
+  [functions.___netlify-handler]
+  included_files = [
+    ".env",
+    ".env.local",
+    ".env.production",
+    ".env.production.local",
+    ".next/server/**",
+    ".next/serverless/**",
+    ".next/*.json",
+    ".next/BUILD_ID",
+    ".next/static/chunks/webpack-middleware*.js",
+    "!.next/server/**/*.js.nft.json",
+    "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+    "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+    "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+    "!node_modules/next/dist/compiled/webpack/bundle4.js",
+    "!node_modules/next/dist/compiled/webpack/bundle5.js",
+    "!node_modules/next/dist/compiled/terser/bundle.min.js",
+    "!node_modules/sharp/**/*"
+  ]
+  external_node_modules = []
+  node_bundler = "nft"
+
+  [functions.___netlify-odb-handler]
+  included_files = [
+    ".env",
+    ".env.local",
+    ".env.production",
+    ".env.production.local",
+    ".next/server/**",
+    ".next/serverless/**",
+    ".next/*.json",
+    ".next/BUILD_ID",
+    ".next/static/chunks/webpack-middleware*.js",
+    "!.next/server/**/*.js.nft.json",
+    "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+    "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+    "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+    "!node_modules/next/dist/compiled/webpack/bundle4.js",
+    "!node_modules/next/dist/compiled/webpack/bundle5.js",
+    "!node_modules/next/dist/compiled/terser/bundle.min.js",
+    "!node_modules/sharp/**/*"
+  ]
+  external_node_modules = []
+  node_bundler = "nft"
+
+[build]
+command = "npm run build"
+publish = ".next"
+
+  [build.environment]
+  NEXT_PRIVATE_TARGET = "server"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
 
-[dev]
-  functions = "out_functions"
-  publish = "out_publish"
-  # We manually set the framework to static, otherwise Netlify automatically
-  # detects Next.js and redirects do not work.
-  # Read more: https://github.com/netlify/cli/blob/master/docs/netlify-dev.md#project-detection
-  framework = "#static"
+[[redirects]]
+from = "/_next/static/*"
+to = "/static/:splat"
+status = 200
+
+[[redirects]]
+from = "/_next/image*"
+to = "/_ipx/w_:width,q_:quality/:url"
+status = 301
+
+  [redirects.query]
+  url = ":url"
+  w = ":width"
+  q = ":quality"
+
+[[redirects]]
+from = "/_ipx/*"
+to = "/.netlify/builders/_ipx"
+status = 200
+
+[[redirects]]
+from = "/cache/*"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/server/*"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/serverless/*"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/traces"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/routes-manifest.json"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/build-manifest.json"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/prerender-manifest.json"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/react-loadable-manifest.json"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/BUILD_ID"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/api"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/manifest.json"
+to = "/manifest.json"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/android-chrome-192x192.png"
+to = "/favicons/android-chrome-192x192.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/android-chrome-512x512.png"
+to = "/favicons/android-chrome-512x512.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/favicon-16x16.png"
+to = "/favicons/favicon-16x16.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/favicon-32x32.png"
+to = "/favicons/favicon-32x32.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/favicon.ico"
+to = "/favicons/favicon.ico"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/mstile-144x144.png"
+to = "/favicons/mstile-144x144.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/mstile-150x150.png"
+to = "/favicons/mstile-150x150.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/mstile-310x150.png"
+to = "/favicons/mstile-310x150.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/mstile-310x310.png"
+to = "/favicons/mstile-310x310.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/favicons/mstile-70x70.png"
+to = "/favicons/mstile-70x70.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/bender-neat.jpg"
+to = "/images/200x200/bender-neat.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/bref.jpg"
+to = "/images/200x200/bref.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/chalet.jpg"
+to = "/images/200x200/chalet.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/chasseur.jpg"
+to = "/images/200x200/chasseur.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/cold-shower.jpg"
+to = "/images/200x200/cold-shower.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/david-doodenough.jpg"
+to = "/images/200x200/david-doodenough.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/denis-brogniart.png"
+to = "/images/200x200/denis-brogniart.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/dora.jpg"
+to = "/images/200x200/dora.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/duck.jpg"
+to = "/images/200x200/duck.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/gaspard.png"
+to = "/images/200x200/gaspard.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/god-no.jpg"
+to = "/images/200x200/god-no.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/jeanne.png"
+to = "/images/200x200/jeanne.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/kadoc.jpg"
+to = "/images/200x200/kadoc.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/mario.png"
+to = "/images/200x200/mario.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/masterchef-classic.png"
+to = "/images/200x200/masterchef-classic.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/masterchef-porn.jpg"
+to = "/images/200x200/masterchef-porn.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/masterchef-sncf.png"
+to = "/images/200x200/masterchef-sncf.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/mongolian.jpg"
+to = "/images/200x200/mongolian.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/motus.jpg"
+to = "/images/200x200/motus.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/nulachier.jpg"
+to = "/images/200x200/nulachier.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+to = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/poppi.jpg"
+to = "/images/200x200/poppi.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/regret.jpg"
+to = "/images/200x200/regret.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/sorina.png"
+to = "/images/200x200/sorina.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/sound-of-silence.jpg"
+to = "/images/200x200/sound-of-silence.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/subarashii.jpg"
+to = "/images/200x200/subarashii.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/vegeta.png"
+to = "/images/200x200/vegeta.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/200x200/zelda-chest.jpg"
+to = "/images/200x200/zelda-chest.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/bender-neat.jpg"
+to = "/images/400x400/bender-neat.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/bref.jpg"
+to = "/images/400x400/bref.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/chalet.jpg"
+to = "/images/400x400/chalet.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/chasseur.jpg"
+to = "/images/400x400/chasseur.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/cold-shower.jpg"
+to = "/images/400x400/cold-shower.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/david-doodenough.jpg"
+to = "/images/400x400/david-doodenough.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/denis-brogniart.png"
+to = "/images/400x400/denis-brogniart.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/dora.jpg"
+to = "/images/400x400/dora.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/duck.jpg"
+to = "/images/400x400/duck.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/gaspard.png"
+to = "/images/400x400/gaspard.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/god-no.jpg"
+to = "/images/400x400/god-no.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/jeanne.png"
+to = "/images/400x400/jeanne.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/kadoc.jpg"
+to = "/images/400x400/kadoc.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/mario.png"
+to = "/images/400x400/mario.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/masterchef-classic.png"
+to = "/images/400x400/masterchef-classic.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/masterchef-porn.jpg"
+to = "/images/400x400/masterchef-porn.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/masterchef-sncf.png"
+to = "/images/400x400/masterchef-sncf.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/mongolian.jpg"
+to = "/images/400x400/mongolian.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/motus.jpg"
+to = "/images/400x400/motus.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/nulachier.jpg"
+to = "/images/400x400/nulachier.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+to = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/poppi.jpg"
+to = "/images/400x400/poppi.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/regret.jpg"
+to = "/images/400x400/regret.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/sorina.png"
+to = "/images/400x400/sorina.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/sound-of-silence.jpg"
+to = "/images/400x400/sound-of-silence.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/subarashii.jpg"
+to = "/images/400x400/subarashii.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/vegeta.png"
+to = "/images/400x400/vegeta.png"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/images/400x400/zelda-chest.jpg"
+to = "/images/400x400/zelda-chest.jpg"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/ah.mp3"
+to = "/sounds/320kbps/ah.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/bender-neat.mp3"
+to = "/sounds/320kbps/bender-neat.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/bref-1.mp3"
+to = "/sounds/320kbps/bref-1.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/bref-2.mp3"
+to = "/sounds/320kbps/bref-2.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/david-goodenough.mp3"
+to = "/sounds/320kbps/david-goodenough.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/dora-cest-gagne.mp3"
+to = "/sounds/320kbps/dora-cest-gagne.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+to = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/elle-m-agiche.mp3"
+to = "/sounds/320kbps/elle-m-agiche.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+to = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/god-no.mp3"
+to = "/sounds/320kbps/god-no.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/heart-felt.mp3"
+to = "/sounds/320kbps/heart-felt.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+to = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/its-over-9000.mp3"
+to = "/sounds/320kbps/its-over-9000.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+to = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+to = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/la-boule-noire.mp3"
+to = "/sounds/320kbps/la-boule-noire.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/laughing-duck.mp3"
+to = "/sounds/320kbps/laughing-duck.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/le-bon-chasseur.mp3"
+to = "/sounds/320kbps/le-bon-chasseur.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+to = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/mario-non.mp3"
+to = "/sounds/320kbps/mario-non.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+to = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/nulachier.mp3"
+to = "/sounds/320kbps/nulachier.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+to = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/poppi-bwuf.mp3"
+to = "/sounds/320kbps/poppi-bwuf.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/pousse-mousse.mp3"
+to = "/sounds/320kbps/pousse-mousse.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+to = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/sebastian-subarashii.mp3"
+to = "/sounds/320kbps/sebastian-subarashii.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/sound-of-silence.mp3"
+to = "/sounds/320kbps/sound-of-silence.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/sounds/320kbps/zelda-chest.mp3"
+to = "/sounds/320kbps/zelda-chest.mp3"
+status = 200
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+force = true
+
+  [redirects.conditions]
+  Cookie = [
+    "__prerender_bypass",
+    "__next_preview_data"
+  ]
+
+[[redirects]]
+from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/index.json"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/quiz.json"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/quiz"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/sounds.json"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/sounds"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/person/:id.json"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/person/:id"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/___netlify-handler"
+status = 200
+
+[context]
+
+  [context.production]
+
+    [context.production.environment]
+    NEXT_PRIVATE_TARGET = "server"
+
+    [context.production.functions]
+
+      [context.production.functions._ipx]
+      node_bundler = "nft"
+
+      [context.production.functions.___netlify-handler]
+      included_files = [
+        ".env",
+        ".env.local",
+        ".env.production",
+        ".env.production.local",
+        ".next/server/**",
+        ".next/serverless/**",
+        ".next/*.json",
+        ".next/BUILD_ID",
+        ".next/static/chunks/webpack-middleware*.js",
+        "!.next/server/**/*.js.nft.json",
+        "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+        "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/compiled/webpack/bundle4.js",
+        "!node_modules/next/dist/compiled/webpack/bundle5.js",
+        "!node_modules/next/dist/compiled/terser/bundle.min.js",
+        "!node_modules/sharp/**/*"
+      ]
+      external_node_modules = []
+      node_bundler = "nft"
+
+      [context.production.functions.___netlify-odb-handler]
+      included_files = [
+        ".env",
+        ".env.local",
+        ".env.production",
+        ".env.production.local",
+        ".next/server/**",
+        ".next/serverless/**",
+        ".next/*.json",
+        ".next/BUILD_ID",
+        ".next/static/chunks/webpack-middleware*.js",
+        "!.next/server/**/*.js.nft.json",
+        "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+        "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/compiled/webpack/bundle4.js",
+        "!node_modules/next/dist/compiled/webpack/bundle5.js",
+        "!node_modules/next/dist/compiled/terser/bundle.min.js",
+        "!node_modules/sharp/**/*"
+      ]
+      external_node_modules = []
+      node_bundler = "nft"
+
+    [context.production.build]
+
+      [context.production.build.environment]
+      NEXT_PRIVATE_TARGET = "server"
+
+    [[context.production.redirects]]
+    from = "/_next/static/*"
+    to = "/static/:splat"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/_next/image*"
+    to = "/_ipx/w_:width,q_:quality/:url"
+    status = 301
+
+      [context.production.redirects.query]
+      url = ":url"
+      w = ":width"
+      q = ":quality"
+
+    [[context.production.redirects]]
+    from = "/_ipx/*"
+    to = "/.netlify/builders/_ipx"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/cache/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/server/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/serverless/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/traces"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/routes-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/build-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/prerender-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/react-loadable-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/BUILD_ID"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.production.redirects]]
+    from = "/api"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/api/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/manifest.json"
+    to = "/manifest.json"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/android-chrome-192x192.png"
+    to = "/favicons/android-chrome-192x192.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/android-chrome-512x512.png"
+    to = "/favicons/android-chrome-512x512.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/favicon-16x16.png"
+    to = "/favicons/favicon-16x16.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/favicon-32x32.png"
+    to = "/favicons/favicon-32x32.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/favicon.ico"
+    to = "/favicons/favicon.ico"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/mstile-144x144.png"
+    to = "/favicons/mstile-144x144.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/mstile-150x150.png"
+    to = "/favicons/mstile-150x150.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/mstile-310x150.png"
+    to = "/favicons/mstile-310x150.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/mstile-310x310.png"
+    to = "/favicons/mstile-310x310.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/favicons/mstile-70x70.png"
+    to = "/favicons/mstile-70x70.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/bender-neat.jpg"
+    to = "/images/200x200/bender-neat.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/bref.jpg"
+    to = "/images/200x200/bref.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/chalet.jpg"
+    to = "/images/200x200/chalet.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/chasseur.jpg"
+    to = "/images/200x200/chasseur.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/cold-shower.jpg"
+    to = "/images/200x200/cold-shower.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/david-doodenough.jpg"
+    to = "/images/200x200/david-doodenough.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/denis-brogniart.png"
+    to = "/images/200x200/denis-brogniart.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/dora.jpg"
+    to = "/images/200x200/dora.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/duck.jpg"
+    to = "/images/200x200/duck.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/gaspard.png"
+    to = "/images/200x200/gaspard.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/god-no.jpg"
+    to = "/images/200x200/god-no.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/jeanne.png"
+    to = "/images/200x200/jeanne.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/kadoc.jpg"
+    to = "/images/200x200/kadoc.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/mario.png"
+    to = "/images/200x200/mario.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/masterchef-classic.png"
+    to = "/images/200x200/masterchef-classic.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/masterchef-porn.jpg"
+    to = "/images/200x200/masterchef-porn.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/masterchef-sncf.png"
+    to = "/images/200x200/masterchef-sncf.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/mongolian.jpg"
+    to = "/images/200x200/mongolian.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/motus.jpg"
+    to = "/images/200x200/motus.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/nulachier.jpg"
+    to = "/images/200x200/nulachier.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+    to = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/poppi.jpg"
+    to = "/images/200x200/poppi.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/regret.jpg"
+    to = "/images/200x200/regret.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/sorina.png"
+    to = "/images/200x200/sorina.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/sound-of-silence.jpg"
+    to = "/images/200x200/sound-of-silence.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/subarashii.jpg"
+    to = "/images/200x200/subarashii.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/vegeta.png"
+    to = "/images/200x200/vegeta.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/200x200/zelda-chest.jpg"
+    to = "/images/200x200/zelda-chest.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/bender-neat.jpg"
+    to = "/images/400x400/bender-neat.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/bref.jpg"
+    to = "/images/400x400/bref.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/chalet.jpg"
+    to = "/images/400x400/chalet.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/chasseur.jpg"
+    to = "/images/400x400/chasseur.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/cold-shower.jpg"
+    to = "/images/400x400/cold-shower.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/david-doodenough.jpg"
+    to = "/images/400x400/david-doodenough.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/denis-brogniart.png"
+    to = "/images/400x400/denis-brogniart.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/dora.jpg"
+    to = "/images/400x400/dora.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/duck.jpg"
+    to = "/images/400x400/duck.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/gaspard.png"
+    to = "/images/400x400/gaspard.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/god-no.jpg"
+    to = "/images/400x400/god-no.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/jeanne.png"
+    to = "/images/400x400/jeanne.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/kadoc.jpg"
+    to = "/images/400x400/kadoc.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/mario.png"
+    to = "/images/400x400/mario.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/masterchef-classic.png"
+    to = "/images/400x400/masterchef-classic.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/masterchef-porn.jpg"
+    to = "/images/400x400/masterchef-porn.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/masterchef-sncf.png"
+    to = "/images/400x400/masterchef-sncf.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/mongolian.jpg"
+    to = "/images/400x400/mongolian.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/motus.jpg"
+    to = "/images/400x400/motus.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/nulachier.jpg"
+    to = "/images/400x400/nulachier.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+    to = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/poppi.jpg"
+    to = "/images/400x400/poppi.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/regret.jpg"
+    to = "/images/400x400/regret.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/sorina.png"
+    to = "/images/400x400/sorina.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/sound-of-silence.jpg"
+    to = "/images/400x400/sound-of-silence.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/subarashii.jpg"
+    to = "/images/400x400/subarashii.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/vegeta.png"
+    to = "/images/400x400/vegeta.png"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/images/400x400/zelda-chest.jpg"
+    to = "/images/400x400/zelda-chest.jpg"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/ah.mp3"
+    to = "/sounds/320kbps/ah.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/bender-neat.mp3"
+    to = "/sounds/320kbps/bender-neat.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/bref-1.mp3"
+    to = "/sounds/320kbps/bref-1.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/bref-2.mp3"
+    to = "/sounds/320kbps/bref-2.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/david-goodenough.mp3"
+    to = "/sounds/320kbps/david-goodenough.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/dora-cest-gagne.mp3"
+    to = "/sounds/320kbps/dora-cest-gagne.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+    to = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/elle-m-agiche.mp3"
+    to = "/sounds/320kbps/elle-m-agiche.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+    to = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/god-no.mp3"
+    to = "/sounds/320kbps/god-no.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/heart-felt.mp3"
+    to = "/sounds/320kbps/heart-felt.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+    to = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/its-over-9000.mp3"
+    to = "/sounds/320kbps/its-over-9000.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+    to = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+    to = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/la-boule-noire.mp3"
+    to = "/sounds/320kbps/la-boule-noire.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/laughing-duck.mp3"
+    to = "/sounds/320kbps/laughing-duck.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/le-bon-chasseur.mp3"
+    to = "/sounds/320kbps/le-bon-chasseur.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+    to = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/mario-non.mp3"
+    to = "/sounds/320kbps/mario-non.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+    to = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/nulachier.mp3"
+    to = "/sounds/320kbps/nulachier.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+    to = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/poppi-bwuf.mp3"
+    to = "/sounds/320kbps/poppi-bwuf.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/pousse-mousse.mp3"
+    to = "/sounds/320kbps/pousse-mousse.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+    to = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/sebastian-subarashii.mp3"
+    to = "/sounds/320kbps/sebastian-subarashii.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/sound-of-silence.mp3"
+    to = "/sounds/320kbps/sound-of-silence.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/sounds/320kbps/zelda-chest.mp3"
+    to = "/sounds/320kbps/zelda-chest.mp3"
+    status = 200
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+    force = true
+
+      [context.production.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.production.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/index.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/quiz.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/quiz"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/sounds.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/sounds"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/person/:id.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/person/:id"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.production.redirects]]
+    from = "/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+  [context.main]
+
+    [context.main.environment]
+    NEXT_PRIVATE_TARGET = "server"
+
+    [context.main.functions]
+
+      [context.main.functions._ipx]
+      node_bundler = "nft"
+
+      [context.main.functions.___netlify-handler]
+      included_files = [
+        ".env",
+        ".env.local",
+        ".env.production",
+        ".env.production.local",
+        ".next/server/**",
+        ".next/serverless/**",
+        ".next/*.json",
+        ".next/BUILD_ID",
+        ".next/static/chunks/webpack-middleware*.js",
+        "!.next/server/**/*.js.nft.json",
+        "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+        "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/compiled/webpack/bundle4.js",
+        "!node_modules/next/dist/compiled/webpack/bundle5.js",
+        "!node_modules/next/dist/compiled/terser/bundle.min.js",
+        "!node_modules/sharp/**/*"
+      ]
+      external_node_modules = []
+      node_bundler = "nft"
+
+      [context.main.functions.___netlify-odb-handler]
+      included_files = [
+        ".env",
+        ".env.local",
+        ".env.production",
+        ".env.production.local",
+        ".next/server/**",
+        ".next/serverless/**",
+        ".next/*.json",
+        ".next/BUILD_ID",
+        ".next/static/chunks/webpack-middleware*.js",
+        "!.next/server/**/*.js.nft.json",
+        "!node_modules/next/dist/compiled/@ampproject/toolbox-optimizer/**/*",
+        "!node_modules/next/dist/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/next-server/server/lib/squoosh/**/*.wasm",
+        "!node_modules/next/dist/compiled/webpack/bundle4.js",
+        "!node_modules/next/dist/compiled/webpack/bundle5.js",
+        "!node_modules/next/dist/compiled/terser/bundle.min.js",
+        "!node_modules/sharp/**/*"
+      ]
+      external_node_modules = []
+      node_bundler = "nft"
+
+    [context.main.build]
+
+      [context.main.build.environment]
+      NEXT_PRIVATE_TARGET = "server"
+
+    [[context.main.redirects]]
+    from = "/_next/static/*"
+    to = "/static/:splat"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/_next/image*"
+    to = "/_ipx/w_:width,q_:quality/:url"
+    status = 301
+
+      [context.main.redirects.query]
+      url = ":url"
+      w = ":width"
+      q = ":quality"
+
+    [[context.main.redirects]]
+    from = "/_ipx/*"
+    to = "/.netlify/builders/_ipx"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/cache/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/server/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/serverless/*"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/traces"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/routes-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/build-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/prerender-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/react-loadable-manifest.json"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/BUILD_ID"
+    to = "/404.html"
+    status = 404
+    force = true
+
+    [[context.main.redirects]]
+    from = "/api"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/api/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/manifest.json"
+    to = "/manifest.json"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/android-chrome-192x192.png"
+    to = "/favicons/android-chrome-192x192.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/android-chrome-512x512.png"
+    to = "/favicons/android-chrome-512x512.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/favicon-16x16.png"
+    to = "/favicons/favicon-16x16.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/favicon-32x32.png"
+    to = "/favicons/favicon-32x32.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/favicon.ico"
+    to = "/favicons/favicon.ico"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/mstile-144x144.png"
+    to = "/favicons/mstile-144x144.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/mstile-150x150.png"
+    to = "/favicons/mstile-150x150.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/mstile-310x150.png"
+    to = "/favicons/mstile-310x150.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/mstile-310x310.png"
+    to = "/favicons/mstile-310x310.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/favicons/mstile-70x70.png"
+    to = "/favicons/mstile-70x70.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/bender-neat.jpg"
+    to = "/images/200x200/bender-neat.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/bref.jpg"
+    to = "/images/200x200/bref.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/chalet.jpg"
+    to = "/images/200x200/chalet.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/chasseur.jpg"
+    to = "/images/200x200/chasseur.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/cold-shower.jpg"
+    to = "/images/200x200/cold-shower.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/david-doodenough.jpg"
+    to = "/images/200x200/david-doodenough.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/denis-brogniart.png"
+    to = "/images/200x200/denis-brogniart.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/dora.jpg"
+    to = "/images/200x200/dora.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/duck.jpg"
+    to = "/images/200x200/duck.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/gaspard.png"
+    to = "/images/200x200/gaspard.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/god-no.jpg"
+    to = "/images/200x200/god-no.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/jeanne.png"
+    to = "/images/200x200/jeanne.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/kadoc.jpg"
+    to = "/images/200x200/kadoc.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/mario.png"
+    to = "/images/200x200/mario.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/masterchef-classic.png"
+    to = "/images/200x200/masterchef-classic.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/masterchef-porn.jpg"
+    to = "/images/200x200/masterchef-porn.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/masterchef-sncf.png"
+    to = "/images/200x200/masterchef-sncf.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/mongolian.jpg"
+    to = "/images/200x200/mongolian.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/motus.jpg"
+    to = "/images/200x200/motus.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/nulachier.jpg"
+    to = "/images/200x200/nulachier.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+    to = "/images/200x200/on-s-en-bat-les-couilles.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/poppi.jpg"
+    to = "/images/200x200/poppi.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/regret.jpg"
+    to = "/images/200x200/regret.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/sorina.png"
+    to = "/images/200x200/sorina.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/sound-of-silence.jpg"
+    to = "/images/200x200/sound-of-silence.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/subarashii.jpg"
+    to = "/images/200x200/subarashii.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/vegeta.png"
+    to = "/images/200x200/vegeta.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/200x200/zelda-chest.jpg"
+    to = "/images/200x200/zelda-chest.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/bender-neat.jpg"
+    to = "/images/400x400/bender-neat.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/bref.jpg"
+    to = "/images/400x400/bref.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/chalet.jpg"
+    to = "/images/400x400/chalet.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/chasseur.jpg"
+    to = "/images/400x400/chasseur.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/cold-shower.jpg"
+    to = "/images/400x400/cold-shower.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/david-doodenough.jpg"
+    to = "/images/400x400/david-doodenough.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/denis-brogniart.png"
+    to = "/images/400x400/denis-brogniart.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/dora.jpg"
+    to = "/images/400x400/dora.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/duck.jpg"
+    to = "/images/400x400/duck.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/gaspard.png"
+    to = "/images/400x400/gaspard.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/god-no.jpg"
+    to = "/images/400x400/god-no.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/jeanne.png"
+    to = "/images/400x400/jeanne.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/kadoc.jpg"
+    to = "/images/400x400/kadoc.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/mario.png"
+    to = "/images/400x400/mario.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/masterchef-classic.png"
+    to = "/images/400x400/masterchef-classic.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/masterchef-porn.jpg"
+    to = "/images/400x400/masterchef-porn.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/masterchef-sncf.png"
+    to = "/images/400x400/masterchef-sncf.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/mongolian.jpg"
+    to = "/images/400x400/mongolian.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/motus.jpg"
+    to = "/images/400x400/motus.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/nulachier.jpg"
+    to = "/images/400x400/nulachier.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+    to = "/images/400x400/on-s-en-bat-les-couilles.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/poppi.jpg"
+    to = "/images/400x400/poppi.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/regret.jpg"
+    to = "/images/400x400/regret.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/sorina.png"
+    to = "/images/400x400/sorina.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/sound-of-silence.jpg"
+    to = "/images/400x400/sound-of-silence.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/subarashii.jpg"
+    to = "/images/400x400/subarashii.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/vegeta.png"
+    to = "/images/400x400/vegeta.png"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/images/400x400/zelda-chest.jpg"
+    to = "/images/400x400/zelda-chest.jpg"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/ah.mp3"
+    to = "/sounds/320kbps/ah.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/bender-neat.mp3"
+    to = "/sounds/320kbps/bender-neat.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/bref-1.mp3"
+    to = "/sounds/320kbps/bref-1.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/bref-2.mp3"
+    to = "/sounds/320kbps/bref-2.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/david-goodenough.mp3"
+    to = "/sounds/320kbps/david-goodenough.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/dora-cest-gagne.mp3"
+    to = "/sounds/320kbps/dora-cest-gagne.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+    to = "/sounds/320kbps/elle-est-ou-jeanne.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/elle-m-agiche.mp3"
+    to = "/sounds/320kbps/elle-m-agiche.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+    to = "/sounds/320kbps/excepte-une-fois-au-chalet.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/god-no.mp3"
+    to = "/sounds/320kbps/god-no.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/heart-felt.mp3"
+    to = "/sounds/320kbps/heart-felt.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+    to = "/sounds/320kbps/i-immediately-regret-this-decision.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/its-over-9000.mp3"
+    to = "/sounds/320kbps/its-over-9000.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+    to = "/sounds/320kbps/j-aime-le-piment-d-espelette.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+    to = "/sounds/320kbps/j-aime-quand-vous-les-faites-chier.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/la-boule-noire.mp3"
+    to = "/sounds/320kbps/la-boule-noire.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/laughing-duck.mp3"
+    to = "/sounds/320kbps/laughing-duck.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/le-bon-chasseur.mp3"
+    to = "/sounds/320kbps/le-bon-chasseur.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+    to = "/sounds/320kbps/le-caca-des-pigeons.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/mario-non.mp3"
+    to = "/sounds/320kbps/mario-non.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+    to = "/sounds/320kbps/moi-j-aime-bien-quand-ca-claque-comme-ca.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/nulachier.mp3"
+    to = "/sounds/320kbps/nulachier.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+    to = "/sounds/320kbps/on-s-en-bat-les-couilles.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/poppi-bwuf.mp3"
+    to = "/sounds/320kbps/poppi-bwuf.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/pousse-mousse.mp3"
+    to = "/sounds/320kbps/pousse-mousse.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+    to = "/sounds/320kbps/putain-de-mongoles-de-merde.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/sebastian-subarashii.mp3"
+    to = "/sounds/320kbps/sebastian-subarashii.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/sound-of-silence.mp3"
+    to = "/sounds/320kbps/sound-of-silence.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/sounds/320kbps/zelda-chest.mp3"
+    to = "/sounds/320kbps/zelda-chest.mp3"
+    status = 200
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+    force = true
+
+      [context.main.redirects.conditions]
+      Cookie = [
+        "__prerender_bypass",
+        "__next_preview_data"
+      ]
+
+    [[context.main.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/index.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/quiz.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/quiz"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/sounds.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/sounds"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/_next/data/6k0yGCgvpb0v8hAkl7EYS/person/:id.json"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/person/:id"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200
+
+    [[context.main.redirects]]
+    from = "/*"
+    to = "/.netlify/functions/___netlify-handler"
+    status = 200

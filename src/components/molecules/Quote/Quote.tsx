@@ -5,7 +5,7 @@ import { NavLink, Avatar } from "components";
 import styles from "./Quote.module.css";
 
 const locale = "fr-FR";
-const dateFormat = {
+const dateFormat: Intl.DateTimeFormatOptions = {
   year: "numeric",
   month: "long",
   day: "numeric",
@@ -38,16 +38,16 @@ export const Quote: FunctionComponent<QuoteProps> = ({
   const addReaction = useAddReaction();
 
   function onReactionClick(reaction: ReactionModel) {
-      setLoading(true);
+    setLoading(true);
 
-      addReaction(reaction)
-        .then(result => {
-          const reaction = (result as any).data.reaction;
-          setReactions([...reactions, reaction]);
-        })
-        .finally(() => {
-          setLoading(false); setFocused(false);
-        });
+    addReaction(reaction)
+      .then(result => {
+        const reaction = (result as any).data.reaction;
+        setReactions([...reactions, reaction]);
+      })
+      .finally(() => {
+        setLoading(false); setFocused(false);
+      });
   }
 
   return (
@@ -65,6 +65,7 @@ export const Quote: FunctionComponent<QuoteProps> = ({
                 url={person.avatar}
                 alt={`${quote.author}'s avatar`}
                 color={person.color}
+                width={24}
               />
             )}
             <div>
@@ -89,26 +90,26 @@ export const Quote: FunctionComponent<QuoteProps> = ({
                 disabled={loading}
                 onClick={() => onReactionClick({ quoteId: quote.id, personId: 2, reactionId })}
               >
-                {label}{currentReactions.length > 0 ? currentReactions.length :  ""}
+                {label}{currentReactions.length > 0 ? currentReactions.length : ""}
               </button>
             );
           }) : reactionIds.map((label, reactionId) => {
-              const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
+            const currentReactions = reactions.filter(reaction => reaction.reactionId == reactionId);
 
-              if (currentReactions.length == 0) {
-                return;
-              }
+            if (currentReactions.length == 0) {
+              return;
+            }
 
-              return (
-                <button
-                  key={reactionId}
-                  className={`QuoteReaction ${styles.QuoteReaction}`}
-                  disabled={true}
-                >
-                  {label}{currentReactions.length > 0 ? currentReactions.length :  ""}
-                </button>
-              );
-            })
+            return (
+              <button
+                key={reactionId}
+                className={`QuoteReaction ${styles.QuoteReaction}`}
+                disabled={true}
+              >
+                {label}{currentReactions.length > 0 ? currentReactions.length : ""}
+              </button>
+            );
+          })
           }
         </div>
       )}

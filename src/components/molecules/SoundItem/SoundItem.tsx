@@ -1,9 +1,5 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+/* eslint-disable @next/next/no-img-element */
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 
 import { Sound } from "data";
 import { ProgressBar } from "components";
@@ -26,9 +22,7 @@ export const SoundItemView: FunctionComponent<SoundItemViewProps> = ({
   duration,
   toggle,
 }) => (
-  <div
-    className={`${styles.SoundItem} ${paused ? styles.Paused : styles.Playing}`}
-  >
+  <div className={`${styles.SoundItem} ${paused ? styles.Paused : styles.Playing}`}>
     <button disabled={loading} onClick={toggle}>
       <img src={sound.thumbnailUrl} alt={sound.name} />
     </button>
@@ -72,11 +66,7 @@ const useSoundPlayer = (props: SoundItemProps) => {
     }
   }, [audio]);
 
-  const toggle = useCallback(() => (paused ? play() : pause()), [
-    pause,
-    paused,
-    play,
-  ]);
+  const toggle = useCallback(() => (paused ? play() : pause()), [pause, paused, play]);
 
   useEffect(() => {
     if (muted) {
@@ -115,15 +105,11 @@ const useSoundPlayer = (props: SoundItemProps) => {
     };
     const eventListenerKeys = Object.keys(eventListeners);
 
-    eventListenerKeys.forEach((key) =>
-      audioElement.addEventListener(key, eventListeners[key]),
-    );
+    eventListenerKeys.forEach((key) => audioElement.addEventListener(key, eventListeners[key]));
 
     return () => {
       audioElement.pause();
-      eventListenerKeys.forEach((key) =>
-        audioElement.removeEventListener(key, eventListeners[key]),
-      );
+      eventListenerKeys.forEach((key) => audioElement.removeEventListener(key, eventListeners[key]));
     };
   }, [sound]); // eslint-disable-line react-hooks/exhaustive-deps
 

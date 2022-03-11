@@ -1,10 +1,10 @@
 const { generateSW } = require("workbox-build");
 
-const swDest = "out_publish/service-worker.js";
+const swDest = ".next/service-worker.js";
 
 generateSW({
   swDest,
-  globDirectory: "out_publish",
+  globDirectory: ".next",
   globPatterns: ["**/*.{html,json,js,css}"],
 }).then(({ count, size }) => {
   console.log(

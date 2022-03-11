@@ -47,7 +47,6 @@ type AddReactionResult = {
 
 export function useAddReaction(): (reaction: ReactionModel) => Promise<AddReactionResult> {
   return async (reaction) => {
-    console.log(reaction);
     return mutate(ADD_REACTION_URL, postFetcher(reaction));
   }
 }

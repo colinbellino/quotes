@@ -1,19 +1,12 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript } from 'next/document'
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
-  }
-
-  render() {
-    return (
-      <Html lang="fr">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
+export default function Document() {
+  return (
+    <Html lang="fr">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -25,9 +18,7 @@ class MyDocument extends Document {
             `,
           }}
         ></script>
-      </Html>
-    )
-  }
+      </body>
+    </Html>
+  )
 }
-
-export default MyDocument
